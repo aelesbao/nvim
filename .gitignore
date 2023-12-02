@@ -1,0 +1,9 @@
+after
+custom
+ftplugin
+plugin
+spell
+syntax
+
+.luarc.json
+coc-settings.json
