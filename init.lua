@@ -1,2 +1,3 @@
 require("core")
-require("plugins")
+require("lazy").setup("plugins")
+
