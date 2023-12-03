@@ -1,6 +1,7 @@
 plugins = {
   "nvim-tree/nvim-tree.lua",
   "nvim-tree/nvim-web-devicons",
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 }
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
