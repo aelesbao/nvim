@@ -1,4 +1,6 @@
 plugins = {
+  "nvim-tree/nvim-tree.lua",
+  "nvim-tree/nvim-web-devicons",
 }
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -15,3 +17,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup(plugins, opts)
+
+require("plugins.config")
