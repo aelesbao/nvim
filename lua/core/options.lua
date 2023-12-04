@@ -1,17 +1,22 @@
-vim.opt.backspace = "2"
-vim.opt.showcmd = true
-vim.opt.laststatus = 2
-vim.opt.autowrite = true
-vim.opt.cursorline = true
-vim.opt.autoread = true
-vim.opt.number = true
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+local o = vim.opt
+
+o.backspace = "2"
+o.showcmd = true
+o.laststatus = 2
+o.autowrite = true
+o.cursorline = true
+o.autoread = true
+o.number = true
 
 -- use spaces for tabs
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.shiftround = true
-vim.opt.expandtab = true
+o.tabstop = 2
+o.shiftwidth = 2
+o.shiftround = true
+o.expandtab = true
 
 -- enable 24 bit terminal colors
-vim.opt.termguicolors = true
+o.termguicolors = true
 

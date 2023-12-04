@@ -1,5 +1,4 @@
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+local k = vim.keymap
 
-vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>")
-vim.keymap.set("n", ";", ":", { noremap = true })
+k.set("n", "<leader>h", ":nohlsearch<CR>")
+k.set("n", ";", ":", { noremap = true })
