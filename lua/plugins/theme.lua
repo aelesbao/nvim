@@ -6,7 +6,7 @@ return {
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     opts = {
-      flavour = "mocha", -- latte, frappe, macchiato, mocha
+      flavour = "macchiato", -- latte, frappe, macchiato, mocha
       transparent_background = true, -- disables setting the background color.
       dim_inactive = {
         enabled = true, -- dims the background color of inactive window
@@ -36,7 +36,7 @@ return {
       },
     },
     config = function(_, opts)
-      vim.cmd.colorscheme "catppuccin"
+      vim.cmd.colorscheme "catppuccin-macchiato"
       require("catppuccin").setup(opts)
     end,
   }
