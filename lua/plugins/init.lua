@@ -20,6 +20,17 @@ return {
     end
   },
 
+  -- calls lazygit from within nvim
+  {
+    "kdheepak/lazygit.nvim",
+    keys = {
+      { "<leader>gg", ":LazyGitCurrentFile<CR>", desc = "Lazygit" },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
+
   -- which-key helps you remember key bindings by showing a popup
   -- with the active keybindings of the command you started typing.
   {
