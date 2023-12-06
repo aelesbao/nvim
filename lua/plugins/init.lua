@@ -7,6 +7,8 @@ return {
 
   -- beautitul icons used by other plugins
   "nvim-tree/nvim-web-devicons",
+  -- pairs of handy bracket mappings
+  "tpope/vim-unimpaired",
 
   -- autopair that allows custom rules
   {
