@@ -2,9 +2,13 @@
 -- or are dependencies to other plugins.
 
 return {
+  -- detect tabstop and shiftwidth automatically
+  "tpope/vim-sleuth",
+
   -- beautitul icons used by other plugins
+  "nvim-tree/nvim-web-devicons",
+
   {
-    "nvim-tree/nvim-web-devicons",
   },
 
   -- notification pop-ups
