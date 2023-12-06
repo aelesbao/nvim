@@ -20,6 +20,30 @@ return {
     end
   },
 
+  -- Smart comments
+  {
+    'numToStr/Comment.nvim',
+    lazy = false,
+    opts = {
+      -- LHS of toggle mappings in NORMAL mode
+      toggler = {
+        line  = "<leader>cc", -- Line-comment toggle keymap
+        block = "<leader>cb", -- Block-comment toggle keymap
+      },
+      -- LHS of operator-pending mappings in NORMAL and VISUAL mode
+      opleader = {
+        line  = "<leader>cC", -- Line-comment keymap
+        block = "<leader>cB", -- Block-comment keymap
+      },
+      -- LHS of extra mappings
+      extra = {
+        above = "<leader>cO", -- Add comment on the line above
+        below = "<leader>co", -- Add comment on the line below
+        eol   = "<leader>cA", -- Add comment at the end of line
+      },
+    },
+  },
+
   -- git signs highlights text that has changed since the list
   -- git commit, and also lets you interactively stage & unstage
   -- hunks in a commit.
