@@ -2,11 +2,18 @@ return {
   -- file explorer
   {
     "nvim-tree/nvim-tree.lua",
-    cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeFocus", "NvimTreeFindFileToggle" },
+    cmd = {
+      "NvimTreeOpen",
+      "NvimTreeClose",
+      "NvimTreeFocus",
+      "NvimTreeFindFile",
+      "NvimTreeToggle",
+    },
     event = "User DirOpened",
     keys = {
-      { "<F9>",   vim.cmd.NvimTreeToggle,   desc = "NvimTree" },
-      { "<S-F9>", vim.cmd.NvimTreeFindFile, desc = "NvimTree Find File" },
+      { "<leader>ee", vim.cmd.NvimTreeFocus,    desc = "Open Explorer" },
+      { "<leader>ec", vim.cmd.NvimTreeClose,    desc = "Close Explorer" },
+      { "<leader>ef", vim.cmd.NvimTreeFindFile, desc = "Find Current File" },
     },
     opts = {
       disable_netrw = true,
