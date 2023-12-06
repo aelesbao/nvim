@@ -122,6 +122,28 @@ return {
     },
   },
 
+  -- navigate between vim and tmux panes easily
+  {
+    "christoomey/vim-tmux-navigator",
+    keys = {
+      { "<M-h>", ":TmuxNavigateLeft<cr>",      noremap = true, silent = true },
+      { "<M-j>", ":TmuxNavigateDown<cr>",      noremap = true, silent = true },
+      { "<M-k>", ":TmuxNavigateUp<cr>",        noremap = true, silent = true },
+      { "<M-l>", ":TmuxNavigateRight<cr>",     noremap = true, silent = true },
+      { "<M-;>", ":TmuxNavigatePrevious<cr>",  noremap = true, silent = true },
+    },
+    init = function()
+      -- write all buffers before navigating from Vim to tmux pane
+      vim.g.tmux_navigator_save_on_switch = 2
+      -- disable tmux navigator when zooming the Vim pane
+      vim.g.tmux_navigator_disable_when_zoomed = 1
+      -- don't wrap around to the opposite side when moving past the edge of the screen
+      vim.g.tmux_navigator_no_wrap = 1
+      -- define custom navigation mapping
+      vim.g.tmux_navigator_no_mappings = 1
+    end,
+  },
+
   -- which-key helps you remember key bindings by showing a popup
   -- with the active keybindings of the command you started typing.
   {
