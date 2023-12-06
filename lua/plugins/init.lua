@@ -20,6 +20,19 @@ return {
     end
   },
 
+  -- git signs highlights text that has changed since the list
+  -- git commit, and also lets you interactively stage & unstage
+  -- hunks in a commit.
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      signcolumn = true,
+      yadm = {
+        enable = false
+      },
+    },
+  },
+
   -- calls lazygit from within nvim
   {
     "kdheepak/lazygit.nvim",

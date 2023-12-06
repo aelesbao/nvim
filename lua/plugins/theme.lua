@@ -1,4 +1,3 @@
-
 return {
   {
     "catppuccin/nvim",
@@ -15,8 +14,9 @@ return {
       },
       integrations = {
         bufferline = true,
-        mason = true,
+        gitsigns = true,
         markdown = true,
+        mason = true,
         mini = true,
         native_lsp = {
           enabled = true,
