@@ -2,11 +2,12 @@
 -- or are dependencies to other plugins.
 
 return {
+  -- beautitul icons used by other plugins
+  "nvim-tree/nvim-web-devicons",
+
   -- detect tabstop and shiftwidth automatically
   "tpope/vim-sleuth",
 
-  -- beautitul icons used by other plugins
-  "nvim-tree/nvim-web-devicons",
   -- pairs of handy bracket mappings
   "tpope/vim-unimpaired",
 
@@ -37,19 +38,6 @@ return {
         change_line = "cS",
       },
     },
-  },
-
-  -- notification pop-ups
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      -- whether or not to position the notifications at the top or not
-      top_down = false
-    },
-    config = function(_, opts)
-      vim.notify = require("notify")
-      vim.notify.setup(opts)
-    end
   },
 
   -- Smart comments
@@ -120,6 +108,19 @@ return {
         },
       },
     },
+  },
+
+  -- notification pop-ups
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      -- whether or not to position the notifications at the top or not
+      top_down = false
+    },
+    config = function(_, opts)
+      vim.notify = require("notify")
+      vim.notify.setup(opts)
+    end
   },
 
   -- navigate between vim and tmux panes easily
