@@ -8,7 +8,11 @@ return {
   -- beautitul icons used by other plugins
   "nvim-tree/nvim-web-devicons",
 
+  -- autopair that allows custom rules
   {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    opts = {},
   },
 
   -- notification pop-ups
