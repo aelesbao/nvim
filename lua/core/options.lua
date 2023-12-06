@@ -92,6 +92,9 @@ o.wildmenu = true
 -- at command line, complete longest common string, then list alternatives
 o.wildmode = "longest,list"
 
+-- set completeopt to have a better completion experience
+o.completeopt = "menuone,noselect"
+
 -- display unprintable characters by default
 o.list      = true
 -- use the same symbols as TextMate for tabstops and EOLs
