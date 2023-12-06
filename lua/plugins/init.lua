@@ -7,6 +7,19 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
 
+  -- notification pop-ups
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      -- whether or not to position the notifications at the top or not
+      top_down = false
+    },
+    config = function(_, opts)
+      vim.notify = require("notify")
+      vim.notify.setup(opts)
+    end
+  },
+
   -- which-key helps you remember key bindings by showing a popup
   -- with the active keybindings of the command you started typing.
   {
