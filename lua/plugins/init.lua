@@ -44,6 +44,28 @@ return {
     },
   },
 
+  -- status line
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VimEnter",
+    opts = {
+      options = {
+        icons_enabled = true,
+        theme = "catppuccin",
+        disabled_filetypes = {
+          statusline = {
+            "help",
+            "NvimTree",
+          },
+          winbar = {
+            "help",
+            "NvimTree",
+          }
+        },
+      },
+    },
+  },
+
   -- which-key helps you remember key bindings by showing a popup
   -- with the active keybindings of the command you started typing.
   {
