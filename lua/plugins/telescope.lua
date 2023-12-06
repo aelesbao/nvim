@@ -14,12 +14,10 @@ return {
       { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",          desc = "Find buffers" },
 
       -- search
-      { "<leader>sg", "<cmd>Telescope live_grep<cr>",                 desc = "Live grep" },
-      { "<leader>ss", function()
-        require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") })
-      end,                                                            desc = "Grep" },
-      { "<leader>sm", "<cmd>Telescope marks<cr>",                     desc = "Jump to mark" },
-      { "<leader>sh", "<cmd>Telescope help_tags<cr>",                 desc = "Help tags" },
+      { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+      { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
+      { "<leader>sm", "<cmd>Telescope marks<cr>",     desc = "Jump to mark" },
+      { "<leader>sn", "<cmd>Telescope notify<cr>",    desc = "Notifications" },
 
       -- git
       { "<leader>gf", "<cmd>Telescope git_files<cr>",   desc = "Git files" },
