@@ -64,6 +64,16 @@ return {
     },
   },
 
+  -- undo history visualizer
+  {
+    "mbbill/undotree",
+    init = function()
+      vim.keymap.set("n", "<leader>eu", vim.cmd.UndotreeToggle, {
+        desc = "Undotree"
+      })
+    end
+  },
+
   -- git signs highlights text that has changed since the list
   -- git commit, and also lets you interactively stage & unstage
   -- hunks in a commit.
@@ -98,12 +108,14 @@ return {
         theme = "catppuccin",
         disabled_filetypes = {
           statusline = {
-            "help",
             "NvimTree",
+            "help",
+            "undotree",
           },
           winbar = {
-            "help",
             "NvimTree",
+            "help",
+            "undotree",
           }
         },
       },
