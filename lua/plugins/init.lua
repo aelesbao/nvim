@@ -90,6 +90,7 @@ return {
   -- calls lazygit from within nvim
   {
     "kdheepak/lazygit.nvim",
+    enabled = vim.fn.executable("lazygit") == 1,
     keys = {
       { "<leader>gg", ":LazyGitCurrentFile<CR>", desc = "Lazygit" },
     },
@@ -138,6 +139,7 @@ return {
   -- navigate between vim and tmux panes easily
   {
     "christoomey/vim-tmux-navigator",
+    enabled = vim.fn.executable("tmux") == 1,
     keys = {
       { "<M-h>", ":TmuxNavigateLeft<cr>",      noremap = true, silent = true },
       { "<M-j>", ":TmuxNavigateDown<cr>",      noremap = true, silent = true },
