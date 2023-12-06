@@ -16,6 +16,9 @@ return {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {},
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
   },
 
   -- add/change/delete surrounding delimiter pairs with ease
