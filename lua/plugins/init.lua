@@ -42,7 +42,7 @@ return {
 
   -- Smart comments
   {
-    'numToStr/Comment.nvim',
+    "numToStr/Comment.nvim",
     lazy = false,
     opts = {
       -- LHS of toggle mappings in NORMAL mode
@@ -71,7 +71,7 @@ return {
   {
     "norcalli/nvim-colorizer.lua",
     opts = {
-      '*';
+      "*";
     },
     config = function(_, opts)
       require("colorizer").setup(opts)
