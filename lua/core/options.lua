@@ -48,6 +48,7 @@ o.shiftround  = true  -- round indent
 o.expandtab   = true  -- use spaces instead of tabs
 o.smarttab    = true  -- smarter tab levels
 o.smartindent = true  -- smart (language based) auto indent
+o.autoindent  = true  -- copy indent from current line when starting a new line
 
 o.wrap      = false -- disable line wrap
 o.textwidth = 0     -- don't wrap lines by default
@@ -55,8 +56,10 @@ o.textwidth = 0     -- don't wrap lines by default
 -- don't break wrapped lines on words
 o.linebreak = true
 
--- copy indent from current line when starting a new line
-o.autoindent = true
+-- file type detection
+o.filetype        = "on"        -- auto detect the type of file that is being edited
+o.filetype.indent = "on" -- enable file type detection
+o.filetype.plugin = "on" -- enable filetype-based indentation
 
 -- sets the default file encoding
 o.fileencoding = "utf-8"
