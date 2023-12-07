@@ -2,9 +2,6 @@
 -- or are dependencies to other plugins.
 
 return {
-  -- beautitul icons used by other plugins
-  "nvim-tree/nvim-web-devicons",
-
   -- detect tabstop and shiftwidth automatically
   "tpope/vim-sleuth",
 
@@ -65,6 +62,20 @@ return {
         eol   = "<leader>cA", -- Add comment at the end of line
       },
     },
+  },
+
+  -- beautitul icons used by other plugins
+  "nvim-tree/nvim-web-devicons",
+
+  -- shows color previews
+  {
+    "norcalli/nvim-colorizer.lua",
+    opts = {
+      '*';
+    },
+    config = function(_, opts)
+      require("colorizer").setup(opts)
+    end
   },
 
   -- undo history visualizer
