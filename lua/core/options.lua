@@ -108,7 +108,7 @@ if vim.fn.has("mouse") then
   o.mouse      = "a"      -- enable mouse
   o.mousehide  = true     -- hide mouse after chars typed
   o.mousemodel = "popup"  -- right mouse button pops up a menu
-  o.scrolloff  = 3        -- show 3 lines of context around the cursor
+  o.scrolloff  = 5        -- always show X lines of context around the cursor
 end
 
 o.pumblend = 10 -- Popup transparency
