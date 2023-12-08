@@ -18,6 +18,7 @@ return {
       { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
       { "<leader>sm", "<cmd>Telescope marks<cr>",     desc = "Jump to mark" },
       { "<leader>sn", "<cmd>Telescope notify<cr>",    desc = "Notifications" },
+      { "<leader>sk", "<cmd>Telescope keymaps<cr>",   desc = "Keymaps" },
 
       -- git
       { "<leader>gf", "<cmd>Telescope git_files<cr>",   desc = "Git files" },
