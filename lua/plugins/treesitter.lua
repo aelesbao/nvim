@@ -97,7 +97,7 @@ return {
   },
 
   -- shows the context of the currently visible buffer contents
-  {
+  --[[ {
     "nvim-treesitter/nvim-treesitter-context",
     after = "nvim-treesitter",
     dependencies = "nvim-treesitter/nvim-treesitter",
@@ -106,7 +106,7 @@ return {
         require("treesitter-context").go_to_context()
       end, silent = true, desc = "Go to upward context" },
     }
-  },
+  }, ]]
 
   -- https://github.com/RRethy/nvim-treesitter-endwise
 }
