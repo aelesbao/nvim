@@ -50,11 +50,10 @@ o.smarttab    = true  -- smarter tab levels
 o.smartindent = true  -- smart (language based) auto indent
 o.autoindent  = true  -- copy indent from current line when starting a new line
 
-o.wrap      = false -- disable line wrap
+-- text wrapping
+o.linebreak = true  -- don't break wrapped lines on words
 o.textwidth = 0     -- don't wrap lines by default
-
--- don't break wrapped lines on words
-o.linebreak = true
+o.wrap      = false -- disable line wrap
 
 -- file type detection
 o.filetype        = "on"        -- auto detect the type of file that is being edited
