@@ -81,11 +81,9 @@ return {
   -- undo history visualizer
   {
     "mbbill/undotree",
-    init = function()
-      vim.keymap.set("n", "<leader>eu", vim.cmd.UndotreeToggle, {
-        desc = "Undotree"
-      })
-    end
+    keys = {
+      { "<leader>eu", vim.cmd.UndotreeToggle, desc = "Undotree" }
+    },
   },
 
   {
