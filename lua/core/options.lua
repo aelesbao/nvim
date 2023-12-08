@@ -14,10 +14,10 @@ o.undolevels = 10000
 o.history = 1000
 
 -- creates a backup file
-o.backup      = false 
+o.backup      = false
 -- if a file is being edited by another program, or was written to file while
 -- editing with another program, it is not allowed to be edited
-o.writebackup = false 
+o.writebackup = false
 
 -- interval for writing swap file to disk, also used by gitsigns
 o.updatetime = 250
@@ -56,7 +56,7 @@ o.textwidth = 0     -- don't wrap lines by default
 o.wrap      = false -- disable line wrap
 
 -- file type detection
-o.filetype        = "on"        -- auto detect the type of file that is being edited
+o.filetype        = "on" -- auto detect the type of file that is being edited
 o.filetype.indent = "on" -- enable file type detection
 o.filetype.plugin = "on" -- enable filetype-based indentation
 
@@ -100,7 +100,13 @@ o.completeopt = "menuone,noselect"
 -- display unprintable characters by default
 o.list      = true
 -- use the same symbols as TextMate for tabstops and EOLs
-o.listchars = "tab:▸ ,eol: ,trail:·,extends:»,precedes:«"
+o.listchars = {
+  tab = "▸ ",
+  eol = " ",
+  trail = "·",
+  extends = "»",
+  precedes = "«",
+}
 
 -- Mouse
 if vim.fn.has("mouse") then
