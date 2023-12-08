@@ -22,8 +22,11 @@ return {
       ensure_installed = {
         "bash",
         "c",
+        "diff",
         "dockerfile",
         "git_config",
+        "git_rebase",
+        "gitattributes",
         "gitcommit",
         "gitignore",
         "go",
@@ -85,15 +88,17 @@ return {
   -- syntax aware text-objects, select, move, swap, and peek support
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    after = "nvim-treesitter",
-    dependencies = "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
   },
 
   -- visualize the AST parsed by Treesitter
   {
     "nvim-treesitter/playground",
-    after = "nvim-treesitter",
-    dependencies = "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
   },
 
   -- shows the context of the currently visible buffer contents
