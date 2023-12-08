@@ -64,7 +64,18 @@ return {
       -- indentation for the = operator (experimental)
       indent = {
         enable = true,
-      },  
+      },
+
+      -- selects text by context (like Ctrl+Up on IntelliJ)
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<c-space>',
+          node_incremental = '<c-space>',
+          scope_incremental = '<c-s>',
+          node_decremental = '<M-space>',
+        },
+      },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
