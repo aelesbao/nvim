@@ -56,13 +56,14 @@ return {
       { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",          desc = "Find buffers" },
 
       -- search
-      { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
-      { "<leader>sG", telescope_live_grep_git_root,   desc = "Live grep on git root" },
-      { "<leader>s/", telescope_live_grep_open_files, desc = "Live grep on open files" },
-      { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
-      { "<leader>sm", "<cmd>Telescope marks<cr>",     desc = "Jump to mark" },
-      { "<leader>sn", "<cmd>Telescope notify<cr>",    desc = "Notifications" },
-      { "<leader>sk", "<cmd>Telescope keymaps<cr>",   desc = "Keymaps" },
+      { "<leader>sg", "<cmd>Telescope live_grep<cr>",   desc = "Live grep" },
+      { "<leader>sG", telescope_live_grep_git_root,     desc = "Live grep on git root" },
+      { "<leader>s/", telescope_live_grep_open_files,   desc = "Live grep on open files" },
+      { "<leader>sh", "<cmd>Telescope help_tags<cr>",   desc = "Help tags" },
+      { "<leader>sm", "<cmd>Telescope marks<cr>",       desc = "Jump to mark" },
+      { "<leader>sn", "<cmd>Telescope notify<cr>",      desc = "Notifications" },
+      { "<leader>sk", "<cmd>Telescope keymaps<cr>",     desc = "Keymaps" },
+      { "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
 
       -- git
       { "<leader>gf", "<cmd>Telescope git_files<cr>",   desc = "Git files" },
@@ -72,6 +73,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make", },
+      "folke/trouble.nvim",
     },
     opts = {
       defaults = {
@@ -100,6 +102,12 @@ return {
     },
     config = function(_, opts)
       local telescope = require("telescope")
+      local trouble = require("trouble.providers.telescope")
+
+      local trouble_mapping = { ["<c-t>"] = trouble.open_with_trouble }
+      -- opts.defaults.mappings.i:append(trouble_mapping)
+      -- opts.defaults.mappings.n:append(trouble_mapping)
+
       telescope.setup(opts)
       telescope.load_extension("fzf")
     end,

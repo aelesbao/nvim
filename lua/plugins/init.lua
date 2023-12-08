@@ -117,6 +117,29 @@ return {
     },
   },
 
+  -- a pretty list for showing diagnostics, references, telescope results,
+  -- quickfix and location lists to help you solve all the trouble your code is
+  -- causing.
+  {
+    "folke/trouble.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    keys = {
+      { "<leader>xx", function() require("trouble").toggle() end, desc = "Toggle diagnostics" },
+      { "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, desc = "Show workspace diagnostics" },
+      { "<leader>xd", function() require("trouble").toggle("document_diagnostics") end, desc = "Show document diagnostics" },
+      { "<leader>xq", function() require("trouble").toggle("quickfix") end, desc = "Show quickfix" },
+      { "<leader>xl", function() require("trouble").toggle("loclist") end, desc = "Show location list" },
+      { "gR", function() require("trouble").toggle("lsp_references") end, desc = "Show LSP references" },
+    },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
+
   -- status line
   {
     "nvim-lualine/lualine.nvim",

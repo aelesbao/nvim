@@ -15,6 +15,7 @@ return {
       integrations = {
         bufferline = true,
         gitsigns = true,
+        lsp_trouble = true,
         markdown = true,
         mason = true,
         mini = true,
