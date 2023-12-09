@@ -15,10 +15,24 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    opts = {},
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
+      "hrsh7th/nvim-cmp",
     },
+    opts = {
+      check_ts = true,
+    },
+    config = function(_, opts)
+      require("nvim-autopairs").setup(opts)
+
+      -- inserts `(` after select function or method item
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      local cmp = require("cmp")
+      cmp.event:on(
+        "confirm_done",
+        cmp_autopairs.on_confirm_done()
+      )
+    end
   },
 
   -- add/change/delete surrounding delimiter pairs with ease
