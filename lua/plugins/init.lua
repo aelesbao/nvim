@@ -144,17 +144,14 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     keys = {
-      { "<leader>xx", function() require("trouble").toggle() end, desc = "Toggle diagnostics" },
-      { "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, desc = "Show workspace diagnostics" },
-      { "<leader>xd", function() require("trouble").toggle("document_diagnostics") end, desc = "Show document diagnostics" },
-      { "<leader>xq", function() require("trouble").toggle("quickfix") end, desc = "Show quickfix" },
-      { "<leader>xl", function() require("trouble").toggle("loclist") end, desc = "Show location list" },
-      { "gR", function() require("trouble").toggle("lsp_references") end, desc = "Show LSP references" },
+      { "<leader>xx", "<cmd>TroubleToggle",                       desc = "Show diagnostics" },
+      { "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics", desc = "Show workspace diagnostics" },
+      { "<leader>xd", "<cmd>TroubleToggle document_diagnostics",  desc = "Show document diagnostics" },
+      { "<leader>xq", "<cmd>TroubleToggle quickfix",              desc = "Show quickfix" },
+      { "<leader>xl", "<cmd>TroubleToggle loclist",               desc = "Show location list" },
+      { "gR",         "<cmd>TroubleToggle lsp_references",        desc = "Show LSP references" },
     },
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
     },
   },
 
