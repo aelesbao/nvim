@@ -81,7 +81,7 @@ return {
     },
   },
 
-  -- shows color previews
+  -- paints the background to shows color previews
   {
     "norcalli/nvim-colorizer.lua",
     opts = {
