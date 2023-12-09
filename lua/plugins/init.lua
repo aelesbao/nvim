@@ -60,7 +60,7 @@ return {
   -- Smart comments
   {
     "numToStr/Comment.nvim",
-    lazy = false,
+    event = "VeryLazy",
     opts = {
       -- LHS of toggle mappings in NORMAL mode
       toggler = {
