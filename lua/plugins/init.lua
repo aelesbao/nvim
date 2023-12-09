@@ -2,6 +2,9 @@
 -- or are dependencies to other plugins.
 
 return {
+  -- allow lazy.nvim to manage itself
+  { "folke/lazy.nvim", tag = "stable" },
+
   -- detect tabstop and shiftwidth automatically
   "tpope/vim-sleuth",
 
