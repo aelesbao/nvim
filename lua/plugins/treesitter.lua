@@ -3,6 +3,12 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     version = false, -- last release is way too old and doesn't work on Windows
+    dependencies = {
+      -- automatically add closing tags for HTML and JSX
+      "windwp/nvim-ts-autotag",
+      -- wisely add "end". tree-sitter aware alternative to tpope's vim-endwise
+      "RRethy/nvim-treesitter-endwise",
+    },
     cmd = {
       "TSBufDisable",
       "TSBufEnable",
@@ -84,6 +90,16 @@ return {
           node_decremental = "<M-space>",
         },
       },
+
+      -- enables windwp/nvim-ts-autotag
+      autotag = {
+        enable = true,
+      },
+
+      -- enables RRethy/nvim-treesitter-endwise
+      endwise = {
+        enable = true,
+      },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
@@ -105,18 +121,4 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
-
-  -- shows the context of the currently visible buffer contents
-  --[[ {
-    "nvim-treesitter/nvim-treesitter-context",
-    after = "nvim-treesitter",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    keys = {
-      { "[c", function()
-        require("treesitter-context").go_to_context()
-      end, silent = true, desc = "Go to upward context" },
-    }
-  }, ]]
-
-  -- https://github.com/RRethy/nvim-treesitter-endwise
 }
