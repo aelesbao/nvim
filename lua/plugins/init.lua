@@ -103,7 +103,11 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    opts = {},
+    opts = {
+      indent = {
+        char = "┆",
+      },
+    },
   },
 
   -- git signs highlights text that has changed since the list
