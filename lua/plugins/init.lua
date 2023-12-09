@@ -67,9 +67,6 @@ return {
     },
   },
 
-  -- beautitul icons used by other plugins
-  "nvim-tree/nvim-web-devicons",
-
   -- shows color previews
   {
     "norcalli/nvim-colorizer.lua",

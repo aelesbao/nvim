@@ -2,6 +2,10 @@ return {
   -- file explorer
   {
     "nvim-tree/nvim-tree.lua",
+    dependencies = {
+      -- beautitul icons used by other plugins
+      "nvim-tree/nvim-web-devicons",
+    },
     cmd = {
       "NvimTreeOpen",
       "NvimTreeClose",
