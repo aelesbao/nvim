@@ -15,6 +15,10 @@ return {
       integrations = {
         bufferline = true,
         gitsigns = true,
+        indent_blankline = {
+          enabled = true,
+          scope_color = "subtext0",
+        },
         lsp_trouble = true,
         markdown = true,
         mason = true,
