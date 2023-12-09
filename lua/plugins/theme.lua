@@ -13,6 +13,7 @@ return {
         percentage = 0.15, -- percentage of the shade to apply to the inactive window
       },
       integrations = {
+        cmp = true,
         bufferline = true,
         gitsigns = true,
         indent_blankline = {
