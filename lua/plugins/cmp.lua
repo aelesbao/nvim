@@ -1,5 +1,7 @@
+-- Context aware auto-completion and snippet plugins
+
 return {
-  -- autocompletion
+  -- auto-completion
   {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
