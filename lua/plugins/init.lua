@@ -226,7 +226,6 @@ return {
       defaults = {
         mode = { "n", "v" },
         ["g"] = { name = "+goto" },
-        ["gs"] = { name = "+surround" },
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
         ["<leader><tab>"] = { name = "+tabs" },
