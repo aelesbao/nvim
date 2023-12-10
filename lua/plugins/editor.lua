@@ -82,11 +82,11 @@ return {
     "christoomey/vim-tmux-navigator",
     enabled = vim.fn.executable("tmux") == 1,
     keys = {
-      { "<M-h>", ":TmuxNavigateLeft<cr>",      noremap = true, silent = true },
-      { "<M-j>", ":TmuxNavigateDown<cr>",      noremap = true, silent = true },
-      { "<M-k>", ":TmuxNavigateUp<cr>",        noremap = true, silent = true },
-      { "<M-l>", ":TmuxNavigateRight<cr>",     noremap = true, silent = true },
-      { "<M-;>", ":TmuxNavigatePrevious<cr>",  noremap = true, silent = true },
+      { "<M-h>", ":TmuxNavigateLeft<cr>",      silent = true },
+      { "<M-j>", ":TmuxNavigateDown<cr>",      silent = true },
+      { "<M-k>", ":TmuxNavigateUp<cr>",        silent = true },
+      { "<M-l>", ":TmuxNavigateRight<cr>",     silent = true },
+      { "<M-;>", ":TmuxNavigatePrevious<cr>",  silent = true },
     },
     init = function()
       -- write all buffers before navigating from Vim to tmux pane
