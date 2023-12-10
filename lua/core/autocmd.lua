@@ -27,8 +27,8 @@ autocmd({ "BufWritePre" }, {
 })
 
 autocmd("BufReadPost", {
-  desc = "go to last loc when opening a buffer",
-  group = augroup("last_loc"),
+  desc = "go to last location when opening a buffer",
+  group = augroup("last_location"),
   callback = function(event)
     local exclude = { "gitcommit" }
     local buf = event.buf
