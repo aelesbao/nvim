@@ -25,17 +25,20 @@ k.set("n", "N", "Nzzzv")
 -- Text manipulation
 k.set("n", "<leader>=", "gqip", { desc = "Hard-wrap paragraphs of text" })
 
-k.set("x",        "<leader>p", [["_dP]], { desc = "Paste and keep the current buffer" })
+k.set("x",          "<leader>p", [["_dP]], { desc = "Paste and keep the current buffer" })
 k.set({ "n", "v" }, "<leader>d", [["_d]],  { desc = "Delete and keep the current buffer" })
 
 -- show/hide hidden chars
 k.set("n", "<F12>", ":set invlist<cr>", { silent = true })
 
 -- search
-k.set("n", "<leader>/", ":nohlsearch<cr>", { desc = "Clears the search register" })
 k.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {
-  desc = "Search and replace the currently selected text"
+  desc = "Search and replace the current text"
 })
+
+-- Diagnostics
+k.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+k.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 
 -- Buffers
 k.set("n", "<leader>bl", ":e#<cr>",      { desc = "Switch to last used buffer" })
