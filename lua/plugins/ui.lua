@@ -16,7 +16,10 @@ return {
   {
     "mbbill/undotree",
     keys = {
-      { "<leader>eu", vim.cmd.UndotreeToggle, desc = "Undotree" }
+      { "<leader>eu", function()
+        vim.cmd.UndotreeToggle()
+        vim.cmd.UndotreeFocus()
+      end, desc = "Undotree" }
     },
   },
 
