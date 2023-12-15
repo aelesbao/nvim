@@ -45,5 +45,14 @@ return {
       vim.cmd.colorscheme "catppuccin-macchiato"
       require("catppuccin").setup(opts)
     end,
+  },
+
+  -- enables transparent background
+  {
+    "xiyaowong/transparent.nvim",
+    lazy = false,    -- make sure we load this during startup
+    dependencies = {
+      { "catppuccin/nvim", name = "catppuccin", }
+    },
   }
 }
