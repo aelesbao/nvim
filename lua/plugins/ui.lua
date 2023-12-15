@@ -109,7 +109,8 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       -- whether or not to position the notifications at the top or not
-      top_down = false
+      top_down = false,
+      background_colour = "#181926",
     },
     config = function(_, opts)
       vim.notify = require("notify")
