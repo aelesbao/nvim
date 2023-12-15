@@ -9,7 +9,6 @@
 local servers = {
   bashls = {}, -- bash/sh
   taplo = {},  -- toml
-  yamlls = {}, -- yaml
 
   html = {
     filetypes = { "html", "twig", "hbs"}
@@ -23,15 +22,54 @@ local servers = {
       diagnostics = { disable = { "missing-fields" } },
     },
   },
+
+  -- yaml
+  yamlls = {
+    yaml = {
+      hover = true,
+      completion = true,
+      validate = true,
+      schemaStore = {
+        -- You must disable built-in schemaStore support if you want to use
+        -- this plugin and its advanced options like `ignore`.
+        enable = false,
+        -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+        url = "",
+      },
+      schemas = require("schemastore").yaml.schemas(),
+    },
+  },
+
+  -- json
+  jsonls = {
+    settings = {
+      json = {
+        schemas = require("schemastore").json.schemas(),
+        validate = { enable = true },
+      },
+    },
+  }
 }
 
 local lsp_zero = require("lsp-zero")
+lsp_zero.extend_lspconfig()
 
 lsp_zero.on_attach(function(_, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
   lsp_zero.default_keymaps({ buffer = bufnr })
 end)
+
+lsp_zero.format_on_save({
+  format_opts = {
+    async = false,
+    timeout_ms = 10000,
+  },
+  -- servers = {
+  --   ["tsserver"] = {"javascript", "typescript"},
+  --   ["rust_analyzer"] = {"rust"},
+  -- },
+})
 
 -- see :help lsp-zero-guide:integrate-with-mason-nvim
 -- to learn how to use mason.nvim with lsp-zero

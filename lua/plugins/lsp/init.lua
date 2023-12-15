@@ -2,6 +2,7 @@ return {
   {
     "VonHeikemen/lsp-zero.nvim",
     branch = "v3.x",
+    lazy = true,
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
@@ -9,24 +10,14 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/nvim-cmp",
       "L3MON4D3/LuaSnip",
-    },
-    config = function()
-      require("plugins.lsp.config")
-    end
-  },
-
-    -- LSP configuration & plugins
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      -- automatically install LSPs to stdpath for neovim
-      "mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      -- setup for init.lua and plugin development with full signature help,
-      -- docs and completion for the nvim lua API
-      { "folke/neodev.nvim", opts = {} },
+      "b0o/schemastore.nvim",
     },
     config = false,
+    init = function()
+      -- Disable automatic setup, we are doing it manually
+      vim.g.lsp_zero_extend_cmp = 0
+      vim.g.lsp_zero_extend_lspconfig = 0
+    end
   },
 
   -- cmdline tools and lsp servers
@@ -37,7 +28,25 @@ return {
       { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
     },
     build = ":MasonUpdate",
-    config = false,
+  },
+
+  -- LSP configuration & plugins
+  {
+    "neovim/nvim-lspconfig",
+    cmd = { "LspInfo", "LspInstall", "LspStart" },
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      -- automatically install LSPs to stdpath for neovim
+      "mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+      -- setup for init.lua and plugin development with full signature help,
+      -- docs and completion for the nvim lua API
+      { "folke/neodev.nvim", opts = {} },
+    },
+    config = function()
+      require("plugins.lsp.config")
+    end
   },
 
   -- automatically install LSPs to stdpath for neovim
@@ -57,6 +66,11 @@ return {
     dependencies = {
       "nvim-lspconfig"
     },
-    config = false,
+  },
+
+  -- schema store
+  {
+    "b0o/schemastore.nvim",
+    lazy = true,
   },
 }
