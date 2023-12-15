@@ -78,6 +78,8 @@ return {
     },
   },
 
+  -- TODO nice tab line
+
   -- status line
   {
     "nvim-lualine/lualine.nvim",
