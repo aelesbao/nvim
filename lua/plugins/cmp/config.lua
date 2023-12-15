@@ -15,6 +15,12 @@ lsp_zero.extend_cmp()
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 
+require("copilot").setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
+require("copilot_cmp").setup()
+
 ---@diagnostic disable-next-line: missing-fields
 cmp.setup({
   formatting = lsp_zero.cmp_format(),
@@ -73,7 +79,7 @@ cmp.setup({
     { name = "path" },
     { name = "tmux" },
     { name = "treesitter" },
-    { name = "copilot", group_index = 2 },
+    { name = "copilot" },
   },
   cmdline = {
     enable = true,

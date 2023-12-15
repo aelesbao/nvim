@@ -19,6 +19,7 @@ return {
       "rafamadriz/friendly-snippets",
 
       -- Add Lua GitHub copilot as a completion source
+      "zbirenbaum/copilot.lua",
       "zbirenbaum/copilot-cmp",
     },
     config = function()
@@ -56,9 +57,5 @@ return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    },
   }
 }
