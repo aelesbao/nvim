@@ -80,3 +80,12 @@ require("mason-lspconfig").setup({
     lsp_zero.default_setup,
   }
 })
+
+-- dinamically install servers with lsp-zero
+local lspconfig = require("lspconfig")
+for server, config in pairs(servers) do
+  lspconfig[server].setup(vim.tbl_deep_extend("force", {
+    on_attach = lsp_zero.on_attach,
+    capabilities = lsp_zero.capabilities,
+  }, config))
+end
