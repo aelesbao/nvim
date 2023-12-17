@@ -113,12 +113,4 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
-
-  -- visualize the AST parsed by Treesitter
-  {
-    "nvim-treesitter/playground",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-  },
 }
