@@ -63,7 +63,8 @@ return {
       { "<leader>sm", "<cmd>Telescope marks<cr>",       desc = "Jump to mark" },
       { "<leader>sn", "<cmd>Telescope notify<cr>",      desc = "Notifications" },
       { "<leader>sk", "<cmd>Telescope keymaps<cr>",     desc = "Keymaps" },
-      { "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
+      { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
+      { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
 
       -- git
       { "<leader>gf", "<cmd>Telescope git_files<cr>",   desc = "Git files" },
