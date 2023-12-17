@@ -63,7 +63,7 @@ end)
 lsp_zero.format_on_save({
   format_opts = {
     async = false,
-    timeout_ms = 10000,
+    timeout_ms = 5000,
   },
   -- servers = {
   --   ["tsserver"] = {"javascript", "typescript"},
