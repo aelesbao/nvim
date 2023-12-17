@@ -19,7 +19,6 @@ require("copilot").setup({
   suggestion = { enabled = false },
   panel = { enabled = false },
 })
-require("copilot_cmp").setup()
 
 ---@diagnostic disable-next-line: missing-fields
 cmp.setup({
@@ -38,19 +37,16 @@ cmp.setup({
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete({}),
     ["<CR>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+      -- Inserts suggestion before the next word
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = false,
     }),
-    ["<Tab>"] = vim.schedule_wrap(function(fallback)
-      if cmp.visible() and has_words_before() then
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end),
-    -- ["<Tab>"] = cmp.mapping(function(fallback)
+    ["<S-CR>"] = cmp.mapping.confirm({
+      -- Replaces the next word with suggestion
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = false,
+    }),
+    -- ["<Tab>"] = vim.schedule_wrap(function(fallback)
     --   if cmp.visible() and has_words_before() then
     --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
     --   elseif luasnip.expand_or_locally_jumpable() then
@@ -58,7 +54,16 @@ cmp.setup({
     --   else
     --     fallback()
     --   end
-    -- end, { "i", "s" }),
+    -- end),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() and has_words_before() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      elseif luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -69,18 +74,21 @@ cmp.setup({
       end
     end, { "i", "s" }),
   }),
-  sources = {
-    { name = "buffer" },
+  sources = cmp.config.sources({
+    -- First index sources
     { name = "crates" },
-    { name = "emoji" },
     { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "path" },
-    { name = "tmux" },
     { name = "treesitter" },
+  }, {
+    -- Second index sources
     { name = "copilot" },
-  },
+    { name = "buffer" },
+    { name = "emoji" },
+    { name = "tmux" },
+  }),
   cmdline = {
     enable = true,
     options = {
