@@ -15,7 +15,9 @@ return {
       integrations = {
         cmp = true,
         bufferline = true,
+        dashboard = true,
         gitsigns = true,
+        illuminate = true,
         indent_blankline = {
           enabled = true,
           scope_color = "subtext0",

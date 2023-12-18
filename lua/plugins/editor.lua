@@ -77,6 +77,11 @@ return {
     },
   },
 
+  -- illuminates occurrences of a word
+  {
+    "RRethy/vim-illuminate"
+  },
+
   -- buffer remove
   {
     "echasnovski/mini.bufremove",
