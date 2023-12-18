@@ -35,6 +35,10 @@ return {
             information = { "undercurl" },
           },
         },
+        navic = {
+          enabled = true,
+          custom_bg = "NONE", -- "lualine" will set background to mantle
+        },
         notify = true,
         nvimtree = true,
         telescope = true,

@@ -137,12 +137,17 @@ return {
   -- status line
   {
     "nvim-lualine/lualine.nvim",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+    },
     event = "VeryLazy",
     opts = {
       options = {
-        theme = "auto",
+        theme = "catppuccin",
         icons_enabled = true,
         globalstatus = true,
+        component_separators = { left="", right="" },
+        section_separators = { left="", right="" },
         disabled_filetypes = {
           statusline = {
             "dashboard",
@@ -154,7 +159,35 @@ return {
             "NvimTree",
             "help",
             "undotree",
-          }
+          },
+        },
+      },
+      winbar = {
+        lualine_c = {
+          { "filename", path = 1, color = { bg = "NONE" } },
+          {
+            "navic",
+
+            -- Component specific options
+            -- Can be nil, "static" or "dynamic". This option is useful only when
+            -- you have highlights enabled. Many colorschemes don't define same
+            -- backgroud for nvim-navic as their lualine statusline backgroud.
+            -- Setting it to "static" will perform a adjustment once when the
+            -- component is being setup. This should be enough when the lualine
+            -- section isn't changing colors based on the mode.
+            -- Setting it to "dynamic" will keep updating the highlights according
+            -- to the current modes colors for the current section.
+            color_correction = nil,
+
+            -- lua table with same format as setup's option. All options except
+            -- "lsp" options take effect when set here.
+            navic_opts = nil
+          },
+        },
+      },
+      inactive_winbar = {
+        lualine_c = {
+          { "filename", path = 1, color = { bg = "NONE" } },
         },
       },
       extensions = {
@@ -162,6 +195,48 @@ return {
         "mason",
         "nvim-tree",
         "trouble",
+      },
+    },
+  },
+
+  -- code navigation bar / breadcrumbs
+  {
+    "SmiteshP/nvim-navic",
+    event = "VeryLazy",
+    dependencies = {
+      "neovim/nvim-lspconfig"
+    },
+    opts = {
+      highlight = true,
+      separator = ' › ',
+      -- VScode-like icons
+      icons = {
+        File = ' ',
+        Module = ' ',
+        Namespace = ' ',
+        Package = ' ',
+        Class = ' ',
+        Method = ' ',
+        Property = ' ',
+        Field = ' ',
+        Constructor = ' ',
+        Enum = ' ',
+        Interface = ' ',
+        Function = ' ',
+        Variable = ' ',
+        Constant = ' ',
+        String = ' ',
+        Number = ' ',
+        Boolean = ' ',
+        Array = ' ',
+        Object = ' ',
+        Key = ' ',
+        Null = ' ',
+        EnumMember = ' ',
+        Struct = ' ',
+        Event = ' ',
+        Operator = ' ',
+        TypeParameter = ' ',
       }
     },
   },

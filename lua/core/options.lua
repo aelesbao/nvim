@@ -74,7 +74,7 @@ o.background = "dark"
 o.ruler       = true -- show ruler
 o.number      = true -- show line numbers
 o.cursorline  = true -- highlights the current line
-o.laststatus  = 2    -- always display the status line
+o.laststatus  = 3    -- always display the status line
 o.colorcolumn = "80"
 
 -- always show the signcolumn, otherwise it would shift the text each time
