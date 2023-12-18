@@ -82,11 +82,11 @@ cmp.setup({
     { name = "nvim_lua" },
     { name = "path" },
     { name = "treesitter" },
+    { name = "copilot" },
+    { name = "emoji" },
   }, {
     -- Second index sources
-    { name = "copilot" },
     { name = "buffer" },
-    { name = "emoji" },
     { name = "tmux" },
   }),
   cmdline = {
