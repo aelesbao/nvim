@@ -82,6 +82,9 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
+    dependencies = {
+      { "catppuccin/nvim", name = "catppuccin", }
+    },
     keys = {
       { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
       { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
@@ -122,6 +125,11 @@ return {
       },
     },
     config = function(_, opts)
+      -- merge theme opts
+      vim.tbl_deep_extend("force", opts, {
+        highlights = require("catppuccin.groups.integrations.bufferline").get()
+      })
+
       require("bufferline").setup(opts)
       -- Fix bufferline when restoring a session
       vim.api.nvim_create_autocmd("BufAdd", {
@@ -146,8 +154,8 @@ return {
         theme = "catppuccin",
         icons_enabled = true,
         globalstatus = true,
-        component_separators = { left="", right="" },
-        section_separators = { left="", right="" },
+        component_separators = { left="", right="" },
+        section_separators = { left="", right="" },
         disabled_filetypes = {
           statusline = {
             "dashboard",
