@@ -176,4 +176,12 @@ return {
       vim.notify.setup(opts)
     end
   },
+
+  -- improves the default vim.ui interfaces
+  {
+    "stevearc/dressing.nvim",
+    opts = {
+      default_prompt = ">"
+    },
+  }
 }
