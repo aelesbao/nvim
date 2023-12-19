@@ -130,6 +130,8 @@ o.smartcase  = true      -- be sensitive when there's a capital letter
 o.incsearch  = true      -- highlight matches as you type
 o.inccommand = "nosplit" -- preview incremental substitute
 
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 -- Integrations
 
 if vim.fn.executable("rg") then

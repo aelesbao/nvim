@@ -132,5 +132,13 @@ return {
     end,
   },
 
-  -- TODO: session manager
+  {
+    "rmagatti/auto-session",
+    opts = {
+      auto_save_enabled = true,
+      auto_restore_enabled = true,
+      auto_session_suppress_dirs = { "~/", "/" },
+      auto_session_use_git_branch = true,
+    },
+  },
 }
