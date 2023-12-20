@@ -76,38 +76,45 @@ return {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make", },
       "folke/trouble.nvim",
     },
-    opts = {
-      defaults = {
-        color_devicons = true,
-        vimgrep_arguments = {
-          "rg",
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--line-number",
-          "--column",
-          "--smart-case",
-          "--hidden",
-          "--glob=!.git/",
-        },
-        set_env = { ["COLORTERM"] = "truecolor", },
-      },
-      extensions = {
-        fzf = {
-          fuzzy = true,                    -- false will only do exact matching
-          override_generic_sorter = true,  -- override the generic sorter
-          override_file_sorter = true,     -- override the file sorter
-          case_mode = "smart_case",        -- "smart_case" or "ignore_case" or "respect_case"
-        },
-      },
-    },
-    config = function(_, opts)
-      local telescope = require("telescope")
+    opts = function()
       local trouble = require("trouble.providers.telescope")
 
-      local trouble_mapping = { ["<c-t>"] = trouble.open_with_trouble }
-      -- opts.defaults.mappings.i:append(trouble_mapping)
-      -- opts.defaults.mappings.n:append(trouble_mapping)
+      return {
+        defaults = {
+          color_devicons = true,
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
+            "--glob=!.git/",
+          },
+          set_env = { ["COLORTERM"] = "truecolor", },
+          mappings = {
+            i = {
+              ["<c-t>"] = trouble.open_with_trouble
+            },
+            n = {
+              ["<c-t>"] = trouble.open_with_trouble
+            }
+          }
+        },
+        extensions = {
+          fzf = {
+            fuzzy = true,                    -- false will only do exact matching
+            override_generic_sorter = true,  -- override the generic sorter
+            override_file_sorter = true,     -- override the file sorter
+            case_mode = "smart_case",        -- "smart_case" or "ignore_case" or "respect_case"
+          },
+        },
+      }
+    end,
+    config = function(_, opts)
+      local telescope = require("telescope")
 
       telescope.setup(opts)
       telescope.load_extension("fzf")

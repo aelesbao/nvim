@@ -83,7 +83,7 @@ return {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
     dependencies = {
-      { "catppuccin/nvim", name = "catppuccin", }
+      { "catppuccin/nvim", name = "catppuccin", lazy = false, }
     },
     keys = {
       { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
@@ -94,40 +94,43 @@ return {
       { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
       { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
     },
-    opts = {
-      options = {
-        mode = "buffers", -- or tabs
-        -- stylua: ignore
-        close_command = function(n) require("mini.bufremove").delete(n, false) end,
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = true,
-        diagnostics_indicator = function(_, _, diag)
-          local icons = {
-            Error = " ",
-            Warn  = " ",
-            Hint  = " ",
-            Info  = " ",
-          }
-          local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+    opts = function()
+      local close_cmd = function(n) require("mini.bufremove").delete(n, false) end
+
+      return {
+        options = {
+          mode = "buffers", -- or tabs
+          themable = true,
+          highlights = require("catppuccin.groups.integrations.bufferline").get(),
+          close_command = close_cmd,
+          right_mouse_command = close_cmd,
+          diagnostics = "nvim_lsp",
+          always_show_bufferline = true,
+          show_tab_indicators = true,
+          separator_style = "slant", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
+          diagnostics_indicator = function(_, _, diag)
+            local icons = {
+              Error = " ",
+              Warn  = " ",
+              Hint  = " ",
+              Info  = " ",
+            }
+            local ret = (diag.error and icons.Error .. diag.error .. " " or "")
             .. (diag.warning and icons.Warn .. diag.warning or "")
-          return vim.trim(ret)
-        end,
-        offsets = {
-          {
-            filetype = "NvimTree",
-            text = "File explorer",
-            text_align = "left",
-            highlight = "Directory",
+            return vim.trim(ret)
+          end,
+          offsets = {
+            {
+              filetype = "NvimTree",
+              text = "File explorer",
+              text_align = "left",
+              highlight = "Directory",
+            },
           },
         },
-      },
-    },
+      }
+    end,
     config = function(_, opts)
-      -- merge theme opts
-      vim.tbl_deep_extend("force", opts, {
-        highlights = require("catppuccin.groups.integrations.bufferline").get()
-      })
-
       require("bufferline").setup(opts)
       -- Fix bufferline when restoring a session
       vim.api.nvim_create_autocmd("BufAdd", {
@@ -250,11 +253,14 @@ return {
   -- notification pop-ups
   {
     "rcarriga/nvim-notify",
-    opts = {
-      -- whether or not to position the notifications at the top or not
-      top_down = false,
-      background_colour = "#181926",
-    },
+    opts = function ()
+      local theme = require("catppuccin.palettes").get_palette("macchiato")
+      return {
+        -- whether or not to position the notifications at the top or not
+        top_down = false,
+        background_colour = theme.crust,
+      }
+    end,
     config = function(_, opts)
       vim.notify = require("notify")
       vim.notify.setup(opts)
