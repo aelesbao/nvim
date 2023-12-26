@@ -4,6 +4,7 @@ return {
     name = "catppuccin",
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
+    ---@type CatppuccinOptions
     opts = {
       flavour = "macchiato", -- latte, frappe, macchiato, mocha
       transparent_background = true, -- disables setting the background color.
@@ -39,6 +40,7 @@ return {
           enabled = true,
           custom_bg = "NONE", -- "lualine" will set background to mantle
         },
+        neotree = true,
         notify = true,
         nvimtree = true,
         telescope = true,

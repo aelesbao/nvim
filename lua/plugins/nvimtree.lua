@@ -2,6 +2,7 @@ return {
   -- file explorer
   {
     "nvim-tree/nvim-tree.lua",
+    enabled = false,
     dependencies = {
       -- beautitul icons used by other plugins
       "nvim-tree/nvim-web-devicons",
@@ -45,7 +46,6 @@ return {
       renderer = {
         highlight_opened_files = "all",
         group_empty = true,
-        root_folder_label = false,
         special_files = {
           "Cargo.toml",
           "Makefile",
