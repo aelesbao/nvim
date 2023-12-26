@@ -96,10 +96,10 @@ return {
           set_env = { ["COLORTERM"] = "truecolor", },
           mappings = {
             i = {
-              ["<c-t>"] = trouble.open_with_trouble
+              ["<C-M-t>"] = trouble.open_with_trouble
             },
             n = {
-              ["<c-t>"] = trouble.open_with_trouble
+              ["<C-M-t>"] = trouble.open_with_trouble
             }
           }
         },
