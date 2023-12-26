@@ -107,7 +107,7 @@ return {
           diagnostics = "nvim_lsp",
           always_show_bufferline = true,
           show_tab_indicators = true,
-          separator_style = "slant", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
+          -- separator_style = "slant", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
           diagnostics_indicator = function(_, _, diag)
             local icons = {
               Error = " ",
