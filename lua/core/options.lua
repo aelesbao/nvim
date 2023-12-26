@@ -56,7 +56,9 @@ opt.wrap      = false -- disable line wrap
 
 -- file type detection
 opt.filetype        = "on" -- auto detect the type of file that is being edited
+---@diagnostic disable-next-line: inject-field
 opt.filetype.indent = "on" -- enable file type detection
+---@diagnostic disable-next-line: inject-field
 opt.filetype.plugin = "on" -- enable filetype-based indentation
 
 -- sets the default file encoding
@@ -129,7 +131,7 @@ opt.smartcase  = true      -- be sensitive when there's a capital letter
 opt.incsearch  = true      -- highlight matches as you type
 opt.inccommand = "nosplit" -- preview incremental substitute
 
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,localoptions,tabpages,terminal,winpos,winsize"
 
 -- Integrations
 
