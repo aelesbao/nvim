@@ -15,6 +15,7 @@ local function find_git_root()
 
   -- Find the Git root directory from the current file's path
   local git_root = vim.fn.systemlist('git -C ' .. vim.fn.escape(current_dir, ' ') .. ' rev-parse --show-toplevel')[1]
+  ---@diagnostic disable-next-line: undefined-field
   if vim.v.shell_error ~= 0 then
     print 'Not a git repository. Searching on current working directory'
     return cwd
@@ -48,28 +49,26 @@ return {
     cmd = "Telescope",
     keys = {
       -- find
-      { "<C-p>",      "<cmd>Telescope find_files<cr>",                desc = "Find files" },
-      { "<leader>ff", "<cmd>Telescope find_files<cr>",                desc = "Find files" },
-      { "<leader>fo", "<cmd>Telescope oldfiles<cr>",                  desc = "Find in recent files" },
-      { "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find in current buffer" },
-      { "<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<cr>", desc = "Find all" },
-      { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",          desc = "Find buffers" },
+      { "<C-p>",      ":Telescope find_files<cr>",                                        desc = "Find files" },
+      { "<leader>ff", ":Telescope find_files<cr>",                                        desc = "Find files" },
+      { "<leader>fo", ":Telescope oldfiles<cr>",                                          desc = "Find in recent files" },
+      { "<leader>fz", ":Telescope current_buffer_fuzzy_find<cr>",                         desc = "Find in current buffer" },
+      { "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true<cr>", desc = "Find all" },
+      { "<leader>fb", ":Telescope buffers sort_mru=true sort_lastused=true<cr>",          desc = "Find buffers" },
 
       -- search
-      { "<leader>sg", "<cmd>Telescope live_grep<cr>",   desc = "Live grep" },
-      { "<leader>sG", telescope_live_grep_git_root,     desc = "Live grep on git root" },
-      { "<leader>s/", telescope_live_grep_open_files,   desc = "Live grep on open files" },
-      { "<leader>sh", "<cmd>Telescope help_tags<cr>",   desc = "Help tags" },
-      { "<leader>sm", "<cmd>Telescope marks<cr>",       desc = "Jump to mark" },
-      { "<leader>sn", "<cmd>Telescope notify<cr>",      desc = "Notifications" },
-      { "<leader>sk", "<cmd>Telescope keymaps<cr>",     desc = "Keymaps" },
-      { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
-      { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
+      { "<leader>sg", ":Telescope live_grep<cr>",                                         desc = "Live grep" },
+      { "<leader>sG", telescope_live_grep_git_root,                                       desc = "Live grep on git root" },
+      { "<leader>s/", telescope_live_grep_open_files,                                     desc = "Live grep on open files" },
+      { "<leader>sh", ":Telescope help_tags<cr>",                                         desc = "Help tags" },
+      { "<leader>sm", ":Telescope marks<cr>",                                             desc = "Jump to mark" },
+      { "<leader>sn", ":Telescope notify<cr>",                                            desc = "Notifications" },
+      { "<leader>sk", ":Telescope keymaps<cr>",                                           desc = "Keymaps" },
 
       -- git
-      { "<leader>gf", "<cmd>Telescope git_files<cr>",   desc = "Git files" },
-      { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Git commits" },
-      { "<leader>gs", "<cmd>Telescope git_status<cr>",  desc = "Git status" },
+      { "<leader>gf", ":Telescope git_files<cr>",                                         desc = "Git files" },
+      { "<leader>gc", ":Telescope git_commits<cr>",                                       desc = "Git commits" },
+      { "<leader>gs", ":Telescope git_status<cr>",                                        desc = "Git status" },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -105,10 +104,10 @@ return {
         },
         extensions = {
           fzf = {
-            fuzzy = true,                    -- false will only do exact matching
-            override_generic_sorter = true,  -- override the generic sorter
-            override_file_sorter = true,     -- override the file sorter
-            case_mode = "smart_case",        -- "smart_case" or "ignore_case" or "respect_case"
+            fuzzy = true,                   -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- "smart_case" or "ignore_case" or "respect_case"
           },
         },
       }

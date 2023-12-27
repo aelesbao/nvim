@@ -5,7 +5,7 @@ return {
   {
     "norcalli/nvim-colorizer.lua",
     opts = {
-      "*";
+      "*",
     },
     config = function(_, opts)
       require("colorizer").setup(opts)
@@ -16,10 +16,14 @@ return {
   {
     "mbbill/undotree",
     keys = {
-      { "<leader>eu", function()
-        vim.cmd.UndotreeToggle()
-        vim.cmd.UndotreeFocus()
-      end, desc = "Undotree" }
+      {
+        "<leader>eu",
+        function()
+          vim.cmd.UndotreeToggle()
+          vim.cmd.UndotreeFocus()
+        end,
+        desc = "Undotree"
+      }
     },
   },
 
@@ -67,12 +71,12 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     keys = {
-      { "<leader>xx", "<cmd>TroubleToggle",                       desc = "Show diagnostics" },
-      { "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics", desc = "Show workspace diagnostics" },
-      { "<leader>xd", "<cmd>TroubleToggle document_diagnostics",  desc = "Show document diagnostics" },
-      { "<leader>xq", "<cmd>TroubleToggle quickfix",              desc = "Show quickfix" },
-      { "<leader>xl", "<cmd>TroubleToggle loclist",               desc = "Show location list" },
-      { "gR",         "<cmd>TroubleToggle lsp_references",        desc = "Show LSP references" },
+      { "<leader>xx", ":TroubleToggle<cr>",                       desc = "Show diagnostics" },
+      { "<leader>xw", ":TroubleToggle workspace_diagnostics<cr>", desc = "Show workspace diagnostics" },
+      { "<leader>xd", ":TroubleToggle document_diagnostics<cr>",  desc = "Show document diagnostics" },
+      { "<leader>xq", ":TroubleToggle quickfix<cr>",              desc = "Show quickfix" },
+      { "<leader>xl", ":TroubleToggle loclist<cr>",               desc = "Show location list" },
+      { "gR",         ":TroubleToggle lsp_references<cr>",        desc = "References" },
     },
     opts = {
     },
@@ -86,13 +90,11 @@ return {
       { "catppuccin/nvim", name = "catppuccin", lazy = false, }
     },
     keys = {
-      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
-      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
-      { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete other buffers" },
-      { "<M-[>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
-      { "<M-]>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
-      { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
-      { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+      { "<leader>bp", ":BufferLineTogglePin<cr>",            desc = "Toggle pin" },
+      { "<leader>bP", ":BufferLineGroupClose ungrouped<cr>", desc = "Delete non-pinned tabs" },
+      { "<leader>bo", ":BufferLineCloseOthers<cr>",          desc = "Delete other tabs" },
+      { "<M-[>",      ":BufferLineCyclePrev<cr>",            desc = "Previous tab" },
+      { "<M-]>",      ":BufferLineCycleNext<cr>",            desc = "Next tab" },
     },
     opts = function()
       local close_cmd = function(n) require("mini.bufremove").delete(n, false) end
@@ -116,7 +118,7 @@ return {
               Info  = " ",
             }
             local ret = (diag.error and icons.Error .. diag.error .. " " or "")
-            .. (diag.warning and icons.Warn .. diag.warning or "")
+                .. (diag.warning and icons.Warn .. diag.warning or "")
             return vim.trim(ret)
           end,
           offsets = {
@@ -155,18 +157,13 @@ return {
         theme = "catppuccin",
         icons_enabled = true,
         globalstatus = true,
-        component_separators = { left="", right="" },
-        section_separators = { left="", right="" },
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
         disabled_filetypes = {
-          statusline = {
-            "dashboard",
-            "NvimTree",
-            "help",
-            "undotree",
-          },
           winbar = {
-            "NvimTree",
             "help",
+            "neo-tree",
+            "NvimTree",
             "undotree",
           },
         },
@@ -253,7 +250,7 @@ return {
   -- notification pop-ups
   {
     "rcarriga/nvim-notify",
-    opts = function ()
+    opts = function()
       local theme = require("catppuccin.palettes").get_palette("macchiato")
       return {
         -- whether or not to position the notifications at the top or not
