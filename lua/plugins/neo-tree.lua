@@ -1,3 +1,30 @@
+-- Trash the target
+local function trash(state)
+  local cmds = require("neo-tree.sources.buffers.commands")
+
+  local tree = state.tree
+  local node = tree:get_node()
+  if node.type == "message" then
+    return
+  end
+
+  vim.api.nvim_command("silent !trash -F " .. node.path)
+  cmds.refresh(state)
+end
+
+-- Trash the selections (visual mode)
+local function trash_visual(state, selected_nodes)
+  local cmds = require("neo-tree.sources.buffers.commands")
+
+  for _, node in ipairs(selected_nodes) do
+    if node.type ~= 'message' then
+      vim.api.nvim_command("silent !trash -F " .. node.path)
+    end
+  end
+
+  cmds.refresh(state)
+end
+
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -32,10 +59,13 @@ return {
     },
     event = "User DirOpened",
     keys = {
-      { "<leader>ee", ":Neotree toggle<cr>", desc = "Open NeoTree" },
-      { "<leader>ef", ":Neotree focus reveal<cr>", desc = "Find current file in NeoTree" },
-      { "<leader>eg", ":Neotree float git_status<cr>", desc = "Show git status" },
-      { "<leader>bL", ":Neotree toggle focus buffers right<cr>", desc = "List open buffers" },
+      { "<leader>ee", ":Neotree toggle focus<cr>",                  desc = "Explorer" },
+      { "<leader>ec", ":Neotree close<cr>",                         desc = "Close all" },
+      { "<leader>ef", ":Neotree focus reveal<cr>",                  desc = "Find current file" },
+      { "<leader>eb", ":Neotree toggle focus buffers<cr>",          desc = "Buffers" },
+      { "<leader>bL", ":Neotree toggle focus buffers<cr>",          desc = "List open Buffers" },
+      { "<leader>eg", ":Neotree toggle focus git_status<cr>",       desc = "Git status" },
+      { "<leader>es", ":Neotree toggle focus document_symbols<cr>", desc = "Symbols" },
     },
     opts = {
       close_if_last_window = true,
@@ -49,9 +79,29 @@ return {
       sort_case_insensitive = false,
       -- use a custom function for sorting files and directories in the tree
       sort_function = nil,
+      sources = {
+        "filesystem",
+        "buffers",
+        "git_status",
+        "document_symbols",
+      },
       default_component_configs = {
         container = {
           enable_character_fade = true
+        },
+        diagnostics = {
+          symbols = {
+            hint  = "󰌵",
+            info  = "",
+            warn  = "",
+            error = "",
+          },
+          highlights = {
+            hint = "DiagnosticSignHint",
+            info = "DiagnosticSignInfo",
+            warn = "DiagnosticSignWarn",
+            error = "DiagnosticSignError",
+          },
         },
         indent = {
           indent_size = 2,
@@ -87,16 +137,15 @@ return {
         },
         git_status = {
           symbols = {
-            added = "",
-            modified = "",
-            renamed = "",
-            deleted = "",
+            added     = "",
+            modified  = "",
+            renamed   = "",
+            deleted   = "",
             untracked = "",
-            -- untracked = "",
             ignored   = "",
             unstaged  = "",
             staged    = "",
-            conflict = "",
+            conflict  = "",
           }
         },
         -- If you don't want to use these columns, you can set `enabled = false` for each of them individually
@@ -123,7 +172,8 @@ return {
       -- A list of functions, each representing a global custom command
       -- that will be available in all sources (if not overridden in `opts[source_name].commands`)
       -- see `:h neo-tree-custom-commands-global`
-      commands = {},
+      commands = {
+      },
       window = {
         position = "left",
         width = 40,
@@ -132,10 +182,8 @@ return {
           nowait = true,
         },
         mappings = {
-          ["<space>"] = {
-            "toggle_node",
-            nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
-          },
+          -- disable `nowait` if you have existing combos starting with this char that you want to use
+          ["<space>"] = { "toggle_node", nowait = false, },
           ["<2-LeftMouse>"] = "open",
           ["<cr>"] = "open",
           ["<esc>"] = "cancel", -- close preview or floating neo-tree window
@@ -143,10 +191,13 @@ return {
           -- Read `# Preview Mode` for more information
           ["l"] = "focus_preview",
           ["S"] = "open_split",
+          ["<C-x>"] = "open_split",
           ["s"] = "open_vsplit",
+          ["<C-v>"] = "open_vsplit",
           -- ["S"] = "split_with_window_picker",
           -- ["s"] = "vsplit_with_window_picker",
           ["t"] = "open_tabnew",
+          ["<C-t>"] = "open_tabnew",
           -- ["<cr>"] = "open_drop",
           -- ["t"] = "open_tab_drop",
           ["w"] = "open_with_window_picker",
@@ -160,11 +211,11 @@ return {
             -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
             -- some commands may take optional config options, see `:h neo-tree-mappings` for details
             config = {
-              show_path = "none" -- "none", "relative", "absolute"
+              show_path = "relative" -- "none", "relative", "absolute"
             }
           },
           ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
-          ["d"] = "delete",
+          ["d"] = { "trash", nowait = false },
           ["r"] = "rename",
           ["y"] = "copy_to_clipboard",
           ["x"] = "cut_to_clipboard",
@@ -264,8 +315,11 @@ return {
             ["<C-p>"] = "move_cursor_up",
           },
         },
-
-        commands = {} -- Add a custom command or override a global one using the same function name
+        -- Add a custom command or override a global one using the same function name
+        commands = {
+          trash = trash,
+          trash_visual = trash_visual,
+        }
       },
       buffers = {
         follow_current_file = {
@@ -282,7 +336,6 @@ return {
           mappings = {
             ["bd"] = "buffer_delete",
             ["<bs>"] = "navigate_up",
-            ["."] = "set_root",
             ["o"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
             ["oc"] = { "order_by_created", nowait = false },
             ["od"] = { "order_by_diagnostics", nowait = false },
@@ -295,7 +348,7 @@ return {
       },
       git_status = {
         window = {
-          position = "float",
+          position = "bottom",
           mappings = {
             ["A"]  = "git_add_all",
             ["gu"] = "git_unstage_file",
@@ -313,17 +366,28 @@ return {
             ["ot"] = { "order_by_type", nowait = false },
           }
         }
-      }
+      },
+      document_symbols = {
+        -- automatically focus on the symbol under the cursor
+        follow_cursor = true,
+        window = {
+          position = "right",
+          mappings = {
+            ["o"] = "jump_to_symbol",
+            ["r"] = "rename",
+            ["P"] = "preview",
+            ["A"] = "",
+            ["a"] = "",
+            ["c"] = "",
+            ["d"] = "",
+            ["i"] = "",
+            ["m"] = "",
+            ["p"] = "",
+            ["x"] = "",
+            ["y"] = "",
+          },
+        }
+      },
     },
-    init = function()
-      vim.fn.sign_define("DiagnosticSignError",
-        { text = " ", texthl = "DiagnosticSignError" })
-      vim.fn.sign_define("DiagnosticSignWarn",
-        { text = " ", texthl = "DiagnosticSignWarn" })
-      vim.fn.sign_define("DiagnosticSignInfo",
-        { text = " ", texthl = "DiagnosticSignInfo" })
-      vim.fn.sign_define("DiagnosticSignHint",
-        { text = "󰌵", texthl = "DiagnosticSignHint" })
-    end,
   },
 }
