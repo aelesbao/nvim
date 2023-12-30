@@ -250,14 +250,6 @@ return {
   -- notification pop-ups
   {
     "rcarriga/nvim-notify",
-    opts = function()
-      local theme = require("catppuccin.palettes").get_palette("macchiato")
-      return {
-        -- whether or not to position the notifications at the top or not
-        top_down = false,
-        background_colour = theme.crust,
-      }
-    end,
     config = function(_, opts)
       vim.notify = require("notify")
       vim.notify.setup(opts)
