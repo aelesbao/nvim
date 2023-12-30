@@ -3,6 +3,13 @@ local k = vim.keymap
 -- too lazy to hold shift
 k.set({ "n", "v" }, ";", ":", { remap = false })
 
+-- jump to the beginning and end of word
+k.set("i", "<Esc>b", "<C-o>b")
+k.set("i", "<Esc>f", "<C-o>w")
+-- jump to the beginning and end of line
+k.set("i", "<C-a>", "<Home>")
+k.set("i", "<C-e>", "<End>")
+
 -- Tabs
 k.set("n", "<s-tab>", ":tabprevious<cr>")
 k.set("n", "<tab>", ":tabnext<cr>")
