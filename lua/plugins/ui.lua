@@ -333,11 +333,12 @@ return {
   -- notification pop-ups
   {
     "rcarriga/nvim-notify",
+    dependencies = {
+      { "catppuccin/nvim", name = "catppuccin" }
+    },
     opts = function()
       local theme = require("catppuccin.palettes").get_palette("macchiato")
       return {
-        -- whether or not to position the notifications at the top or not
-        top_down = false,
         background_colour = theme.crust,
       }
     end,
