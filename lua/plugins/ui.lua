@@ -57,7 +57,7 @@ return {
     opts = {
       signcolumn = true,
       yadm = {
-        enable = false
+        enable = true
       },
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
