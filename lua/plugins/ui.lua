@@ -204,6 +204,7 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "SmiteshP/nvim-navic",
+      "AndreM222/copilot-lualine",
     },
     event = "VeryLazy",
     opts = {
@@ -228,6 +229,21 @@ return {
         lualine_b = { { "b:gitsigns_head", icon = "" }, { "diff", source = diff_source }, "diagnostics" },
         lualine_c = { "filename" },
         lualine_x = {
+          {
+            "copilot",
+            symbols = {
+              status = {
+                hl = {
+                  enabled = "#50FA7B",
+                  disabled = "#6272A4",
+                  warning = "#FFB86C",
+                  unknown = "#FF5555"
+                }
+              },
+            },
+            show_colors = true,
+            show_loading = true
+          },
           "encoding",
           "fileformat",
           "filetype"
