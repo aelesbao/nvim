@@ -184,28 +184,21 @@ return {
         mappings = {
           -- disable `nowait` if you have existing combos starting with this char that you want to use
           ["<space>"] = { "toggle_node", nowait = false, },
-          ["<2-LeftMouse>"] = "open",
-          ["<cr>"] = "open",
+          ["<2-LeftMouse>"] = "open_drop",
+          ["<cr>"] = "open_drop",
           ["<esc>"] = "cancel", -- close preview or floating neo-tree window
           ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
-          -- Read `# Preview Mode` for more information
           ["l"] = "focus_preview",
-          ["S"] = "open_split",
+          ["S"] = "split_with_window_picker",
           ["<C-x>"] = "open_split",
-          ["s"] = "open_vsplit",
+          ["s"] = "vsplit_with_window_picker",
           ["<C-v>"] = "open_vsplit",
-          -- ["S"] = "split_with_window_picker",
-          -- ["s"] = "vsplit_with_window_picker",
           ["t"] = "open_tabnew",
-          ["<C-t>"] = "open_tabnew",
-          -- ["<cr>"] = "open_drop",
-          -- ["t"] = "open_tab_drop",
+          ["<C-t>"] = "open_tab_drop",
           ["w"] = "open_with_window_picker",
-          --["P"] = "toggle_preview", -- enter preview mode, which shows the current node without focusing
           ["C"] = "close_node",
-          -- ['C'] = 'close_all_subnodes',
           ["z"] = "close_all_nodes",
-          --["Z"] = "expand_all_nodes",
+          ["Z"] = "expand_all_nodes",
           ["a"] = {
             "add",
             -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
@@ -294,9 +287,8 @@ return {
             ["/"] = "fuzzy_finder",
             ["D"] = "fuzzy_finder_directory",
             ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
-            -- ["D"] = "fuzzy_sorter_directory",
             ["f"] = "filter_on_submit",
-            ["<c-x>"] = "clear_filter",
+            ["<c-l>"] = "clear_filter",
             ["[g"] = "prev_git_modified",
             ["]g"] = "next_git_modified",
             ["o"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
