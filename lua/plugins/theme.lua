@@ -35,6 +35,9 @@ return {
             warnings = { "undercurl" },
             information = { "undercurl" },
           },
+          inlay_hints = {
+            background = true,
+          },
         },
         navic = {
           enabled = true,
@@ -46,6 +49,7 @@ return {
         telescope = true,
         treesitter = true,
         treesitter_context = true,
+        window_picker = true,
         which_key = true,
       },
     },
