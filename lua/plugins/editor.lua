@@ -1,5 +1,52 @@
 -- Plugins for text manipulation or that change the way the editor behaves
 
+local function buf_wipeout()
+  local bw = require("mini.bufremove").wipeout
+
+  -- list of all buffer numbers
+  local buffers = {}
+  for buf = 1, vim.fn.bufnr("$") do
+    table.insert(buffers, buf)
+  end
+
+  -- save the current tab page
+  local currentTab = vim.fn.tabpagenr()
+
+  -- go through all tab pages
+  for tab = 1, vim.fn.tabpagenr("$") do
+    vim.cmd.tabnext(tab)
+
+    -- go through all windows
+    for win = 1, vim.fn.winnr("$") do
+      -- whatever buffer is in this window in this tab, remove it from the buffers list
+      local thisbuf = vim.fn.winbufnr(win)
+      for i, buf in ipairs(buffers) do
+        if buf == thisbuf then
+          table.remove(buffers, i)
+          break
+        end
+      end
+    end
+  end
+
+  -- do not wipeout unlisted buffers
+  for i = #buffers, 1, -1 do
+    local buf = buffers[i]
+    if vim.fn.getbufvar(buf, "&buflisted") == 0 or not vim.api.nvim_buf_is_valid(buf) then
+      table.remove(buffers, i)
+    end
+  end
+
+  -- delete the remaining buffers
+  for _, buf in ipairs(buffers) do
+    bw(buf)
+  end
+
+  -- go back to the original tab page
+  vim.cmd.tabnext(currentTab)
+  vim.notify(#buffers .. " hidden buffers wiped out")
+end
+
 return {
   -- detect tabstop and shiftwidth automatically
   "tpope/vim-sleuth",
@@ -104,8 +151,14 @@ return {
         end,
         desc = "Delete Buffer",
       },
-      -- stylua: ignore
-      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
+      {
+        "<leader>bD",
+        function()
+          require("mini.bufremove").delete(0, true)
+        end,
+        desc = "Delete Buffer (Force)"
+      },
+      { "<leader>bw", buf_wipeout, desc = "Wipeout hidden buffers" },
     },
   },
 
@@ -114,11 +167,11 @@ return {
     "christoomey/vim-tmux-navigator",
     enabled = vim.fn.executable("tmux") == 1,
     keys = {
-      { "<M-h>", ":TmuxNavigateLeft<cr>",      silent = true },
-      { "<M-j>", ":TmuxNavigateDown<cr>",      silent = true },
-      { "<M-k>", ":TmuxNavigateUp<cr>",        silent = true },
-      { "<M-l>", ":TmuxNavigateRight<cr>",     silent = true },
-      { "<M-;>", ":TmuxNavigatePrevious<cr>",  silent = true },
+      { "<M-h>", ":TmuxNavigateLeft<cr>",     silent = true },
+      { "<M-j>", ":TmuxNavigateDown<cr>",     silent = true },
+      { "<M-k>", ":TmuxNavigateUp<cr>",       silent = true },
+      { "<M-l>", ":TmuxNavigateRight<cr>",    silent = true },
+      { "<M-;>", ":TmuxNavigatePrevious<cr>", silent = true },
     },
     init = function()
       -- write all buffers before navigating from Vim to tmux pane
