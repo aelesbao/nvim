@@ -1,39 +1,39 @@
-
 local has_words_before = function()
   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+  return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
 
--- Here is where you configure the autocompletion settings.
-local lsp_zero = require("lsp-zero")
-lsp_zero.extend_cmp()
-
--- And you can configure cmp even more, if you want to.
--- local cmp_action = lsp_zero.cmp_action()
-
-local luasnip = require("luasnip")
 local cmp = require("cmp")
+local luasnip = require("luasnip")
+local lspkind = require("lspkind")
 
-require("copilot").setup({
-  suggestion = { enabled = false },
-  panel = { enabled = false },
-})
-
----@diagnostic disable-next-line: missing-fields
 cmp.setup({
-  formatting = lsp_zero.cmp_format(),
+  formatting = {
+    expandable_indicator = true,
+    fields = { "abbr", "kind", "menu" },
+    format = lspkind.cmp_format({
+      mode = "symbol_text",
+      max_width = 50,
+      symbol_map = {
+        Copilot = ""
+      }
+    }),
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
   },
-  ---@diagnostic disable-next-line: missing-fields
   completion = {
-    completeopt = "menu,menuone,noinsert",
+    completeopt = "menu,menuone,noinsert,noselect",
   },
   mapping = cmp.mapping.preset.insert({
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete({}),
     ["<CR>"] = cmp.mapping.confirm({
@@ -46,15 +46,14 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Replace,
       select = false,
     }),
-    -- ["<Tab>"] = vim.schedule_wrap(function(fallback)
-    --   if cmp.visible() and has_words_before() then
-    --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-    --   elseif luasnip.expand_or_locally_jumpable() then
-    --     luasnip.expand_or_jump()
-    --   else
-    --     fallback()
-    --   end
-    -- end),
+    ["<PageUp>"] = cmp.mapping.select_prev_item({
+      behavior = cmp.SelectBehavior.Select,
+      count = 4,
+    }),
+    ["<PageDown>"] = cmp.mapping.select_next_item({
+      behavior = cmp.SelectBehavior.Select,
+      count = 4,
+    }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() and has_words_before() then
         cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
@@ -66,7 +65,7 @@ cmp.setup({
     end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item()
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
       elseif luasnip.locally_jumpable(-1) then
         luasnip.jump(-1)
       else
@@ -75,38 +74,69 @@ cmp.setup({
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
-    -- First index sources
-    { name = "crates" },
-    { name = "luasnip" },
     { name = "nvim_lsp" },
-    { name = "nvim_lua" },
-    { name = "path" },
-    { name = "treesitter" },
-    { name = "copilot" },
-    { name = "emoji" },
+    { name = "luasnip" },
+    {
+      name = "copilot",
+      keyword_length = 3,
+      max_item_count = 3,
+    },
   }, {
-    -- Second index sources
+    { name = "path" },
+    { name = "nvim_lua" },
     { name = "buffer" },
-    { name = "tmux" },
+    { name = "crates" },
   }),
-  cmdline = {
-    enable = true,
-    options = {
-      {
-        type = ":",
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "path" },
-          { name = "cmdline" },
-        },
-      },
-      {
-        type = { "/", "?" },
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer" },
-        },
-      },
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      require("copilot_cmp.comparators").prioritize,
+
+      -- Below is the default comparitor list and order for nvim-cmp
+      cmp.config.compare.offset,
+      -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
+      cmp.config.compare.locality,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
     },
   },
+  experimental = {
+    ghost_text = false,
+  },
 })
+
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    {
+      name = 'cmdline',
+      option = {
+        ignore_cmds = { 'Man', '!' }
+      }
+    }
+  }),
+})
+
+cmp.setup.cmdline({ "/", "?" }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" },
+  },
+})
+
+cmp.event:on("menu_opened", function()
+  ---@diagnostic disable-next-line: inject-field
+  vim.b.copilot_suggestion_hidden = true
+end)
+
+cmp.event:on("menu_closed", function()
+  ---@diagnostic disable-next-line: inject-field
+  vim.b.copilot_suggestion_hidden = false
+end)

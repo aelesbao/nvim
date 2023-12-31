@@ -19,8 +19,10 @@ return {
       "rafamadriz/friendly-snippets",
 
       -- Add Lua GitHub copilot as a completion source
-      "zbirenbaum/copilot.lua",
       "zbirenbaum/copilot-cmp",
+
+      -- vscode-like pictograms for neovim lsp completion items
+      "onsails/lspkind.nvim",
     },
     config = function()
       require("plugins.cmp.config")
@@ -57,11 +59,29 @@ return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
+    ---@type copilot_config
     opts = {
+      panel = { enabled = false },
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        debounce = 75,
+        keymap = {
+          accept = "<Tab>",
+          accept_word = false,
+          accept_line = false,
+          next = "<M-]>",
+          prev = "<M-[>",
+          dismiss = "<C-e>",
+        },
+      },
       filetypes = {
         yaml = true,
         plaintext = false,
-      }
+      },
     },
+    config = function(_, opts)
+      require("copilot").setup(opts)
+    end,
   },
 }
