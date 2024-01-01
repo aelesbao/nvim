@@ -69,7 +69,7 @@ opt.ruler            = true -- show ruler
 opt.number           = true -- show line numbers
 opt.cursorline       = true -- highlights the current line
 opt.laststatus       = 3    -- always display the status line
-opt.colorcolumn      = "80"
+opt.colorcolumn      = "+0"
 
 -- always show the signcolumn, otherwise it would shift the text each time
 opt.signcolumn       = "yes"
