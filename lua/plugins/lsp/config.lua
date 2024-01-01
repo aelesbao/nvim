@@ -11,7 +11,7 @@ local servers = {
   taplo = {},  -- toml
 
   html = {
-    filetypes = { "html", "twig", "hbs" }
+    filetypes = { "html", "twig", "hbs" },
   },
 
   lua_ls = {
@@ -48,7 +48,7 @@ local servers = {
         validate = { enable = true },
       },
     },
-  }
+  },
 }
 
 local lsp_zero = require("lsp-zero")
@@ -76,16 +76,24 @@ lsp_zero.on_attach(function(client, bufnr)
   kset("n", "gI", lsp.implementation, "Implementation")
   kset("n", "gy", lsp.type_definition, "Goto Type definition")
 
-  kset("n", "<leader>sd", function() telescope.lsp_definitions({ reuse_win = true }) end, "Goto Definition")
+  kset("n", "<leader>sd", function()
+    telescope.lsp_definitions({ reuse_win = true })
+  end, "Goto Definition")
   kset("n", "<leader>sr", telescope.lsp_references, "References")
-  kset("n", "<leader>sI", function() telescope.lsp_implementations({ reuse_win = true }) end, "Goto Implementation")
-  kset("n", "<leader>sy", function() telescope.lsp_type_definitions({ reuse_win = true }) end, "Goto Type Definition")
+  kset("n", "<leader>sI", function()
+    telescope.lsp_implementations({ reuse_win = true })
+  end, "Goto Implementation")
+  kset("n", "<leader>sy", function()
+    telescope.lsp_type_definitions({ reuse_win = true })
+  end, "Goto Type Definition")
 
   kset({ "n", "v" }, "<leader>ca", lsp.code_action, "Code action")
   kset({ "n", "i" }, "<C-CR>", lsp.code_action, "Code action")
   kset("n", "<leader>cr", lsp.rename, "Rename")
   kset("n", "<S-F6>", lsp.rename, "Rename")
-  kset({ "n", "x" }, "<leader>cf", function() lsp.format({ async = false }) end, "Format code")
+  kset({ "n", "x" }, "<leader>cf", function()
+    lsp.format({ async = false })
+  end, "Format code")
 
   kset("n", "gl", diagnostic.open_float, "Show diagnostic in a floating window")
   kset("n", "[d", diagnostic.goto_next, "Next diagnostic")
@@ -108,7 +116,7 @@ require("mason-lspconfig").setup({
   ensure_installed = vim.tbl_keys(servers),
   handlers = {
     lsp_zero.default_setup,
-  }
+  },
 })
 
 -- dinamically install servers with lsp-zero

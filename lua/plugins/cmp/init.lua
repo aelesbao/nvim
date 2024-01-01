@@ -6,27 +6,32 @@ return {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
-      -- snippet Engine & its associated nvim-cmp source
+      -- extend nvim-cmp with additional sources
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
 
-      -- adds a number of user-friendly snippets
+      -- snippet engine & its associated nvim-cmp source
       "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      -- adds a number of user-friendly snippets
       "rafamadriz/friendly-snippets",
 
       -- Add Lua GitHub copilot as a completion source
       "zbirenbaum/copilot-cmp",
 
       -- vscode-like pictograms for neovim lsp completion items
+      "hrsh7th/cmp-nvim-lsp",
       "onsails/lspkind.nvim",
+
+      -- convetional commits
+      "davidsierradz/cmp-conventionalcommits",
+
+      "hrsh7th/cmp-nvim-lua",
     },
     config = function()
       require("plugins.cmp.config")
-    end
+    end,
   },
 
   {
@@ -41,7 +46,7 @@ return {
       require("luasnip.loaders.from_lua").load()
 
       luasnip.config.setup(opts)
-    end
+    end,
   },
 
   -- adds LSP completion capabilities
@@ -51,7 +56,7 @@ return {
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-    end
+    end,
   },
 
   -- GitHub copilot in Lua
@@ -80,8 +85,5 @@ return {
         plaintext = false,
       },
     },
-    config = function(_, opts)
-      require("copilot").setup(opts)
-    end,
   },
 }
