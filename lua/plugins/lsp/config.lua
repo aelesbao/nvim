@@ -8,7 +8,7 @@
 --  define the property "filetypes" to the map in question.
 local servers = {
   bashls = {}, -- bash/sh
-  taplo = {},  -- toml
+  taplo = {}, -- toml
 
   html = {
     filetypes = { "html", "twig", "hbs" },
@@ -110,11 +110,15 @@ require("mason-lspconfig").setup({
   },
 })
 
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
 -- dinamically install servers with lsp-zero
 local lspconfig = require("lspconfig")
 for server, config in pairs(servers) do
   lspconfig[server].setup(vim.tbl_deep_extend("force", {
     on_attach = lsp_zero.on_attach,
-    capabilities = lsp_zero.capabilities,
+    capabilities = capabilities,
   }, config))
 end
