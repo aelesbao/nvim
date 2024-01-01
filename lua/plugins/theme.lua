@@ -14,6 +14,7 @@ return {
         percentage = 0.25,           -- percentage of the shade to apply to the inactive window
       },
       integrations = {
+        alpha = true,
         cmp = true,
         bufferline = true,
         dashboard = true,
@@ -54,7 +55,7 @@ return {
       },
     },
     config = function(_, opts)
-      vim.cmd.colorscheme "catppuccin-macchiato"
+      vim.cmd.colorscheme("catppuccin-macchiato")
       require("catppuccin").setup(opts)
     end,
   },
@@ -64,7 +65,7 @@ return {
     "xiyaowong/transparent.nvim",
     lazy = false, -- make sure we load this during startup
     dependencies = {
-      { "catppuccin/nvim", name = "catppuccin", }
+      { "catppuccin/nvim", name = "catppuccin" },
     },
-  }
+  },
 }
