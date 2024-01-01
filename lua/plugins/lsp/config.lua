@@ -70,39 +70,30 @@ lsp_zero.on_attach(function(client, bufnr)
   kset("n", "gK", lsp.signature_help, "Signature help")
   kset({ "n", "i", "x" }, "<C-k>", lsp.signature_help, "Signature help")
 
-  kset("n", "gD", lsp.declaration, "Goto Declaration")
-  kset("n", "gd", lsp.definition, "Goto Definition")
-  kset("n", "gr", lsp.references, "References")
-  kset("n", "gI", lsp.implementation, "Implementation")
-  kset("n", "gy", lsp.type_definition, "Goto Type definition")
+  kset("n", "gD", function() lsp.declaration({ reuse_win = true }) end, "Goto Declaration")
+  kset("n", "gd", function() lsp.definition({ reuse_win = true }) end, "Goto Definition")
+  kset("n", "gr", function() lsp.references({ reuse_win = true }) end, "References")
+  kset("n", "gI", function() lsp.implementation({ reuse_win = true }) end, "Implementation")
+  kset("n", "gy", function() lsp.type_definition({ reuse_win = true }) end, "Goto Type definition")
 
-  kset("n", "<leader>sd", function()
-    telescope.lsp_definitions({ reuse_win = true })
-  end, "Goto Definition")
+  kset("n", "<leader>sd", function() telescope.lsp_definitions({ reuse_win = true }) end, "Goto Definition")
   kset("n", "<leader>sr", telescope.lsp_references, "References")
-  kset("n", "<leader>sI", function()
-    telescope.lsp_implementations({ reuse_win = true })
-  end, "Goto Implementation")
-  kset("n", "<leader>sy", function()
-    telescope.lsp_type_definitions({ reuse_win = true })
-  end, "Goto Type Definition")
+  kset("n", "<leader>sI", function() telescope.lsp_implementations({ reuse_win = true }) end, "Goto Implementation")
+  kset("n", "<leader>sy", function() telescope.lsp_type_definitions({ reuse_win = true }) end, "Goto Type Definition")
 
   kset({ "n", "v" }, "<leader>ca", lsp.code_action, "Code action")
   kset({ "n", "i" }, "<C-CR>", lsp.code_action, "Code action")
   kset("n", "<leader>cr", lsp.rename, "Rename")
   kset("n", "<S-F6>", lsp.rename, "Rename")
-  kset({ "n", "x" }, "<leader>cf", function()
-    lsp.format({ async = false })
-  end, "Format code")
+  kset({ "n", "x" }, "<leader>cf", function() lsp.format({ async = false }) end, "Format code")
 
   kset("n", "gl", diagnostic.open_float, "Show diagnostic in a floating window")
   kset("n", "[d", diagnostic.goto_next, "Next diagnostic")
   kset("n", "]d", diagnostic.goto_prev, "Previous diagnostic")
 
-  lsp_zero.buffer_autoformat({}, bufnr, {
-    async = false,
-    timeout_ms = 3000,
-  })
+  if client.server_capabilities.documentFormattingProvider then
+    lsp_zero.buffer_autoformat({}, bufnr, { async = false, timeout_ms = 3000 })
+  end
 
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
