@@ -83,9 +83,7 @@ cmp.setup({
     },
   }, {
     { name = "path" },
-    { name = "nvim_lua" },
     { name = "buffer" },
-    { name = "crates" },
   }),
   sorting = {
     priority_weight = 2,

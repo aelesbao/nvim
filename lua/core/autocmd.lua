@@ -69,18 +69,15 @@ autocmd("FileType", {
   end,
 })
 
-local line_lengths = {
-  gitcommit = 72,
-  markdown  = 80
-}
-
 autocmd("FileType", {
   desc = "wrap and check for spell in text filetypes",
   group = augroup("wrap_width_spell"),
-  pattern = vim.tbl_keys(line_lengths),
+  pattern = {
+    "gitcommit",
+    "markdown",
+  },
   callback = function()
     vim.opt_local.wrap  = true
     vim.opt_local.spell = true
-    vim.opt_local.textwidth = line_lengths[vim.opt.filetype]
   end,
 })
