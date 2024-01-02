@@ -1,3 +1,5 @@
+local lsp_util = require("plugins.lsp.util")
+
 return {
   {
     "simrat39/rust-tools.nvim",
@@ -49,13 +51,11 @@ return {
             },
           },
           on_attach = function(_, bufnr)
-            -- Hover actions
-            vim.keymap.set("n", "<leader>ch", rt.hover_actions.hover_actions, { buffer = bufnr, desc = "Hover actions" })
-            -- Code action groups
-            vim.keymap.set("n", "<leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr, desc = "Code actions" })
+            lsp_util.buf_kset(bufnr, "n", "<leader>ch", rt.hover_actions.hover_actions, "Hover actions")
+            lsp_util.buf_kset(bufnr, "n", "<leader>ca", rt.code_action_group.code_action_group, "Code actions")
 
-            vim.keymap.set('n', '<Leader>cb', ':! cargo build<CR>')
-            vim.keymap.set('n', '<Leader>ct', ':! cargo test<CR>')
+            lsp_util.buf_kset(bufnr, "n", "<leader>cb", ":! cargo build<cr>", "Build")
+            lsp_util.buf_kset(bufnr, "n", "<leader>ct", ":! cargo nextest run<cr>", "Run tests")
           end,
         },
       })
