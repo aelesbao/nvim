@@ -8,7 +8,7 @@
 --  define the property "filetypes" to the map in question.
 local servers = {
   bashls = {}, -- bash/sh
-  taplo = {}, -- toml
+  taplo = {},  -- toml
 
   html = {
     filetypes = { "html", "twig", "hbs" },
@@ -97,6 +97,17 @@ lsp_zero.on_attach(function(client, bufnr)
 
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
+  end
+
+  if client.server_capabilities.codeLensProvider then
+    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+      desc = "Automatically refresh code lens",
+      buffer = bufnr,
+      group = vim.api.nvim_create_augroup("buffer_codelens", { clear = true }),
+      callback = function() vim.lsp.codelens.refresh() end,
+    })
+
+    kset("n", "<leader>cl", vim.lsp.codelens.run, "Run code lens")
   end
 end)
 
