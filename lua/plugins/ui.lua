@@ -145,14 +145,17 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     keys = {
-      { "<leader>xx", ":TroubleToggle<cr>", desc = "Show diagnostics" },
+      { "<leader>xx", ":TroubleToggle<cr>",                       desc = "Show diagnostics" },
       { "<leader>xw", ":TroubleToggle workspace_diagnostics<cr>", desc = "Show workspace diagnostics" },
-      { "<leader>xd", ":TroubleToggle document_diagnostics<cr>", desc = "Show document diagnostics" },
-      { "<leader>xq", ":TroubleToggle quickfix<cr>", desc = "Show quickfix" },
-      { "<leader>xl", ":TroubleToggle loclist<cr>", desc = "Show location list" },
-      { "gR", ":TroubleToggle lsp_references<cr>", desc = "References" },
+      { "<leader>xd", ":TroubleToggle document_diagnostics<cr>",  desc = "Show document diagnostics" },
+      { "<leader>xq", ":TroubleToggle quickfix<cr>",              desc = "Show quickfix" },
+      { "<leader>xl", ":TroubleToggle loclist<cr>",               desc = "Show location list" },
     },
-    opts = {},
+    opts = {
+      icons = true,
+      auto_close = true,           -- automatically close the list when you have no diagnostics
+      use_diagnostic_signs = true, -- enabling this will use the signs defined in your lsp client
+    },
   },
 
   -- fancy-looking tabs with filetype icons and close buttons
