@@ -60,7 +60,7 @@ local navic = require("nvim-navic")
 lsp_zero.on_attach(function(client, bufnr)
   lsp_util.setup_mappings(bufnr)
   lsp_util.setup_code_lens(client, bufnr)
-  lsp_util.buffer_autoformat(client, bufnr, { timeout_ms = 3000 })
+  lsp_util.buffer_autoformat(client, bufnr)
 
   -- if client.server_capabilities.documentFormattingProvider then
   --   lsp_zero.buffer_autoformat({}, bufnr, { timeout_ms = 3000 })
@@ -70,6 +70,13 @@ lsp_zero.on_attach(function(client, bufnr)
     navic.attach(client, bufnr)
   end
 end)
+
+lsp_zero.set_sign_icons({
+  hint = "󰌵",
+  info = "",
+  warn = "",
+  error = "",
+})
 
 -- see :help lsp-zero-guide:integrate-with-mason-nvim
 -- to learn how to use mason.nvim with lsp-zero
