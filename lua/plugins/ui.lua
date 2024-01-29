@@ -44,7 +44,17 @@ return {
       indent = {
         char = "┆",
       },
+      scope = {
+        show_start = true,
+        show_end = false,
+      },
     },
+    config = function(_, opts)
+      require("ibl").setup(opts)
+
+      local theme = require("catppuccin.palettes").get_palette()
+      vim.api.nvim_set_hl(0, "@ibl.scope.underline.1", { sp = theme.overlay1, underline = true })
+    end
   },
 
   -- git signs highlights text that has changed since the list
