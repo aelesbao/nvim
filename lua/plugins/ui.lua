@@ -393,4 +393,61 @@ return {
       default_prompt = ">",
     },
   },
+
+  -- dims inactive portions of the code you're editing using TreeSitter
+  {
+    "folke/twilight.nvim",
+    opts = function()
+      local theme = require("catppuccin.palettes").get_palette()
+      return {
+        dimming = {
+          alpha = 0.25, -- amount of dimming
+          -- we try to get the foreground from the highlight groups or fallback color
+          color = { "Normal", theme.text },
+          term_bg = theme.mantle, -- if guibg=NONE, this will be used to calculate text color
+          inactive = true,        -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+        },
+        context = 50,             -- amount of lines we will try to show around the current line
+      }
+    end,
+  },
+
+  -- distraction-free coding
+  {
+    "folke/zen-mode.nvim",
+    keys = {
+      { "<leader>zz", ":ZenMode<CR>", desc = "Zen mode" },
+    },
+    opts = {
+      window = {
+        options = {
+          -- signcolumn = "no", -- disable signcolumn
+          number = true, -- enable number column
+          -- relativenumber = false, -- disable relative numbers
+          -- cursorline = false, -- disable cursorline
+          -- cursorcolumn = false, -- disable cursor column
+          -- foldcolumn = "0", -- disable fold column
+          -- list = false, -- disable whitespace characters
+        },
+      },
+      plugins = {
+        tmux = { enabled = true },
+        -- this will change the font size on kitty when in zen mode
+        -- to make this work, you need to set the following kitty options:
+        -- - allow_remote_control socket-only
+        -- - listen_on unix:/tmp/kitty
+        kitty = {
+          enabled = true,
+          font = "+4", -- font size increment
+        },
+        -- this will change the font size on alacritty when in zen mode
+        -- requires  Alacritty Version 0.10.0 or higher
+        -- uses `alacritty msg` subcommand to change font size
+        alacritty = {
+          enabled = true,
+          font = "14", -- font size
+        },
+      }
+    },
+  },
 }
