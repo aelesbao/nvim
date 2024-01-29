@@ -6,12 +6,12 @@ return {
     priority = 1000, -- make sure to load this before all the other start plugins
     ---@type CatppuccinOptions
     opts = {
-      flavour = "macchiato",         -- latte, frappe, macchiato, mocha
+      flavour = "mocha",              -- latte, frappe, macchiato, mocha
       transparent_background = true, -- disables setting the background color.
       dim_inactive = {
-        enabled = true,              -- dims the background color of inactive window
+        enabled = true,               -- dims the background color of inactive window
         shade = "dark",
-        percentage = 0.25,           -- percentage of the shade to apply to the inactive window
+        percentage = 0.25,            -- percentage of the shade to apply to the inactive window
       },
       integrations = {
         alpha = true,
@@ -36,9 +36,6 @@ return {
             warnings = { "undercurl" },
             information = { "undercurl" },
           },
-          inlay_hints = {
-            background = true,
-          },
         },
         navic = {
           enabled = true,
@@ -55,7 +52,8 @@ return {
       },
     },
     config = function(_, opts)
-      vim.cmd.colorscheme("catppuccin-macchiato")
+      vim.g.catppuccin_debug = true
+      vim.cmd.colorscheme("catppuccin-" .. opts.flavour)
       require("catppuccin").setup(opts)
     end,
   },
