@@ -1,3 +1,14 @@
+---@param colors CtpColors<string>
+local function build_level_colors(colors)
+  return {
+    ok = colors.green,
+    hint = colors.teal,
+    info = colors.sky,
+    warn = colors.yellow,
+    error = colors.red,
+  }
+end
+
 return {
   {
     "catppuccin/nvim",
@@ -50,11 +61,38 @@ return {
         window_picker = true,
         which_key = true,
       },
+      highlight_overrides = {
+        all = function(colors)
+          local level_colors = build_level_colors(colors)
+          return {
+            DiagnosticOk = { fg = level_colors.ok, style = { "italic" } },
+            DiagnosticHint = { fg = level_colors.hint, style = { "italic" } },
+            DiagnosticInfo = { fg = level_colors.info, style = { "italic" } },
+            DiagnosticWarn = { fg = level_colors.warn, style = { "italic" } },
+            DiagnosticError = { fg = level_colors.error, style = { "italic" } },
+          }
+        end
+      }
     },
     config = function(_, opts)
       vim.g.catppuccin_debug = true
       vim.cmd.colorscheme("catppuccin-" .. opts.flavour)
       require("catppuccin").setup(opts)
+
+      local colors = require("catppuccin.palettes").get_palette()
+      local level_colors = build_level_colors(colors)
+
+      -- TODO: fix highlight overrides
+      local h = vim.api.nvim_set_hl
+      h(0, "DiagnosticUnderlineOk", { undercurl = true, sp = level_colors.ok })
+      h(0, "DiagnosticUnderlineHint", { undercurl = true, sp = level_colors.hint })
+      h(0, "DiagnosticUnderlineInfo", { undercurl = true, sp = level_colors.info })
+      h(0, "DiagnosticUnderlineWarn", { undercurl = true, sp = level_colors.warn })
+      h(0, "DiagnosticUnderlineError", { undercurl = true, sp = level_colors.error })
+      h(0, "LspDiagnosticsUnderlineHint", { undercurl = true, sp = level_colors.hint })
+      h(0, "LspDiagnosticsUnderlineInformation", { undercurl = true, sp = level_colors.info })
+      h(0, "LspDiagnosticsUnderlineWarning", { undercurl = true, sp = level_colors.warn })
+      h(0, "LspDiagnosticsUnderlineError", { undercurl = true, sp = level_colors.error })
     end,
   },
 
