@@ -84,10 +84,10 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<C-Up>",
-          node_incremental = "<C-Up>",
-          scope_incremental = "<C-S-Up>",
-          node_decremental = "<C-Down>",
+          init_selection = "<M-Up>",
+          node_incremental = "<M-Up>",
+          scope_incremental = "<M-S-Up>",
+          node_decremental = "<M-Down>",
         },
       },
 
@@ -103,6 +103,10 @@ return {
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
+
+      vim.opt.foldmethod = "expr"
+      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.opt.foldenable = false
     end,
   },
 
