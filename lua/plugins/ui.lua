@@ -322,6 +322,7 @@ return {
     },
     opts = {
       highlight = true,
+      click = true,
       separator = " › ",
       -- VScode-like icons
       icons = {
@@ -353,6 +354,18 @@ return {
         TypeParameter = " ",
       },
     },
+    config = function(_, opts)
+      require("nvim-navic").setup(opts)
+
+      vim.api.nvim_create_autocmd("BufEnter", {
+        callback = function()
+          if vim.api.nvim_buf_line_count(0) > 1000 then
+            ---@diagnostic disable-next-line: inject-field
+            vim.b.navic_lazy_update_context = true
+          end
+        end,
+      })
+    end,
   },
 
   -- notification pop-ups
