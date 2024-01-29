@@ -4,7 +4,23 @@ end
 
 local autocmd = vim.api.nvim_create_autocmd
 
-autocmd({ "VimResized" }, {
+local cursorline_group = augroup("cursorline")
+autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, {
+  desc = "enable cursor line highlight for the current window",
+  group = cursorline_group,
+  callback = function()
+    vim.wo.cursorline = true
+  end,
+})
+autocmd("WinLeave", {
+  desc = "disable cursor line highlight when leaving the window",
+  group = cursorline_group,
+  callback = function()
+    vim.wo.cursorline = false
+  end,
+})
+
+autocmd("VimResized", {
   desc = "resize splits if window got resized",
   group = augroup("resize_splits"),
   callback = function()
@@ -14,7 +30,7 @@ autocmd({ "VimResized" }, {
   end,
 })
 
-autocmd({ "BufWritePre" }, {
+autocmd("BufWritePre", {
   desc = "auto create dir when saving a file, in case some intermediate directory does not exist",
   group = augroup("auto_create_dir"),
   callback = function(event)

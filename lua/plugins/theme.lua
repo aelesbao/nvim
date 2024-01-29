@@ -67,5 +67,10 @@ return {
     dependencies = {
       { "catppuccin/nvim", name = "catppuccin" },
     },
+    opts = {
+      exclude_groups = {
+        "CursorLine",
+      },
+    },
   },
 }

@@ -63,7 +63,7 @@ opt.fileencoding     = "utf-8" -- sets the default file encoding
 opt.termguicolors    = true
 
 -- tells Nvim what the inherited Terminal colors are
--- opt.background       = "dark"
+opt.background       = "dark"
 
 opt.ruler            = true -- show ruler
 opt.number           = true -- show line numbers
