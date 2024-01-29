@@ -39,6 +39,11 @@ k.set("n", "<leader>=", "gqip", { desc = "Hard-wrap paragraphs of text" })
 k.set("x", "<leader>p", [["_dP]], { desc = "Paste and keep the current buffer" })
 k.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete and keep the current buffer" })
 
+k.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Copy to clipboard" })
+k.set("n", "<leader>Y", [["+Y]], { desc = "Copy line to clipboard" })
+
+k.set("n", "<M-d>", "Yp", { desc = "Duplicate line" })
+
 -- show/hide hidden chars
 k.set("n", "<F12>", ":set invlist<cr>", { silent = true })
 

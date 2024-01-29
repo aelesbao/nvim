@@ -26,9 +26,6 @@ opt.autoread         = true -- read files modified outside of vim
 -- required to keep multiple buffers and open multiple buffers
 opt.hidden           = true
 
--- allows neovim to access the system clipboard
-opt.clipboard        = "unnamedplus"
-
 -- sends more characters to terminal, improving window redraw
 opt.ttyfast          = true
 
