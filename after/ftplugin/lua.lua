@@ -7,11 +7,7 @@ cmp.setup.buffer({
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "luasnip" },
-    {
-      name = "copilot",
-      keyword_length = 3,
-      max_item_count = 3,
-    },
+    { name = "copilot", },
   }, {
     { name = "path" },
     { name = "buffer" },
