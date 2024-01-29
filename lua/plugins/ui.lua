@@ -166,11 +166,11 @@ return {
       { "catppuccin/nvim", name = "catppuccin", lazy = false },
     },
     keys = {
-      { "<leader>bp", ":BufferLineTogglePin<cr>", desc = "Toggle pin" },
+      { "<leader>bp", ":BufferLineTogglePin<cr>",            desc = "Toggle pin" },
       { "<leader>bP", ":BufferLineGroupClose ungrouped<cr>", desc = "Delete non-pinned tabs" },
-      { "<leader>bo", ":BufferLineCloseOthers<cr>", desc = "Delete other tabs" },
-      { "<M-[>", ":BufferLineCyclePrev<cr>", desc = "Previous tab" },
-      { "<M-]>", ":BufferLineCycleNext<cr>", desc = "Next tab" },
+      { "<leader>bo", ":BufferLineCloseOthers<cr>",          desc = "Delete other tabs" },
+      { "<M-[>",      ":BufferLineCyclePrev<cr>",            desc = "Previous tab" },
+      { "<M-]>",      ":BufferLineCycleNext<cr>",            desc = "Next tab" },
     },
     opts = function()
       local close_cmd = function(n) require("mini.bufremove").delete(n, false) end
@@ -194,7 +194,7 @@ return {
               Info = " ",
             }
             local ret = (diag.error and icons.Error .. diag.error .. " " or "")
-              .. (diag.warning and icons.Warn .. diag.warning or "")
+                .. (diag.warning and icons.Warn .. diag.warning or "")
             return vim.trim(ret)
           end,
           offsets = {
@@ -228,7 +228,7 @@ return {
     },
     event = "VeryLazy",
     opts = function()
-      local theme = require("catppuccin.palettes").get_palette("macchiato")
+      local theme = require("catppuccin.palettes").get_palette()
       return {
         options = {
           theme = "catppuccin",
@@ -247,8 +247,11 @@ return {
         },
         sections = {
           lualine_a = { "mode" },
-          -- lualine_b = {"branch", "diff", "diagnostics"},
-          lualine_b = { { "b:gitsigns_head", icon = "" }, { "diff", source = diff_source }, "diagnostics" },
+          lualine_b = {
+            { "b:gitsigns_head", icon = "" },
+            { "diff", source = diff_source },
+            "diagnostics"
+          },
           lualine_c = { "filename" },
           lualine_x = {
             {
@@ -304,7 +307,6 @@ return {
         extensions = {
           "lazy",
           "mason",
-          "nvim-tree",
           "trouble",
         },
       }
@@ -360,7 +362,7 @@ return {
       { "catppuccin/nvim", name = "catppuccin" },
     },
     opts = function()
-      local theme = require("catppuccin.palettes").get_palette("macchiato")
+      local theme = require("catppuccin.palettes").get_palette()
       return {
         background_colour = theme.crust,
       }
