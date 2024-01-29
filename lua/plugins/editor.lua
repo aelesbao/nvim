@@ -5,6 +5,7 @@ local function buf_wipeout()
 
   -- list of all buffer numbers
   local buffers = {}
+  ---@diagnostic disable-next-line: param-type-mismatch
   for buf = 1, vim.fn.bufnr("$") do
     table.insert(buffers, buf)
   end
@@ -53,6 +54,9 @@ return {
 
   -- pairs of handy bracket mappings
   "tpope/vim-unimpaired",
+
+  -- work with several variants of a word at once
+  "tpope/vim-abolish",
 
   -- autopair that allows custom rules
   {
@@ -127,6 +131,17 @@ return {
   -- illuminates occurrences of a word
   {
     "RRethy/vim-illuminate"
+  },
+
+  -- highlight, list and search todo comments in your projects
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
   },
 
   -- buffer remove
