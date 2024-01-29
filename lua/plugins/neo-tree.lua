@@ -208,19 +208,13 @@ return {
             }
           },
           ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
-          ["d"] = { "trash", nowait = false },
           ["r"] = "rename",
+          ["<S-F6>"] = "rename",
           ["y"] = "copy_to_clipboard",
           ["x"] = "cut_to_clipboard",
           ["p"] = "paste_from_clipboard",
-          ["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":
-          -- ["c"] = {
-          --  "copy",
-          --  config = {
-          --    show_path = "none" -- "none", "relative", "absolute"
-          --  }
-          --}
-          ["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
+          ["c"] = { "copy", config = { show_path = "relative" }, },
+          ["m"] = { "move", config = { show_path = "relative" }, },
           ["q"] = "close_window",
           ["R"] = "refresh",
           ["?"] = "show_help",
@@ -247,7 +241,7 @@ return {
           },
           -- remains visible even if other settings would normally hide it
           always_show = {
-            ".gitignored",
+            ".gitignore",
           },
           -- remains hidden even if visible is toggled to true, this overrides always_show
           never_show = {
@@ -287,6 +281,7 @@ return {
             ["/"] = "fuzzy_finder",
             ["D"] = "fuzzy_finder_directory",
             ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
+            ["d"] = { "trash", nowait = false },
             ["f"] = "filter_on_submit",
             ["<c-l>"] = "clear_filter",
             ["[g"] = "prev_git_modified",
@@ -326,7 +321,7 @@ return {
         show_unloaded = true,
         window = {
           mappings = {
-            ["bd"] = "buffer_delete",
+            ["d"] = "buffer_delete",
             ["<bs>"] = "navigate_up",
             ["o"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
             ["oc"] = { "order_by_created", nowait = false },
