@@ -207,6 +207,15 @@ return {
       auto_restore_enabled = true,
       auto_session_suppress_dirs = { "~/", "/" },
       auto_session_use_git_branch = true,
+      pre_save_cmds = {
+        function()
+          local current_tab = vim.fn.tabpagenr()
+          pcall(vim.cmd.tabdo, "Neotree close")
+          pcall(vim.cmd.tabdo, "TroubleClose")
+          pcall(vim.cmd.tabdo, "UndotreeHide")
+          vim.cmd.tabnext(current_tab)
+        end,
+      },
     },
   },
 }
