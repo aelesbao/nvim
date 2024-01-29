@@ -57,24 +57,19 @@ return {
     cmd = "Telescope",
     keys = {
       -- find
-      { "<C-p>", telescope_smart_find_files, desc = "Find files" },
-      { "<leader>ff", ":Telescope find_files<cr>", desc = "Find files" },
+      { "<C-p>",      telescope_smart_find_files,  desc = "Find file" },
+      { "<leader>ff", ":Telescope find_files<cr>", desc = "Find file" },
       {
-        "<leader>fo",
+        "<leader>fh",
         ":Telescope oldfiles<cr>",
-        desc = "Find in recent files",
-      },
-      {
-        "<leader>fz",
-        ":Telescope current_buffer_fuzzy_find<cr>",
-        desc = "Find in current buffer",
+        desc = "Recently opened files",
       },
       { "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true<cr>", desc = "Find all" },
-      { "<leader>fb", ":Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find buffers" },
-      { "<leader>fg", ":Telescope git_files<cr>", desc = "Find git files" },
+      { "<leader>fb", ":Telescope buffers sort_mru=true sort_lastused=true<cr>",          desc = "Find buffers" },
+      { "<leader>fg", ":Telescope git_files<cr>",                                         desc = "Find git files" },
 
       -- search
-      { "<leader>sg", ":Telescope live_grep<cr>", desc = "Live grep" },
+      { "<leader>sg", ":Telescope live_grep<cr>",                                         desc = "Live grep" },
       {
         "<leader>sG",
         telescope_live_grep_git_root,
@@ -85,14 +80,16 @@ return {
         telescope_live_grep_open_files,
         desc = "Live grep on open files",
       },
-      { "<leader>sh", ":Telescope help_tags<cr>", desc = "Help tags" },
-      { "<leader>sm", ":Telescope marks<cr>", desc = "Jump to mark" },
-      { "<leader>sn", ":Telescope notify<cr>", desc = "Notifications" },
-      { "<leader>sk", ":Telescope keymaps<cr>", desc = "Keymaps" },
+      { "<leader>sh", ":Telescope help_tags<cr>",                 desc = "Help tags" },
+      { "<leader>sH", ":Telescope highlights<cr>",                desc = "Highlights" },
+      { "<leader>sm", ":Telescope marks<cr>",                     desc = "Jump to mark" },
+      { "<leader>sn", ":Telescope notify<cr>",                    desc = "Notifications" },
+      { "<leader>sk", ":Telescope keymaps<cr>",                   desc = "Keymaps" },
+      { "<leader>sz", ":Telescope current_buffer_fuzzy_find<cr>", desc = "Find in current buffer", },
 
       -- git
-      { "<leader>gc", ":Telescope git_commits<cr>", desc = "Git commits" },
-      { "<leader>gs", ":Telescope git_status<cr>", desc = "Git status" },
+      { "<leader>gc", ":Telescope git_commits<cr>",               desc = "Git commits" },
+      { "<leader>gs", ":Telescope git_status<cr>",                desc = "Git status" },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -107,7 +104,7 @@ return {
           color_devicons = true,
           vimgrep_arguments = {
             "rg",
-            "--color=never",
+            -- "--color=never",
             "--no-heading",
             "--with-filename",
             "--line-number",
@@ -119,19 +116,19 @@ return {
           set_env = { ["COLORTERM"] = "truecolor" },
           mappings = {
             i = {
-              ["<C-M-t>"] = trouble.open_with_trouble,
+              ["<C-S-Q>"] = trouble.open_with_trouble,
             },
             n = {
-              ["<C-M-t>"] = trouble.open_with_trouble,
+              ["<C-S-Q>"] = trouble.open_with_trouble,
             },
           },
         },
         extensions = {
           fzf = {
-            fuzzy = true, -- false will only do exact matching
+            fuzzy = true,                   -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true, -- override the file sorter
-            case_mode = "smart_case", -- "smart_case" or "ignore_case" or "respect_case"
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- "smart_case" or "ignore_case" or "respect_case"
           },
         },
       }
