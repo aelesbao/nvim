@@ -20,7 +20,7 @@ opt.writebackup      = false
 -- interval for writing swap file to disk, also used by gitsigns
 opt.updatetime       = 250
 
-opt.autowrite        = true -- enable auto write
+opt.autowriteall     = true -- enable auto write
 opt.autoread         = true -- read files modified outside of vim
 
 -- required to keep multiple buffers and open multiple buffers
@@ -86,7 +86,7 @@ opt.wildmenu         = true
 opt.wildmode         = "longest,list"
 
 -- set completeopt to have a better completion experience
-opt.completeopt      = "menuone,noselect"
+opt.completeopt      = "menu,menuone,noinsert,noselect"
 
 -- display unprintable characters by default
 opt.list             = true
@@ -115,7 +115,7 @@ opt.splitright       = true     -- put new windows right of current
 opt.splitkeep        = "screen" -- keep the cursor on the same screen line
 
 -- Match and search
-opt.hlsearch         = false     -- highlight search
+opt.hlsearch         = true      -- highlight search
 opt.ignorecase       = true      -- do case in sensitive matching with
 opt.smartcase        = true      -- be sensitive when there's a capital letter
 opt.incsearch        = true      -- highlight matches as you type
@@ -129,3 +129,6 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,localoptions,tabpages,termina
 if vim.fn.executable("rg") then
   opt.grepprg = "rg --vimgrep"
 end
+
+-- Make sure EditorConfig integration is loaded
+vim.g.editorconfig = true
