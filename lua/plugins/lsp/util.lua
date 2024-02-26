@@ -17,27 +17,32 @@ function M.setup_mappings(bufnr)
 
   local lsp = vim.lsp.buf
   local diagnostic = vim.diagnostic
+  local telescope = require("telescope.builtin")
+  -- local trouble = require("trouble")
 
   kset("n", "K", lsp.hover, "Hover")
   kset("n", "gK", lsp.signature_help, "Signature help")
   kset({ "n", "i", "x" }, "<C-k>", lsp.signature_help, "Signature help")
 
+  -- kset("n", "gd", function() trouble.open({ mode = "lsp_definitions" }) end, "Definition")
+  kset("n", "gd", function() telescope.lsp_definitions({ reuse_win = true }) end, "Definition")
   kset("n", "gD", function() lsp.declaration({ reuse_win = true }) end, "Declaration")
-  kset("n", "gd", function()
-    vim.cmd.vsplit()
-    lsp.definition({ reuse_win = true })
-  end, "Definition")
-  kset("n", "gr", function() lsp.references() end, "References")
+  -- kset("n", "gr", function() trouble.open({ mode = "lsp_references" }) end, "References")
+  kset("n", "gr", function() telescope.lsp_references({ jump_type = "vsplit" }) end, "References")
+  kset("n", "gR", function() lsp.references() end, "References")
   kset("n", "gI", function() lsp.implementation({ reuse_win = true }) end, "Implementation")
   kset("n", "gy", function() lsp.type_definition({ reuse_win = true }) end, "Type definition")
+  kset("n", "gi", function()
+    telescope.lsp_implementations({ jump_type = "vsplit", reuse_win = true })
+  end, "Implementation")
 
   kset({ "n" }, "<leader>ca", lsp.code_action, "Code action")
   kset({ "n", "i" }, "<M-CR>", lsp.code_action, "Code action")
 
   if vim.lsp.buf.range_code_action then
-    kset("x", "<M-CR>", vim.lsp.buf.range_code_action)
+    kset("x", "<M-CR>", lsp.range_code_action)
   else
-    kset("x", "<M-CR>", vim.lsp.buf.code_action)
+    kset("x", "<M-CR>", lsp.code_action)
   end
 
   kset("n", "<leader>cr", lsp.rename, "Rename")
