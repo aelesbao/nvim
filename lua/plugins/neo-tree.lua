@@ -176,7 +176,7 @@ return {
       },
       window = {
         position = "left",
-        width = 40,
+        width = 30,
         mapping_options = {
           noremap = true,
           nowait = true,
@@ -189,10 +189,10 @@ return {
           ["<esc>"] = "cancel", -- close preview or floating neo-tree window
           ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
           ["l"] = "focus_preview",
-          ["S"] = "split_with_window_picker",
-          ["<C-x>"] = "open_split",
-          ["s"] = "vsplit_with_window_picker",
-          ["<C-v>"] = "open_vsplit",
+          ["S"] = "open_split",
+          ["<C-x>"] = "split_with_window_picker",
+          ["s"] = "open_vsplit",
+          ["<C-v>"] = "vsplit_with_window_picker",
           ["t"] = "open_tabnew",
           ["<C-t>"] = "open_tab_drop",
           ["w"] = "open_with_window_picker",
