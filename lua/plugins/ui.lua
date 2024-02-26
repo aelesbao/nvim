@@ -64,6 +64,7 @@ return {
     "lewis6991/gitsigns.nvim",
     opts = {
       signcolumn = true,
+      trouble = true,
       yadm = {
         enable = true,
       },
@@ -445,7 +446,7 @@ return {
         -- uses `alacritty msg` subcommand to change font size
         alacritty = {
           enabled = true,
-          font = "14", -- font size
+          font = "16", -- font size
         },
       }
     },
