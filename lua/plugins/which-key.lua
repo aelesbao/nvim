@@ -14,6 +14,9 @@ return {
           ["~"] = "Toggle case",
           ["u"] = "Lower case",
           ["U"] = "Upper case",
+          ["x"] = {
+            name = "+trouble"
+          }
         },
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
