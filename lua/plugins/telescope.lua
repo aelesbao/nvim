@@ -89,6 +89,7 @@ return {
 
       -- git
       { "<leader>gc", ":Telescope git_commits<cr>",               desc = "Git commits" },
+      { "<leader>gb", ":Telescope git_bcommits<cr>",              desc = "Git commits in current buffer" },
       { "<leader>gs", ":Telescope git_status<cr>",                desc = "Git status" },
     },
     dependencies = {
