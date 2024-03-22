@@ -69,7 +69,7 @@ function M.setup_mappings(bufnr)
   kset("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "Add folder to workspace")
   kset("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove folder from workspace")
   kset("n", "<leader>wl", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, "List workspace folders")
 end
 

@@ -58,6 +58,9 @@ return {
   -- work with several variants of a word at once
   "tpope/vim-abolish",
 
+  -- easily interact with tmux from vim
+  "preservim/vimux",
+
   -- autopair that allows custom rules
   {
     "windwp/nvim-autopairs",
