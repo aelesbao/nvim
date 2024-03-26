@@ -1,75 +1,115 @@
-local lsp_util = require("plugins.lsp.util")
-
 return {
-  {
-    "simrat39/rust-tools.nvim",
-    config = function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-      local rt = require("rust-tools")
-      rt.setup({
-        server = {
-          server = {
-            settings = {
-              capabilities = capabilities,
-              standalone = true,
-
-              ["rust-analyzer"] = {
-                assist = {
-                  importEnforceGranularity = true,
-                  importPrefix = "crate",
-                },
-                cargo = {
-                  allFeatures = true,
-                },
-                checkOnSave = {
-                  command = "clippy",
-                },
-                -- inlayhints = {
-                --   bindingModeHints = {
-                --     enable = true,
-                --   },
-                --   chainingHints = {
-                --     enable = true,
-                --   },
-                --   closingBraceHints = {
-                --     enable = true,
-                --   },
-                --   lifetimeElisionHints = {
-                --     enable = 'never',
-                --   },
-                --   useParameterNames = true,
-                --   parameterHints = {
-                --     enable = true,
-                --   },
-                --   typeHints = {
-                --     enable = true,
-                --   },
-                -- },
-              },
-            },
-          },
-          on_attach = function(_, bufnr)
-            lsp_util.buf_kset(bufnr, "n", "<leader>ch", rt.hover_actions.hover_actions, "Hover actions")
-            lsp_util.buf_kset(bufnr, "n", "<leader>ca", rt.code_action_group.code_action_group, "Code actions")
-
-            lsp_util.buf_kset(bufnr, "n", "<leader>cb", ":! cargo build<cr>", "Build")
-            lsp_util.buf_kset(bufnr, "n", "<leader>ct", ":! cargo nextest run<cr>", "Run tests")
-          end,
-        },
-      })
-    end,
-  },
-
   {
     "saecki/crates.nvim",
     tag = "stable",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = {
+    event = { "BufRead Cargo.toml" },
+    opts = {
       null_ls = {
         enabled = true,
+        name = "crates.nvim",
       },
     },
   },
+
+  -- Extend auto completion
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "saecki/crates.nvim",
+    },
+    event = { "BufRead Cargo.toml" },
+    ---@param opts cmp.ConfigSchema
+    opts = function(_, opts)
+      opts.sources = opts.sources or {}
+      table.insert(opts.sources, { name = "crates" })
+    end,
+  },
+
+  -- Add Rust & related to treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "ron", "rust", "toml" })
+    end,
+  },
+
+  -- Ensure Rust debugger is installed
+  {
+    "williamboman/mason.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "codelldb" })
+    end,
+  },
+
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^4",
+    ft = { "rust" },
+    dependencies = {
+      "nvim-neotest/neotest",
+    },
+    ---@type RustaceanOpts
+    opts = {
+      -- Plugin configuration
+      tools = {
+        executor = "vimux",
+        enable_clippy = true,
+        enable_nextest = true,
+      },
+      -- LSP configuration
+      server = {
+        default_settings = {
+          -- rust-analyzer language server configuration
+          ["rust-analyzer"] = {
+            cargo = {
+              features = "all",
+            },
+            check = {
+              features = "all",
+            },
+            hover = {
+              actions = {
+                references = {
+                  enable = true,
+                },
+              }
+            },
+            imports = {
+              preferPrelude = true,
+            },
+            procMacro = {
+              enable = true,
+              ignored = {
+                ["async-trait"] = { "async_trait" },
+                ["napi-derive"] = { "napi" },
+                ["async-recursion"] = { "async_recursion" },
+              },
+            },
+          },
+        },
+      },
+      -- DAP configuration
+      -- dap = {
+      -- },
+    },
+    config = function(_, opts)
+      vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
+    end,
+  },
+
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    opts = function(_, opts)
+      opts.adapters = opts.adapters or {}
+      vim.list_extend(opts.adapters, {
+        require("rustaceanvim.neotest"),
+      })
+    end,
+  },
+
 }
