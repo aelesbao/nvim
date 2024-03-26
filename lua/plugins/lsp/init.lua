@@ -36,13 +36,9 @@ return {
     cmd = { "LspInfo", "LspInstall", "LspStart" },
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      -- automatically install LSPs to stdpath for neovim
-      "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
-      -- setup for init.lua and plugin development with full signature help,
-      -- docs and completion for the nvim lua API
-      { "folke/neodev.nvim", opts = {} },
+      "folke/neodev.nvim",
     },
     config = function()
       require("plugins.lsp.config")
@@ -62,10 +58,20 @@ return {
   -- manage global and project-local settings
   {
     "folke/neoconf.nvim",
-    cmd = "Neoconf",
+    event = "VeryLazy"
+  },
+
+  -- setup for init.lua and plugin development with full signature help,
+  -- docs and completion for the nvim lua API
+  {
+    "folke/neodev.nvim",
+    -- make sure it's initialized after lspconfig
+    lazy = true,
     dependencies = {
-      "nvim-lspconfig"
+      "folke/neoconf.nvim",
+      "hrsh7th/nvim-cmp",
     },
+    opts = {},
   },
 
   -- schema store
