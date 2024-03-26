@@ -52,6 +52,7 @@ return {
           enabled = true,
           custom_bg = "NONE", -- "lualine" will set background to mantle
         },
+        neotest = true,
         neotree = true,
         notify = true,
         nvimtree = true,
