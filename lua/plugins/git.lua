@@ -77,9 +77,19 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
     keys = {
       { "<leader>gg", ":LazyGitCurrentFile<CR>", desc = "Lazygit" },
     },
     enabled = vim.fn.executable("lazygit") == 1,
+    config = function()
+      vim.g.lazygit_floating_window_use_plenary = 1
+    end
   },
 }
