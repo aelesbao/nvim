@@ -38,7 +38,9 @@ return {
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
-      "folke/neodev.nvim",
+      -- setup for init.lua and plugin development with full signature help,
+      -- docs and completion for the nvim lua API
+      "folke/neodev.nvim"
     },
     config = function()
       require("plugins.lsp.config")
@@ -59,19 +61,6 @@ return {
   {
     "folke/neoconf.nvim",
     event = "VeryLazy"
-  },
-
-  -- setup for init.lua and plugin development with full signature help,
-  -- docs and completion for the nvim lua API
-  {
-    "folke/neodev.nvim",
-    -- make sure it's initialized after lspconfig
-    lazy = true,
-    dependencies = {
-      "folke/neoconf.nvim",
-      "hrsh7th/nvim-cmp",
-    },
-    opts = {},
   },
 
   -- schema store

@@ -1,10 +1,7 @@
-local lsp_zero = require("lsp-zero")
-lsp_zero.extend_lspconfig()
-
 local lsp_util = require("plugins.lsp.util")
 local navic = require("nvim-navic")
 
-lsp_zero.on_attach(function(client, bufnr)
+local function on_lsp_attach(client, bufnr)
   lsp_util.setup_mappings(bufnr)
   lsp_util.setup_code_lens(client, bufnr)
   lsp_util.buffer_autoformat(client, bufnr)
@@ -16,14 +13,7 @@ lsp_zero.on_attach(function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
   end
-end)
-
-lsp_zero.set_sign_icons({
-  hint = "󰌵",
-  info = "",
-  warn = "",
-  error = "",
-})
+end
 
 -- Enable the following language servers
 --
@@ -33,10 +23,27 @@ lsp_zero.set_sign_icons({
 -- If you want to override the default filetypes that your language server will attach to you can
 -- define the property "filetypes" to the map in question.
 local servers = {
+  lua_ls = {
+    settings = {
+      Lua = {
+        completion = {
+          callSnippet = "Replace"
+        },
+        diagnostics = {
+          disable = {
+            "missing-fields",
+          },
+        },
+        telemetry = { enable = false },
+        workspace = { checkThirdParty = false },
+      },
+    },
+  },
+
   bashls = {}, -- bash/sh
   taplo = {
     on_attach = function(client, bufnr)
-      lsp_zero.on_attach(client, bufnr)
+      on_lsp_attach(client, bufnr)
 
       lsp_util.buf_kset(bufnr, "n", "K", function()
         if vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
@@ -46,7 +53,7 @@ local servers = {
         end
       end, "Show Crate documentation")
     end
-  },  -- toml
+  }, -- toml
 
   html = {
     filetypes = { "html", "twig", "hbs" },
@@ -79,6 +86,18 @@ local servers = {
     },
   },
 }
+
+require("neodev").setup({})
+
+local lsp_zero = require("lsp-zero")
+lsp_zero.extend_lspconfig()
+lsp_zero.on_attach(on_lsp_attach)
+lsp_zero.set_sign_icons({
+  hint = "󰌵",
+  info = "",
+  warn = "",
+  error = "",
+})
 
 -- see :help lsp-zero-guide:integrate-with-mason-nvim
 -- to learn how to use mason.nvim with lsp-zero
