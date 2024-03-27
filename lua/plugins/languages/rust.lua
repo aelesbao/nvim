@@ -72,7 +72,6 @@ return {
           kset({ "n", "i" }, "<M-CR>", ":RustLsp codeAction<cr>", "Code action")
 
           kset("n", "K", ":RustLsp hover actions<cr>", "Hover actions")
-          kset("v", "K", ":RustLsp hover range<cr>", "Hover actions")
 
           kset("n", "<leader>ce", ":RustLsp explainError<cr>", "Explain error")
           kset("n", "<leader>cx", ":RustLsp renderDiagnostic<cr>", "Render diagnostic")
