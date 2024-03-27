@@ -33,6 +33,7 @@ return {
           },
           ["q"] = { name = "+quit/session" },
           ["s"] = { name = "+search" },
+          ["t"] = { name = "+test" },
           ["u"] = { name = "+ui" },
           ["w"] = { name = "+windows" },
           ["x"] = { name = "+diagnostics/quickfix" },

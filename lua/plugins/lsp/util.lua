@@ -8,7 +8,7 @@ local format_group_name = "lsp_autoformat"
 local format_group = augroup(format_group_name, { clear = false })
 
 function M.buf_kset(bufnr, mode, lhs, rhs, desc)
-  local opts = { buffer = bufnr, remap = true, desc = desc }
+  local opts = { buffer = bufnr, desc = desc, remap = true, silent = true, }
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 

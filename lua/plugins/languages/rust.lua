@@ -65,51 +65,25 @@ return {
       -- LSP configuration
       server = {
         on_attach = function(_, bufnr)
-          lsp_util.buf_kset(bufnr, "n", "<C-space>", function()
-            vim.cmd.RustLsp { "hover", "actions" }
-          end, "Hover actions")
+          local function kset(...) lsp_util.buf_kset(bufnr, ...) end
 
-          lsp_util.buf_kset(bufnr, "n", "<leader>ch", function()
-            vim.cmd.RustLsp { "hover", "actions" }
-          end, "Hover actions")
+          kset({ "n" }, "<leader>ca", ":RustLsp codeAction<cr>", "Code action")
+          kset({ "n", "i" }, "<M-CR>", ":RustLsp codeAction<cr>", "Code action")
 
-          lsp_util.buf_kset(bufnr, "n", "<leader>ca", function()
-            vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-            -- or vim.lsp.buf.codeAction() if you don't want grouping.
-          end, "Code actions")
+          kset("n", "K", ":RustLsp hover actions<cr>", "Hover actions")
+          kset("v", "K", ":RustLsp hover range<cr>", "Hover actions")
 
-          lsp_util.buf_kset(bufnr, "n", "<leader>ce", function()
-            vim.cmd.RustLsp("explainError")
-          end, "Explain error")
+          kset("n", "<leader>ce", ":RustLsp explainError<cr>", "Explain error")
+          kset("n", "<leader>cx", ":RustLsp renderDiagnostic<cr>", "Render diagnostic")
 
-          lsp_util.buf_kset(bufnr, "n", "<leader>cx", function()
-            vim.cmd.RustLsp("renderDiagnostic")
-          end, "Render diagnostic")
+          kset("n", "<leader>cd", ":RustLsp debuggables<cr>", "Rust debuggables")
+          kset("n", "<leader>cR", ":RustLsp runnables<cr>", "Rust runnables")
+          kset("n", "<leader>tT", ":RustLsp testables<cr>", "Rust testables")
 
-          lsp_util.buf_kset(bufnr, "n", "<leader>cd", function()
-            vim.cmd.RustLsp("debuggables")
-          end, "Rust debuggables")
-
-          lsp_util.buf_kset(bufnr, "n", "<leader>cR", function()
-            vim.cmd.RustLsp("runnables")
-          end, "Rust runnables")
-
-          lsp_util.buf_kset(bufnr, "n", "<leader>cT", function()
-            vim.cmd.RustLsp("testables")
-          end, "Rust testables")
-
-          lsp_util.buf_kset(bufnr, "n", "<leader>ct", function()
-            vim.cmd.RustLsp { "testables", bang = true }
-          end, "Run previous test")
-
-          lsp_util.buf_kset(bufnr, "n", "gc", function()
-            vim.cmd.RustLsp("openCargo")
-          end, "Open Cargo.toml")
-
-          lsp_util.buf_kset(bufnr, "n", "gm", function()
-            vim.cmd.RustLsp("parentModule")
-          end, "Parent module")
+          kset("n", "gC", ":RustLsp openCargo<cr>", "Open Cargo.toml")
+          kset("n", "gp", ":RustLsp parentModule<cr>", "Parent module")
         end,
+
         default_settings = {
           -- rust-analyzer language server configuration
           ["rust-analyzer"] = {
