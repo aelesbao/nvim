@@ -53,6 +53,7 @@ return {
     ft = { "rust" },
     dependencies = {
       "nvim-neotest/neotest",
+      "mattn/webapi-vim",
     },
     ---@type RustaceanOpts
     opts = {
