@@ -80,6 +80,7 @@ return {
           kset("n", "<leader>cR", ":RustLsp runnables<cr>", "Rust runnables")
           kset("n", "<leader>tT", ":RustLsp testables<cr>", "Rust testables")
 
+          kset("n", "gK", ":RustLsp openDocs<cr>", "Open docs.rs")
           kset("n", "gC", ":RustLsp openCargo<cr>", "Open Cargo.toml")
           kset("n", "gp", ":RustLsp parentModule<cr>", "Parent module")
         end,
