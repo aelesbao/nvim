@@ -8,12 +8,16 @@ local format_group_name = "lsp_autoformat"
 local format_group = augroup(format_group_name, { clear = false })
 
 function M.buf_kset(bufnr, mode, lhs, rhs, desc)
+  if mode == nil then
+    return function(...) M.buf_kset(bufnr, ...) end
+  end
+
   local opts = { buffer = bufnr, desc = desc, remap = true, silent = true, }
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 function M.setup_mappings(bufnr)
-  local function kset(...) M.buf_kset(bufnr, ...) end
+  local kset = M.buf_kset(bufnr)
 
   local lsp = vim.lsp.buf
   local diagnostic = vim.diagnostic
