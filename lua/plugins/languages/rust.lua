@@ -7,6 +7,11 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     event = { "BufRead Cargo.toml" },
     opts = {
+      popup = {
+        autofocus = true,
+        show_version_date = true,
+        show_dependency_version = true,
+      },
       null_ls = {
         enabled = true,
         name = "crates.nvim",
@@ -65,26 +70,6 @@ return {
       },
       -- LSP configuration
       server = {
-        on_attach = function(_, bufnr)
-          local function kset(...) lsp_util.buf_kset(bufnr, ...) end
-
-          kset({ "n" }, "<leader>ca", ":RustLsp codeAction<cr>", "Code action")
-          kset({ "n", "i" }, "<M-CR>", ":RustLsp codeAction<cr>", "Code action")
-
-          kset("n", "K", ":RustLsp hover actions<cr>", "Hover actions")
-
-          kset("n", "<leader>ce", ":RustLsp explainError<cr>", "Explain error")
-          kset("n", "<leader>cx", ":RustLsp renderDiagnostic<cr>", "Render diagnostic")
-
-          kset("n", "<leader>cd", ":RustLsp debuggables<cr>", "Rust debuggables")
-          kset("n", "<leader>cR", ":RustLsp runnables<cr>", "Rust runnables")
-          kset("n", "<leader>tT", ":RustLsp testables<cr>", "Rust testables")
-
-          kset("n", "gK", ":RustLsp openDocs<cr>", "Open docs.rs")
-          kset("n", "gC", ":RustLsp openCargo<cr>", "Open Cargo.toml")
-          kset("n", "gp", ":RustLsp parentModule<cr>", "Parent module")
-        end,
-
         default_settings = {
           -- rust-analyzer language server configuration
           ["rust-analyzer"] = {
