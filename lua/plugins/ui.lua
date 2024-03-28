@@ -342,17 +342,16 @@ return {
     opts = {
       window = {
         options = {
-          -- signcolumn = "no", -- disable signcolumn
-          number = true, -- enable number column
-          -- relativenumber = false, -- disable relative numbers
-          -- cursorline = false, -- disable cursorline
-          -- cursorcolumn = false, -- disable cursor column
-          -- foldcolumn = "0", -- disable fold column
+          signcolumn = "yes",
+          number = true,
+          cursorline = true,
           -- list = false, -- disable whitespace characters
         },
       },
       plugins = {
-        tmux = { enabled = true },
+        twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
+        gitsigns = { enabled = true },
+        -- tmux = { enabled = true },
         -- this will change the font size on kitty when in zen mode
         -- to make this work, you need to set the following kitty options:
         -- - allow_remote_control socket-only
@@ -367,6 +366,13 @@ return {
         alacritty = {
           enabled = true,
           font = "16", -- font size
+        },
+        -- this will change the font size on wezterm when in zen mode
+        -- See alse also the Plugins/Wezterm section in this projects README
+        wezterm = {
+          enabled = true,
+          -- can be either an absolute font size or the number of incremental steps
+          font = "+4", -- (10% increase per step)
         },
       }
     },
