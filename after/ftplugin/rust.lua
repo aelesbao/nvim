@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local kset = lsp_util.buf_kset(event.buf)
 
     kset({ "n" }, "<leader>ca", ":RustLsp codeAction<cr>", "Code action")
-    kset({ "n", "i" }, "<M-CR>", ":RustLsp codeAction<cr>", "Code action")
+    kset({ "n" }, "<M-CR>", ":RustLsp codeAction<cr>", "Code action")
 
     kset("n", "K", ":RustLsp hover actions<cr>", "Hover actions")
 
