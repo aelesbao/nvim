@@ -65,7 +65,7 @@ return {
       -- Plugin configuration
       tools = {
         executor = "vimux",
-        enable_clippy = true,
+        enable_clippy = false, -- too slow
         enable_nextest = true,
       },
       -- LSP configuration
