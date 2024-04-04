@@ -8,13 +8,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local kset = lsp_util.buf_kset(event.buf)
 
     kset({ "n" }, "<leader>ca", ":RustLsp codeAction<cr>", "Code action")
-    kset({ "n" }, "<M-CR>", ":RustLsp codeAction<cr>", "Code action")
+    kset({ "n", "i" }, "<M-CR>", function()
+      vim.cmd.RustLsp { "codeAction" }
+    end, "Code action")
 
     kset("n", "K", ":RustLsp hover actions<cr>", "Hover actions")
 
     kset("n", "<leader>cd", ":RustLsp debuggables<cr>", "Rust debuggables")
     kset("n", "<leader>cR", ":RustLsp runnables<cr>", "Rust runnables")
-    kset({ "n", "v", "i" }, "<Esc>R", ":RustLsp! runnables<cr>", "Run last runnable")
+    kset({ "n", "x", "i" }, "<Esc>R", function()
+      vim.cmd.RustLsp { "runnables", bang = true }
+    end, "Run last runnable")
     kset("n", "<leader>tT", ":RustLsp testables<cr>", "Rust testables")
 
     kset("n", "<leader>xe", ":RustLsp explainError<cr>", "Explain error")
