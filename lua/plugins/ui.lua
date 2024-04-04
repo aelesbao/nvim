@@ -62,20 +62,34 @@ return {
   -- causing.
   {
     "folke/trouble.nvim",
+    branch = "dev",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
     keys = {
-      { "<leader>xx", ":TroubleToggle<cr>",                       desc = "Show diagnostics" },
-      { "<leader>xw", ":TroubleToggle workspace_diagnostics<cr>", desc = "Show workspace diagnostics" },
-      { "<leader>xd", ":TroubleToggle document_diagnostics<cr>",  desc = "Show document diagnostics" },
-      { "<leader>xq", ":TroubleToggle quickfix<cr>",              desc = "Show quickfix" },
-      { "<leader>xl", ":TroubleToggle loclist<cr>",               desc = "Show location list" },
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xq",
+        "<cmd>Trouble quickfix<cr>",
+        desc = "Quickfix (Trouble)"
+      },
+      {
+        "<leader>xl",
+        "<cmd>Trouble loclist<cr>",
+        desc = "Location list (Trouble)"
+      },
     },
     opts = {
-      icons = true,
-      auto_close = true,           -- automatically close the list when you have no diagnostics
-      use_diagnostic_signs = true, -- enabling this will use the signs defined in your lsp client
+      auto_close = true, -- auto close when there are no items
     },
   },
 
@@ -150,6 +164,7 @@ return {
     event = "VeryLazy",
     opts = function()
       local theme = require("catppuccin.palettes").get_palette()
+
       return {
         options = {
           theme = "catppuccin",

@@ -22,7 +22,7 @@ function M.setup_mappings(bufnr)
   local lsp = vim.lsp.buf
   local diagnostic = vim.diagnostic
   local telescope = require("telescope.builtin")
-  -- local trouble = require("trouble")
+  local trouble = require("trouble")
 
   kset("n", "K", lsp.hover, "Hover")
   kset("n", "gK", lsp.signature_help, "Signature help")
@@ -31,9 +31,9 @@ function M.setup_mappings(bufnr)
   -- kset("n", "gd", function() trouble.open({ mode = "lsp_definitions" }) end, "Definition")
   kset("n", "gd", function() telescope.lsp_definitions({ reuse_win = true, jump_type = "vsplit" }) end, "Definition")
   kset("n", "gD", function() lsp.declaration({ reuse_win = true }) end, "Declaration")
-  -- kset("n", "gr", function() trouble.open({ mode = "lsp_references" }) end, "References")
-  kset("n", "gr", function() telescope.lsp_references({ jump_type = "vsplit" }) end, "References")
-  kset("n", "gR", function() lsp.references() end, "References")
+  kset("n", "gR", function() telescope.lsp_references({ jump_type = "vsplit" }) end, "References")
+  kset("n", "gr", function() trouble.open({ mode = "lsp_references", focus = true }) end, "References")
+  -- kset("n", "gR", function() lsp.references() end, "References")
   kset("n", "gI", function() lsp.implementation({ reuse_win = true, jump_type = "vsplit" }) end, "Implementation")
   kset("n", "gy", function() lsp.type_definition({ reuse_win = true }) end, "Type definition")
   kset("n", "gi", function()
@@ -66,9 +66,11 @@ function M.setup_mappings(bufnr)
     "Format code"
   )
 
-  kset("n", "gl", diagnostic.open_float, "Show diagnostic in a floating window")
+  kset("n", "xd", diagnostic.open_float, "Diagnostic in a floating window")
   kset("n", "[d", diagnostic.goto_prev, "Previous diagnostic")
   kset("n", "]d", diagnostic.goto_next, "Next diagnostic")
+
+  kset("n", "<leader>ss", telescope.lsp_workspace_symbols, "Search workspace symbols")
 
   kset("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "Add folder to workspace")
   kset("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove folder from workspace")
