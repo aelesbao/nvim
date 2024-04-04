@@ -39,6 +39,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     kset("n", "<leader>ch", crates.open_homepage, "Open homepage")
     kset("n", "<leader>cr", crates.open_repository, "Open repository")
     kset("n", "<leader>cd", crates.open_documentation, "Open documentation")
+    kset("n", "gK", crates.open_documentation, "Open docs.rs")
     kset("n", "<leader>cc", crates.open_crates_io, "Open crates.io")
 
     if crates.popup_available() then
