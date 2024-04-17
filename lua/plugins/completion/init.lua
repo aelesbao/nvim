@@ -36,6 +36,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     opts = {},
+    build = "make install_jsregexp",
     config = function(_, opts)
       local luasnip = require("luasnip")
 
