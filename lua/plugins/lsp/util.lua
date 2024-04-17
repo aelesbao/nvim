@@ -49,6 +49,13 @@ function M.setup_mappings(bufnr)
     kset("x", "<M-CR>", lsp.code_action)
   end
 
+  if vim.lsp.inlay_hint then
+    kset("n", "<leader>ch", function()
+      local enabled = vim.lsp.inlay_hint.is_enabled()
+      vim.lsp.inlay_hint.enable(bufnr, not enabled)
+    end, "Inlay hints")
+  end
+
   kset("n", "<leader>cr", lsp.rename, "Rename")
   kset("n", "<F18>", lsp.rename, "Rename")
   kset("i", "<F18>", "<C-o><S-F6>", "Rename")
