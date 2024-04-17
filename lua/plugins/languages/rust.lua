@@ -55,7 +55,7 @@ return {
   {
     "mrcjkb/rustaceanvim",
     version = "^4",
-    ft = { "rust" },
+    lazy = false, -- This plugin is already lazy
     dependencies = {
       "nvim-neotest/neotest",
       "mattn/webapi-vim",
@@ -73,21 +73,22 @@ return {
         default_settings = {
           -- rust-analyzer language server configuration
           ["rust-analyzer"] = {
-            cargo = {
-              features = "all",
-            },
+            -- cargo = {
+            --   features = "all",
+            -- },
             check = {
-              features = "all",
-            },
-            hover = {
-              actions = {
-                references = {
-                  enable = true,
-                },
-              }
+              -- features = "all",
             },
             imports = {
               preferPrelude = true,
+            },
+            inlayHints = {
+              bindingModeHints = {
+                enable = true
+              },
+              closureCaptureHints = {
+                enable = true
+              },
             },
             procMacro = {
               enable = true,
