@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     kset("n", "<leader>xe", ":RustLsp explainError<cr>", "Explain error")
     kset("n", "<leader>xr", ":RustLsp renderDiagnostic<cr>", "Render diagnostic")
 
-    kset("n", "gK", ":RustLsp openDocs<cr>", "Open docs.rs")
+    kset("n", "gk", ":RustLsp openDocs<cr>", "Open docs.rs")
     kset("n", "gC", ":RustLsp openCargo<cr>", "Open Cargo.toml")
     kset("n", "gp", ":RustLsp parentModule<cr>", "Parent module")
   end,
