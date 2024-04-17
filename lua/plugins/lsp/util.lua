@@ -126,16 +126,8 @@ function M.setup_code_lens(client, bufnr)
     return
   end
 
-  vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-    group = augroup("lsp_codelens", { clear = true }),
-    desc = "Automatically refresh code lens",
-    buffer = bufnr,
-    callback = function()
-      vim.lsp.codelens.refresh()
-    end,
-  })
-
   M.buf_kset(bufnr, "n", "<leader>cl", vim.lsp.codelens.run, "Run code lens")
+  M.buf_kset(bufnr, "n", "<leader>cL", vim.lsp.codelens.refresh, "Refresh code lens")
 end
 
 return M
