@@ -13,6 +13,7 @@ k.set("i", "<C-e>", "<End>", { remap = false })
 -- Tabs
 k.set("n", "<s-tab>", ":tabprevious<cr>")
 k.set("n", "<tab>", ":tabnext<cr>")
+k.set("n", "<leader><tab>n", ":tabnew<cr>", { desc = "New tab" })
 k.set("n", "<leader><tab>q", ":tabclose<cr>", { desc = "Close tab" })
 k.set("n", "<leader><tab>Q", ":tabonly<cr>", { desc = "Close other tabs" })
 k.set("n", "<leader><tab><", ":tabm -1<cr>", { desc = "Move tab prev" })
