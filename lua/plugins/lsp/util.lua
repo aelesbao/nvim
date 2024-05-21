@@ -51,9 +51,9 @@ function M.setup_mappings(bufnr)
 
   if vim.lsp.inlay_hint then
     kset("n", "<leader>ch", function()
-      local enabled = vim.lsp.inlay_hint.is_enabled()
-      vim.lsp.inlay_hint.enable(bufnr, not enabled)
-    end, "Inlay hints")
+      local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr })
+      vim.lsp.inlay_hint.enable(not enabled, { bufnr })
+    end, "Inlay hints toggle")
   end
 
   kset("n", "<leader>cr", lsp.rename, "Rename")
