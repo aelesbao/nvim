@@ -67,15 +67,24 @@ return {
         executor = "vimux",
         enable_clippy = false, -- too slow
         enable_nextest = true,
+        code_actions = {
+          ui_select_fallback = true
+        }
       },
       -- LSP configuration
       server = {
+        -- Standalone file support (enabled by default).
+        -- Disabling it may improve rust-analyzer's startup time.
+        standalone = false,
+        -- Whether to search (upward from the buffer) for rust-analyzer settings in .vscode/settings json.
+        -- If found, loaded settings will override configured options.
+        load_vscode_settings = true,
         default_settings = {
           -- rust-analyzer language server configuration
           ["rust-analyzer"] = {
-            -- cargo = {
-            --   features = "all",
-            -- },
+            cargo = {
+              -- features = "all",
+            },
             check = {
               -- features = "all",
             },
@@ -84,10 +93,10 @@ return {
             },
             inlayHints = {
               bindingModeHints = {
-                enable = true
+                enable = false
               },
               closureCaptureHints = {
-                enable = true
+                enable = false
               },
             },
             procMacro = {
@@ -102,8 +111,8 @@ return {
         },
       },
       -- DAP configuration
-      -- dap = {
-      -- },
+      dap = {
+      },
     },
     config = function(_, opts)
       vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})

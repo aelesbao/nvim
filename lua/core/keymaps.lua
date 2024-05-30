@@ -23,8 +23,8 @@ k.set("n", "<leader><tab>>", ":tabm +1<cr>", { desc = "Move tab next" })
 k.set("n", "J", "mzJ`z")
 k.set("n", "<C-j>", "gea<cr><esc>")
 
-k.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 k.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
+k.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 
 -- centralize the screen on scroll up/down or search next/previous
 k.set("n", "<C-d>", "<C-d>zz")
