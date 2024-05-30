@@ -38,7 +38,7 @@ k.set("n", "N", "Nzzzv")
 k.set("n", "<leader>=", "gqip", { desc = "Hard-wrap paragraphs of text" })
 
 k.set("x", "<leader>p", [["_dP]], { desc = "Paste and keep the current buffer" })
-k.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete and keep the current buffer" })
+k.set({ "n", "v" }, "<leader>D", [["_d]], { desc = "Delete and keep the current buffer" })
 
 k.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Copy to clipboard" })
 k.set("n", "<leader>Y", [["+Y]], { desc = "Copy line to clipboard" })
