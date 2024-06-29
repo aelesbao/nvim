@@ -38,9 +38,6 @@ return {
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
-      -- setup for init.lua and plugin development with full signature help,
-      -- docs and completion for the nvim lua API
-      "folke/neodev.nvim"
     },
     config = function()
       require("plugins.lsp.config")

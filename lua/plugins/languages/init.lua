@@ -10,5 +10,6 @@ return {
   },
 
   { import = "plugins.languages.helm" },
+  { import = "plugins.languages.lua" },
   { import = "plugins.languages.rust" },
 }
