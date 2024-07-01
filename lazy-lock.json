@@ -19,6 +19,7 @@
   "crates.nvim": { "branch": "main", "commit": "8437522d12a8c523da2aee9db2979d070b2ecc33" },
   "dressing.nvim": { "branch": "master", "commit": "6741f1062d3dc6e4755367a7e9b347b553623f04" },
   "friendly-snippets": { "branch": "main", "commit": "682157939e57bd6a2c86277dfd4d6fbfce63dbac" },
+  "gitsigns-yadm.nvim": { "branch": "main", "commit": "7400593e0155ed919ddb25fa21daac9fb6552019" },
   "gitsigns.nvim": { "branch": "main", "commit": "6b1a14eabcebbcca1b9e9163a26b2f8371364cb7" },
   "hererocks": { "branch": "master", "commit": "ec640f26e25f4a8e16f236d78bf35ab72b197b29" },
   "image.nvim": { "branch": "master", "commit": "7d021c94e231d491355f5e724ba357ace296f06d" },
