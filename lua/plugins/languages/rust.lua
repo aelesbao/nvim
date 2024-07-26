@@ -68,8 +68,11 @@ return {
         enable_clippy = false, -- too slow
         enable_nextest = true,
         code_actions = {
-          ui_select_fallback = true
-        }
+          ui_select_fallback = true,
+        },
+        hover_actions = {
+          replace_builtin_hover = false,
+        },
       },
       -- LSP configuration
       server = {
