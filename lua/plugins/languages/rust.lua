@@ -1,5 +1,3 @@
-local lsp_util = require("plugins.lsp.util")
-
 return {
   {
     "saecki/crates.nvim",
@@ -26,7 +24,6 @@ return {
       "saecki/crates.nvim",
     },
     event = { "BufRead Cargo.toml" },
-    ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       opts.sources = opts.sources or {}
       table.insert(opts.sources, { name = "crates" })
@@ -115,6 +112,7 @@ return {
       },
       -- DAP configuration
       dap = {
+        -- TODO: configure dap
       },
     },
     config = function(_, opts)
