@@ -8,21 +8,11 @@ return {
   -- hunks in a commit.
   {
     "lewis6991/gitsigns.nvim",
-    dependencies = {
-      {
-        "purarue/gitsigns-yadm.nvim",
-        lazy = true,
-      },
-    },
     opts = {
       signcolumn = true,
       trouble = true,
       _on_attach_pre = function(_, callback)
-        if vim.fn.executable("yadm") == 1 then
-          require("gitsigns-yadm").yadm_signs(callback)
-        else
-          callback()
-        end
+        callback()
       end,
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
