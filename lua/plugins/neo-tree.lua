@@ -1,27 +1,26 @@
 -- Trash the target
 local function trash(state)
-  local cmds = require("neo-tree.sources.buffers.commands")
+  local node = state.tree:get_node()
 
-  local tree = state.tree
-  local node = tree:get_node()
   if node.type == "message" then
     return
   end
 
-  vim.api.nvim_command("silent !trash -F " .. node.path)
+  vim.api.nvim_command("silent !trash " .. node.path)
+
+  local cmds = require("neo-tree.sources.buffers.commands")
   cmds.refresh(state)
 end
 
 -- Trash the selections (visual mode)
 local function trash_visual(state, selected_nodes)
-  local cmds = require("neo-tree.sources.buffers.commands")
-
   for _, node in ipairs(selected_nodes) do
-    if node.type ~= 'message' then
-      vim.api.nvim_command("silent !trash -F " .. node.path)
+    if node.type ~= "message" then
+      vim.api.nvim_command("silent !trash " .. node.path)
     end
   end
 
+  local cmds = require("neo-tree.sources.buffers.commands")
   cmds.refresh(state)
 end
 
