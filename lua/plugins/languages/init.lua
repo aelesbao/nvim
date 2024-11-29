@@ -1,5 +1,14 @@
 return {
   {
+    "cuducos/yaml.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim",
+    },
+    ft = { "yaml" },
+  },
+
+  {
     "mustache/vim-mustache-handlebars",
     ft = { "handlebars", "mustache" },
   },
