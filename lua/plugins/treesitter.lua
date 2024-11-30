@@ -4,10 +4,10 @@ return {
     "nvim-treesitter/nvim-treesitter",
     version = false, -- last release is way too old and doesn't work on Windows
     dependencies = {
-      -- automatically add closing tags for HTML and JSX
-      "windwp/nvim-ts-autotag",
       -- wisely add "end". tree-sitter aware alternative to tpope's vim-endwise
       "RRethy/nvim-treesitter-endwise",
+      -- refactor modules for nvim-treesitter
+      "nvim-treesitter/nvim-treesitter-refactor",
     },
     cmd = {
       "TSBufDisable",
@@ -91,15 +91,21 @@ return {
         },
       },
 
-      -- enables windwp/nvim-ts-autotag
-      autotag = {
-        enable = true,
-      },
-
       -- enables RRethy/nvim-treesitter-endwise
       endwise = {
         enable = true,
       },
+
+      refactor = {
+        highlight_definitions = {
+          enable = true,
+          -- Set to false if you have an `updatetime` of ~100.
+          clear_on_cursor_move = true,
+        },
+        highlight_current_scope = {
+          enable = true,
+        },
+      }
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
@@ -118,6 +124,7 @@ return {
     },
   },
 
+  -- automatically add closing tags for HTML and JSX
   {
     "windwp/nvim-ts-autotag",
     dependencies = {
