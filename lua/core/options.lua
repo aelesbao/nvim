@@ -133,11 +133,12 @@ end
 -- Make sure EditorConfig integration is loaded
 vim.g.editorconfig = true
 
-vim.o.guifont = "Hack Nerd Font:h15"
+vim.o.guifont = "Hack Nerd Font:h10"
 vim.g.transparency = 0.9
 
 -- Neovide config
 if vim.g.neovide then
   vim.g.neovide_transparency = vim.g.transparency
   vim.g.neovide_show_border = false
+  vim.g.neovide_window_blurred = true
 end
