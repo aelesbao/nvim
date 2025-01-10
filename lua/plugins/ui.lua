@@ -329,24 +329,6 @@ return {
     },
   },
 
-  -- dims inactive portions of the code you're editing using TreeSitter
-  {
-    "folke/twilight.nvim",
-    opts = function()
-      local theme = require("catppuccin.palettes").get_palette()
-      return {
-        dimming = {
-          alpha = 0.25, -- amount of dimming
-          -- we try to get the foreground from the highlight groups or fallback color
-          color = { "Normal", theme.text },
-          term_bg = theme.mantle, -- if guibg=NONE, this will be used to calculate text color
-          inactive = true,        -- when true, other windows will be fully dimmed (unless they contain the same buffer)
-        },
-        context = 50,             -- amount of lines we will try to show around the current line
-      }
-    end,
-  },
-
   -- distraction-free coding
   {
     "folke/zen-mode.nvim",
@@ -363,7 +345,6 @@ return {
         },
       },
       plugins = {
-        twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
         gitsigns = { enabled = true },
         -- tmux = { enabled = true },
         -- this will change the font size on kitty when in zen mode
