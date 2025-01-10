@@ -18,6 +18,7 @@ return {
     ---@type CatppuccinOptions
     opts = {
       flavour = "mocha",             -- latte, frappe, macchiato, mocha
+      kitty = false,                 -- workaround for kitty transparency issue
       transparent_background = true, -- disables setting the background color.
       dim_inactive = {
         enabled = true,              -- dims the background color of inactive window
@@ -74,11 +75,11 @@ return {
             DiagnosticError = { fg = level_colors.error, style = { "italic" } },
           }
         end
-      }
+      },
     },
     config = function(_, opts)
       -- vim.g.catppuccin_debug = true
-      vim.cmd.colorscheme("catppuccin-" .. opts.flavour)
+      -- vim.cmd.colorscheme("catppuccin-" .. opts.flavour)
       require("catppuccin").setup(opts)
 
       local colors = require("catppuccin.palettes").get_palette()
@@ -98,10 +99,48 @@ return {
     end,
   },
 
+  -- falke's Tokyonight theme
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    ---@class tokyonight.Config
+    ---@field on_colors fun(colors: ColorScheme)
+    ---@field on_highlights fun(highlights: tokyonight.Highlights, colors: ColorScheme)
+    opts = {
+      style = "night",      -- 'moon', `storm`, a darker variant `night` and `day`
+      transparent = true,  -- enable this to disable setting the background color
+      dim_inactive = true, -- dims inactive windows
+
+      --- You can override specific color groups to use other groups or a hex color
+      --- function will be called with a ColorScheme table
+      on_colors = function(colors) end,
+
+      --- You can override specific highlights to use other groups or a hex color
+      --- function will be called with a Highlights and ColorScheme table
+      on_highlights = function(highlights, colors) end,
+
+      -- TODO: update colors in other plugins
+
+      -- You can easily use the color palette for other plugins inside your Neovim configuration:
+
+      -- local colors = require("tokyonight.colors").setup() -- pass in any of the config options as explained above
+      -- local util = require("tokyonight.util")
+      --
+      -- aplugin.background = colors.bg_dark
+      -- aplugin.my_error = util.lighten(colors.red1, 0.3) -- number between 0 and 1. 0 results in white, 1 results in red1
+    },
+    config = function(_, opts)
+      vim.cmd.colorscheme("tokyonight-" .. opts.style)
+      require("tokyonight").setup(opts)
+    end
+  },
+
   -- enables transparent background
   {
     "xiyaowong/transparent.nvim",
     lazy = false, -- make sure we load this during startup
+    enabled = false,
     dependencies = {
       { "catppuccin/nvim", name = "catppuccin" },
     },
