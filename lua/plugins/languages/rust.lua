@@ -131,4 +131,8 @@ return {
     end,
   },
 
+  {
+    "cordx56/rustowl",
+    dependencies = { "neovim/nvim-lspconfig" }
+  },
 }
