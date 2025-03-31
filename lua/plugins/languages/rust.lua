@@ -1,3 +1,72 @@
+---@type RustaceanOpts
+vim.g.rustaceanvim = {
+  -- Plugin configuration
+  tools = {
+    executor = "vimux",
+    enable_clippy = true, -- too slow
+    code_actions = {
+      ui_select_fallback = true,
+    },
+    hover_actions = {
+      replace_builtin_hover = true,
+    },
+    float_win_config = {
+      auto_focus = true,
+      open_split = "vertical",
+      border = "rounded",
+    }
+  },
+  -- LSP configuration
+  server = {
+    -- Standalone file support (enabled by default).
+    -- Disabling it may improve rust-analyzer's startup time.
+    standalone = true,
+    -- Whether to search (upward from the buffer) for rust-analyzer settings in .vscode/settings json.
+    -- If found, loaded settings will override configured options.
+    load_vscode_settings = true,
+    default_settings = {
+      --- options to send to rust-analyzer
+      --- See: https://rust-analyzer.github.io/manual.html#configuration
+      ["rust-analyzer"] = {
+        cargo = {
+          features = "all",
+        },
+        check = {
+          features = "all",
+          command = "clippy",
+          extraArgs = { "--no-deps" },
+        },
+        checkOnSave = true,
+        imports = {
+          preferPrelude = true,
+        },
+        inlayHints = {
+          bindingModeHints = {
+            enable = false
+          },
+          closureCaptureHints = {
+            enable = false
+          },
+        },
+        procMacro = {
+          enable = true,
+          ignored = {
+            ["async-trait"] = { "async_trait" },
+            ["napi-derive"] = { "napi" },
+            ["async-recursion"] = { "async_recursion" },
+          },
+        },
+        rustfmt = {
+          extraArgs = { "+nightly", },
+        },
+      },
+    },
+  },
+  -- TODO: configure dap
+  -- dap = {
+  -- },
+}
+
 return {
   {
     "saecki/crates.nvim",
@@ -51,73 +120,12 @@ return {
 
   {
     "mrcjkb/rustaceanvim",
-    version = "^4",
+    version = "^5",
     lazy = false, -- This plugin is already lazy
     dependencies = {
       "nvim-neotest/neotest",
       "mattn/webapi-vim",
     },
-    ---@type RustaceanOpts
-    opts = {
-      -- Plugin configuration
-      tools = {
-        executor = "vimux",
-        enable_clippy = false, -- too slow
-        enable_nextest = true,
-        code_actions = {
-          ui_select_fallback = true,
-        },
-        hover_actions = {
-          replace_builtin_hover = false,
-        },
-      },
-      -- LSP configuration
-      server = {
-        -- Standalone file support (enabled by default).
-        -- Disabling it may improve rust-analyzer's startup time.
-        standalone = false,
-        -- Whether to search (upward from the buffer) for rust-analyzer settings in .vscode/settings json.
-        -- If found, loaded settings will override configured options.
-        load_vscode_settings = true,
-        default_settings = {
-          -- rust-analyzer language server configuration
-          ["rust-analyzer"] = {
-            cargo = {
-              -- features = "all",
-            },
-            check = {
-              -- features = "all",
-            },
-            imports = {
-              preferPrelude = true,
-            },
-            inlayHints = {
-              bindingModeHints = {
-                enable = false
-              },
-              closureCaptureHints = {
-                enable = false
-              },
-            },
-            procMacro = {
-              enable = true,
-              ignored = {
-                ["async-trait"] = { "async_trait" },
-                ["napi-derive"] = { "napi" },
-                ["async-recursion"] = { "async_recursion" },
-              },
-            },
-          },
-        },
-      },
-      -- DAP configuration
-      dap = {
-        -- TODO: configure dap
-      },
-    },
-    config = function(_, opts)
-      vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
-    end,
   },
 
   {
@@ -131,8 +139,8 @@ return {
     end,
   },
 
-  {
-    "cordx56/rustowl",
-    dependencies = { "neovim/nvim-lspconfig" }
-  },
+  -- {
+  --   "cordx56/rustowl",
+  --   dependencies = { "neovim/nvim-lspconfig" }
+  -- },
 }
