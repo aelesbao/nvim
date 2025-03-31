@@ -22,22 +22,27 @@ function M.setup_mappings(bufnr)
   local lsp = vim.lsp.buf
   local diagnostic = vim.diagnostic
   local telescope = require("telescope.builtin")
-  local trouble = require("trouble")
 
-  kset("n", "K", lsp.hover, "Hover")
-  kset("n", "gK", lsp.signature_help, "Signature help")
-  kset({ "n", "i", "x" }, "<C-k>", lsp.signature_help, "Signature help")
+  kset("n", "K", function()
+    lsp.hover({ border = "rounded", focusable = true, focus = true, })
+  end, "Hover")
+
+  kset("n", "gK", function()
+    lsp.signature_help({ border = "rounded", focusable = true, focus = true, })
+  end, "Signature help")
+  kset({ "n", "i", "x" }, "<C-k>", function()
+    lsp.signature_help({ border = "rounded", focusable = true, focus = true, })
+  end, "Signature help")
 
   -- kset("n", "gd", function() trouble.open({ mode = "lsp_definitions" }) end, "Definition")
   kset("n", "gd", function() telescope.lsp_definitions({ reuse_win = true, jump_type = "vsplit" }) end, "Definition")
   kset("n", "gD", function() lsp.declaration({ reuse_win = true }) end, "Declaration")
-  kset("n", "gR", function() telescope.lsp_references({ jump_type = "vsplit" }) end, "References")
-  kset("n", "gr", function() trouble.open({ mode = "lsp_references", focus = true }) end, "References")
+  kset("n", "gR", function() telescope.lsp_references({ reuse_win = true, jump_type = "vsplit" }) end, "References")
   -- kset("n", "gR", function() lsp.references() end, "References")
-  kset("n", "gI", function() lsp.implementation({ reuse_win = true, jump_type = "vsplit" }) end, "Implementation")
   kset("n", "gy", function() lsp.type_definition({ reuse_win = true }) end, "Type definition")
+  kset("n", "gI", function() lsp.implementation({ reuse_win = true, jump_type = "vsplit" }) end, "Implementation")
   kset("n", "gi", function()
-    telescope.lsp_implementations({ jump_type = "vsplit", reuse_win = true })
+    telescope.lsp_implementations({ reuse_win = true, jump_type = "vsplit" })
   end, "Implementation")
 
   kset({ "n" }, "<leader>ca", lsp.code_action, "Code action")
@@ -74,8 +79,8 @@ function M.setup_mappings(bufnr)
   )
 
   kset("n", "xd", diagnostic.open_float, "Diagnostic in a floating window")
-  kset("n", "[d", diagnostic.goto_prev, "Previous diagnostic")
-  kset("n", "]d", diagnostic.goto_next, "Next diagnostic")
+  kset("n", "[d", function() diagnostic.jump({ count = -1, float = true }) end, "Previous diagnostic")
+  kset("n", "]d", function() diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
 
   kset("n", "<leader>ss", telescope.lsp_workspace_symbols, "Search workspace symbols")
 
