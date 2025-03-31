@@ -106,3 +106,17 @@ for server, config in pairs(servers) do
     capabilities = capabilities,
   }, config))
 end
+
+vim.diagnostic.config({
+  virtual_text = true,
+
+  -- Enable virtual text diagnostics for the current cursor line
+  -- virtual_text = { current_line = true },
+
+  -- virtual_lines = true
+
+  virtual_lines = {
+    -- Only show virtual line diagnostics for the current cursor line
+    current_line = true,
+  },
+})
