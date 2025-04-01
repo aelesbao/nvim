@@ -321,13 +321,51 @@ return {
     end,
   },
 
-  -- improves the default vim.ui interfaces
+  -- a collection of small QoL plugins for Neovim.
   {
-    "stevearc/dressing.nvim",
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
     opts = {
-      default_prompt = ">",
+      -- TODO: replace more plugins and enable feats here
+      bigfile = { enabled = true },
+      image = { enabled = true },
+      indent = { enabled = true },
+      input = { enabled = true },
+      lazygit = {
+        enabled = vim.fn.executable("lazygit") == 1
+      },
+      picker = { enabled = true },
+      rename = { enabled = true },
+      notifier = { enabled = true },
+      quickfile = { enabled = true },
+      toggle = { enabled = true },
+      words = { enabled = true },
+    },
+    keys = {
+      { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+      {
+        "<leader>N",
+        desc = "Neovim News",
+        function()
+          Snacks.win({
+            file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
+            width = 0.6,
+            height = 0.6,
+            wo = {
+              spell = false,
+              wrap = false,
+              signcolumn = "yes",
+              statuscolumn = " ",
+              conceallevel = 3,
+            },
+          })
+        end,
+      },
     },
   },
+
 
   -- distraction-free coding
   {

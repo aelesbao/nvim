@@ -24,6 +24,11 @@ local function trash_visual(state, selected_nodes)
   cmds.refresh(state)
 end
 
+-- use snacks.nvim for LSP-integrated file renaming
+local function on_move(data)
+  Snacks.rename.on_rename_file(data.source, data.destination)
+end
+
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -37,7 +42,7 @@ return {
         version = "2.*",
         "s1n7ax/nvim-window-picker",
         config = function()
-          require "window-picker".setup({
+          require("window-picker").setup({
             filter_rules = {
               include_current_win = false,
               autoselect_one = true,
@@ -381,7 +386,15 @@ return {
             -- vim.cmd.stopinsert()
             vim.keymap.set("i", "<esc>", vim.cmd.stopinsert, { noremap = true, buffer = args.bufnr })
           end,
-        }
+        },
+        {
+          event = "file_renamed",
+          handler = on_move
+        },
+        {
+          event = "file_moved",
+          handler = on_move
+        },
       }
     },
   },
