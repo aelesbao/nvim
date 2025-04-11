@@ -146,15 +146,13 @@ return {
     },
     opts = {
       extra_groups = {
+        "NeoTreeNormal",
+        "NeoTreeNormalNC",
       },
       exclude_groups = {
         "CursorLine",
+        "NeoTreeCursorLine",
       },
     },
-    config = function(_, opts)
-      local transparent = require("transparent")
-      transparent.setup(opts)
-      transparent.clear_prefix('NeoTree')
-    end,
   },
 }
