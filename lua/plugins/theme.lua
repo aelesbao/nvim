@@ -108,7 +108,7 @@ return {
     ---@field on_colors fun(colors: ColorScheme)
     ---@field on_highlights fun(highlights: tokyonight.Highlights, colors: ColorScheme)
     opts = {
-      style = "night",      -- 'moon', `storm`, a darker variant `night` and `day`
+      style = "night",     -- 'moon', `storm`, a darker variant `night` and `day`
       transparent = true,  -- enable this to disable setting the background color
       dim_inactive = true, -- dims inactive windows
 
@@ -140,14 +140,21 @@ return {
   {
     "xiyaowong/transparent.nvim",
     lazy = false, -- make sure we load this during startup
-    enabled = false,
     dependencies = {
-      { "catppuccin/nvim", name = "catppuccin" },
+      { "catppuccin/nvim",      name = "catppuccin" },
+      { "folke/tokyonight.nvim" },
     },
     opts = {
+      extra_groups = {
+      },
       exclude_groups = {
         "CursorLine",
       },
     },
+    config = function(_, opts)
+      local transparent = require("transparent")
+      transparent.setup(opts)
+      transparent.clear_prefix('NeoTree')
+    end,
   },
 }
