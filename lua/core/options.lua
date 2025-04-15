@@ -49,8 +49,8 @@ opt.timeoutlen       = 300
 
 -- tmux support
 if vim.env.TMUX ~= nil then
-  local copy = {'tmux', 'load-buffer', '-w', '-'}
-  local paste = {'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -'}
+  local copy = { 'tmux', 'load-buffer', '-w', '-' }
+  local paste = { 'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -' }
   vim.g.clipboard = {
     name = 'tmux',
     copy = {
@@ -68,62 +68,62 @@ end
 -- Formatting
 
 -- indentation
-opt.tabstop          = 2
-opt.softtabstop      = 2
-opt.shiftwidth       = 2
-opt.shiftround       = true -- round indent
-opt.expandtab        = true -- use spaces instead of tabs
-opt.smarttab         = true -- smarter tab levels
-opt.smartindent      = true -- smart (language based) auto indent
-opt.autoindent       = true -- copy indent from current line when starting a new line
+opt.tabstop       = 2
+opt.softtabstop   = 2
+opt.shiftwidth    = 2
+opt.shiftround    = true    -- round indent
+opt.expandtab     = true    -- use spaces instead of tabs
+opt.smarttab      = true    -- smarter tab levels
+opt.smartindent   = true    -- smart (language based) auto indent
+opt.autoindent    = true    -- copy indent from current line when starting a new line
 
 -- text wrapping
-opt.linebreak        = true  -- don't break wrapped lines on words
-opt.textwidth        = 0     -- don't wrap lines by default
-opt.wrap             = false -- disable line wrap
+opt.linebreak     = true     -- don't break wrapped lines on words
+opt.textwidth     = 0        -- don't wrap lines by default
+opt.wrap          = false    -- disable line wrap
 
 -- file
-opt.filetype         = "on"    -- auto detect the type of file being edited
-opt.fileencoding     = "utf-8" -- sets the default file encoding
+opt.filetype      = "on"       -- auto detect the type of file being edited
+opt.fileencoding  = "utf-8"    -- sets the default file encoding
 
 -- Visual
 
 -- enable 24 bit terminal colors
-opt.termguicolors    = true
+opt.termguicolors = true
 
 -- tells Nvim what the inherited Terminal colors are
-opt.background       = "dark"
+opt.background    = "dark"
 
-opt.ruler            = true -- show ruler
-opt.number           = true -- show line numbers
-opt.cursorline       = true -- highlights the current line
-opt.laststatus       = 3    -- always display the status line
-opt.colorcolumn      = "+0"
+opt.ruler         = true    -- show ruler
+opt.number        = true    -- show line numbers
+opt.cursorline    = true    -- highlights the current line
+opt.laststatus    = 3       -- always display the status line
+opt.colorcolumn   = "+0"
 
 -- always show the signcolumn, otherwise it would shift the text each time
-opt.signcolumn       = "yes"
+opt.signcolumn    = "yes"
 
-opt.showmatch        = true -- show matching brackets
-opt.matchtime        = 5    -- bracket blinking
+opt.showmatch     = true    -- show matching brackets
+opt.matchtime     = 5       -- bracket blinking
 
 -- display an incomplete command in the lower right corner of the Vim window
-opt.showcmd          = true
+opt.showcmd       = true
 -- shortens messages
 --o.shortmess = "atI"
 -- more space in the neovim command line for displaying messages
-opt.cmdheight        = 1
+opt.cmdheight     = 1
 -- enhanced command line completion
-opt.wildmenu         = true
+opt.wildmenu      = true
 -- at command line, complete longest common string, then list alternatives
-opt.wildmode         = "longest,list"
+opt.wildmode      = "longest,list"
 
 -- set completeopt to have a better completion experience
-opt.completeopt      = "menu,menuone,noinsert,noselect"
+opt.completeopt   = "menu,menuone,noinsert,noselect"
 
 -- display unprintable characters by default
-opt.list             = true
+opt.list          = true
 -- use the same symbols as TextMate for tabstops and EOLs
-opt.listchars        = {
+opt.listchars     = {
   tab = "▸ ",
   eol = " ",
   trail = "·",
@@ -170,7 +170,7 @@ vim.g.transparency = 0.9
 
 -- Neovide config
 if vim.g.neovide then
-  vim.g.neovide_transparency = vim.g.transparency
+  vim.g.neovide_opacity = vim.g.transparency
   vim.g.neovide_show_border = false
   vim.g.neovide_window_blurred = true
 end
