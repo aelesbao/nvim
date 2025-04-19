@@ -97,3 +97,29 @@ autocmd("FileType", {
     vim.opt_local.spell = true
   end,
 })
+
+-- NOTE: fixes transparent bg for ghostty on macOS
+-- https://github.com/ghostty-org/ghostty/discussions/3579#discussioncomment-11680090
+if vim.fn.has("mac") == 1 then
+  autocmd("ColorScheme", {
+    desc = "fix transparent background on macOS",
+    group = augroup("transparent_backaground"),
+    pattern = "*",
+    callback = function()
+      local hl_groups = {
+        "Normal",
+        "NonText",
+        "NeoTreeNormal",
+        "NeoTreeNormalNC",
+      }
+
+      for _, group in ipairs(hl_groups) do
+        local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+        if hl and hl.bg then
+          hl.bg = nil
+          vim.api.nvim_set_hl(0, group, hl)
+        end
+      end
+    end
+  })
+end
