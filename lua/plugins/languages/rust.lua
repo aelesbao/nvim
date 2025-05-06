@@ -1,3 +1,4 @@
+---@diagnostic disable-next-line: undefined-doc-name
 ---@type RustaceanOpts
 vim.g.rustaceanvim = {
   -- Plugin configuration
@@ -138,9 +139,4 @@ return {
       })
     end,
   },
-
-  -- {
-  --   "cordx56/rustowl",
-  --   dependencies = { "neovim/nvim-lspconfig" }
-  -- },
 }
