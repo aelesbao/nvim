@@ -19,11 +19,6 @@ return {
   },
 
   {
-    "0xmovses/move.vim",
-    ft = { "move" },
-  },
-
-  {
     "bezhermoso/tree-sitter-ghostty",
     build = "make nvim_install",
   },
@@ -50,5 +45,6 @@ return {
   { import = "plugins.languages.go" },
   { import = "plugins.languages.helm" },
   { import = "plugins.languages.lua" },
+  { import = "plugins.languages.move" },
   { import = "plugins.languages.rust" },
 }

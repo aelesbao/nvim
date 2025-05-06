@@ -80,8 +80,11 @@ local servers = {
     },
   },
 
-  bashls = {}, -- bash/sh
-  taplo = {},  -- toml
+  -- bash/sh
+  bashls = {},
+
+  -- toml
+  taplo = {},
 }
 
 -- see :help lsp-zero-guide:integrate-with-mason-nvim
