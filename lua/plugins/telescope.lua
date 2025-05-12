@@ -80,6 +80,7 @@ return {
         telescope_live_grep_open_files,
         desc = "Live grep on open files",
       },
+      { "<leader>sc", ":Telescope commands<cr>",                  desc = "Commands" },
       { "<leader>sh", ":Telescope help_tags<cr>",                 desc = "Help tags" },
       { "<leader>sH", ":Telescope highlights<cr>",                desc = "Highlights" },
       { "<leader>sm", ":Telescope marks<cr>",                     desc = "Jump to mark" },
