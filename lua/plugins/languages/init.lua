@@ -37,9 +37,6 @@ return {
       -- If the command takes longer than this it will be killed.
       check_timeout = 1000,
     },
-    config = function()
-      require("ghostty").setup()
-    end,
   },
 
   { import = "plugins.languages.go" },

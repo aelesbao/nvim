@@ -1,11 +1,11 @@
 vim.bo.textwidth = 120
 
-local lsp_util = require("plugins.lsp.util")
+local utils = require("utils")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("lsp_config_rust", { clear = true }),
   callback = function(event)
-    local kset = lsp_util.buf_kset(event.buf)
+    local kset = utils.buf_kset(event.buf)
 
     -- kset({ "n" }, "<leader>ca", ":RustLsp codeAction<cr>", "Code action")
     -- kset({ "n", "i" }, "<M-CR>", function()

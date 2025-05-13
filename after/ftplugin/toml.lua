@@ -12,14 +12,14 @@ cmp.setup.buffer({
   }),
 })
 
-local lsp_util = require("plugins.lsp.util")
+local utils = require("utils")
 local crates = require("crates")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("lsp_config_toml_crates", { clear = true }),
   pattern = "Cargo.toml",
   callback = function(event)
-    local kset = lsp_util.buf_kset(event.buf)
+    local kset = utils.buf_kset(event.buf)
 
     kset("n", "<leader>cT", crates.toggle, "Toggle crates.nvim")
     kset("n", "<leader>cR", crates.reload, "Reload data")

@@ -138,3 +138,8 @@ cmp.event:on("menu_closed", function()
   ---@diagnostic disable-next-line: inject-field
   vim.b.copilot_suggestion_hidden = false
 end)
+
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+vim.lsp.config('*', { capabilities = capabilities, })

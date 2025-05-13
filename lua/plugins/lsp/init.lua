@@ -1,25 +1,4 @@
 return {
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v3.x",
-    lazy = true,
-    dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "neovim/nvim-lspconfig",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/nvim-cmp",
-      "L3MON4D3/LuaSnip",
-      "b0o/schemastore.nvim",
-    },
-    config = false,
-    init = function()
-      -- Disable automatic setup, we are doing it manually
-      vim.g.lsp_zero_extend_cmp = 0
-      vim.g.lsp_zero_extend_lspconfig = 0
-    end
-  },
-
   -- cmdline tools and lsp servers
   {
     "williamboman/mason.nvim",
@@ -30,20 +9,6 @@ return {
     build = ":MasonUpdate",
   },
 
-  -- LSP configuration & plugins
-  {
-    "neovim/nvim-lspconfig",
-    cmd = { "LspInfo", "LspInstall", "LspStart" },
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
-    },
-    config = function()
-      require("plugins.lsp.config")
-    end
-  },
-
   -- automatically install LSPs to stdpath for neovim
   {
     "williamboman/mason-lspconfig.nvim",
@@ -52,6 +17,27 @@ return {
       "neovim/nvim-lspconfig",
     },
     config = false,
+  },
+
+  -- LSP configuration & plugins
+  {
+    "neovim/nvim-lspconfig",
+    cmd = { "LspInfo", "LspInstall", "LspStart" },
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+      "lukas-reineke/lsp-format.nvim"
+    },
+    config = function()
+      require("plugins.lsp.config")
+    end
+  },
+
+  -- wrapper around LSP formatting
+  {
+    "lukas-reineke/lsp-format.nvim",
+    lazy = true,
   },
 
   -- manage global and project-local settings
