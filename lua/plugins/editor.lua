@@ -197,4 +197,20 @@ return {
       },
     },
   },
+
+  -- improve viewing Markdown files
+  {
+    -- Make sure to set this up properly if you have lazy=true
+    "MeanderingProgrammer/render-markdown.nvim",
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {
+      -- provides completions for both checkboxes and callouts
+      completions = { lsp = { enabled = true } },
+      file_types = { "markdown", "Avante", "codecompanion" },
+      preset = "obsidian",
+    },
+    ft = { "markdown", "Avante", "codecompanion" },
+  },
 }
