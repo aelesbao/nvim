@@ -5,7 +5,6 @@ cmp.setup.buffer({
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "crates" },
-    { name = "copilot" },
   }, {
     { name = "path" },
     { name = "buffer" },
