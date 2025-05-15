@@ -321,6 +321,24 @@ return {
     end,
   },
 
+  -- extensible UI for Neovim notifications and LSP progress messages
+  {
+    "j-hui/fidget.nvim",
+    tag = "v1.6.1",
+    opts = {
+      -- Options related to notification subsystem
+      notification = {
+        -- Options related to the notification window and buffer
+        window = {
+          winblend = 90,       -- Background color opacity in the notification window
+          border = "rounded",  -- Border around the notification window
+          align = "bottom",    -- How to align the notification window
+          relative = "editor", -- What the notification window position is relative to
+        },
+      },
+    },
+  },
+
   -- a collection of small QoL plugins for Neovim.
   {
     "folke/snacks.nvim",

@@ -97,6 +97,7 @@ return {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "folke/trouble.nvim",
+      "j-hui/fidget.nvim",
     },
     opts = function()
       local open_with_trouble = require("trouble.sources.telescope").open
@@ -140,6 +141,7 @@ return {
 
       telescope.setup(opts)
       telescope.load_extension("fzf")
+      telescope.load_extension("fidget")
     end,
   },
 }
