@@ -19,6 +19,7 @@ return {
       defaults = {
         mode = { "n", "v" },
         { "<leader><tab>", group = "tabs" },
+        { "<leader>a",     group = "AI" },
         { "<leader>b",     group = "buffer" },
         { "<leader>c",     group = "code" },
         { "<leader>d",     group = "debug" },
