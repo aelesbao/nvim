@@ -35,7 +35,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      -- "ravitemer/mcphub.nvim"
+      "ravitemer/mcphub.nvim",
     },
     keys = {
       { "<leader>ac", ":CodeCompanionChat<cr>",    desc = "Toggle CodeCompanion chat buffer" },
@@ -122,6 +122,16 @@ return {
           opts = {
             show_default_actions = true,        -- Show the default actions in the action palette?
             show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+          },
+        },
+      },
+      extensions = {
+        mcphub = {
+          callback = "mcphub.extensions.codecompanion",
+          opts = {
+            make_vars = true,           -- make chat #variables from MCP server resources
+            make_slash_commands = true, -- make /slash_commands from MCP server prompts
+            show_result_in_chat = true, -- Show the mcp tool result in the chat buffer
           },
         },
       },

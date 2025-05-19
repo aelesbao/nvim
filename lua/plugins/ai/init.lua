@@ -28,4 +28,5 @@ return {
   },
 
   { import = "plugins.ai.codecompanion" },
+  { import = "plugins.ai.mcphub" },
 }
