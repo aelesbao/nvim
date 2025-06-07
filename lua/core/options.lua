@@ -71,20 +71,20 @@ end
 opt.tabstop       = 2
 opt.softtabstop   = 2
 opt.shiftwidth    = 2
-opt.shiftround    = true    -- round indent
-opt.expandtab     = true    -- use spaces instead of tabs
-opt.smarttab      = true    -- smarter tab levels
-opt.smartindent   = true    -- smart (language based) auto indent
-opt.autoindent    = true    -- copy indent from current line when starting a new line
+opt.shiftround    = true -- round indent
+opt.expandtab     = true -- use spaces instead of tabs
+opt.smarttab      = true -- smarter tab levels
+opt.smartindent   = true -- smart (language based) auto indent
+opt.autoindent    = true -- copy indent from current line when starting a new line
 
 -- text wrapping
-opt.linebreak     = true     -- don't break wrapped lines on words
-opt.textwidth     = 0        -- don't wrap lines by default
-opt.wrap          = false    -- disable line wrap
+opt.linebreak     = true  -- don't break wrapped lines on words
+opt.textwidth     = 0     -- don't wrap lines by default
+opt.wrap          = false -- disable line wrap
 
 -- file
-opt.filetype      = "on"       -- auto detect the type of file being edited
-opt.fileencoding  = "utf-8"    -- sets the default file encoding
+opt.filetype      = "on"    -- auto detect the type of file being edited
+opt.fileencoding  = "utf-8" -- sets the default file encoding
 
 -- Visual
 
@@ -94,17 +94,17 @@ opt.termguicolors = true
 -- tells Nvim what the inherited Terminal colors are
 opt.background    = "dark"
 
-opt.ruler         = true    -- show ruler
-opt.number        = true    -- show line numbers
-opt.cursorline    = true    -- highlights the current line
-opt.laststatus    = 3       -- always display the status line
+opt.ruler         = true -- show ruler
+opt.number        = true -- show line numbers
+opt.cursorline    = true -- highlights the current line
+opt.laststatus    = 3    -- always display the status line
 opt.colorcolumn   = "+0"
 
 -- always show the signcolumn, otherwise it would shift the text each time
 opt.signcolumn    = "yes"
 
-opt.showmatch     = true    -- show matching brackets
-opt.matchtime     = 5       -- bracket blinking
+opt.showmatch     = true -- show matching brackets
+opt.matchtime     = 5    -- bracket blinking
 
 -- display an incomplete command in the lower right corner of the Vim window
 opt.showcmd       = true
