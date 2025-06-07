@@ -17,9 +17,18 @@ return {
   {
     "norcalli/nvim-colorizer.lua",
     opts = {
-      "*",
+      ["*"] = {
+        RGB = true,          -- #RGB hex codes
+        RRGGBB = true,       -- #RRGGBB hex codes
+        names = false,       -- "Name" codes like "Blue" or "Red"
+        RRGGBBAA = true,     -- #RRGGBBAA hex codes
+        rgb_fn = true,       -- rgb(255, 0, 0)
+        hsl_fn = true,       -- hsl(360, 100%, 50%)
+        css = true,          -- enable all CSS features: rgb_fn, hsl_fn, names
+        css_fn = true,       -- enable all CSS *functions*: rgb_fn, hsl_fn
+        mode = "background", -- set the display mode to background
+      },
     },
-    config = function(_, opts) require("colorizer").setup(opts) end,
   },
 
   -- undo history visualizer
