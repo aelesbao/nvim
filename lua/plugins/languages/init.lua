@@ -14,6 +14,10 @@ return {
   },
 
   {
+    "HiPhish/jinja.vim",
+  },
+
+  {
     "fladson/vim-kitty",
     ft = { "kitty" },
   },
