@@ -26,6 +26,10 @@ local format_timeout_ms = 3000
 local format_group_name = "lsp_autoformat"
 local format_group = augroup(format_group_name, { clear = false })
 
+local function format(bufnr)
+  lsp_format.format({ buf = bufnr, async = false, timeout_ms = format_timeout_ms })
+end
+
 local function setup_keymaps(bufnr)
   local kset = utils.buf_kset(bufnr)
 
@@ -74,9 +78,9 @@ local function setup_keymaps(bufnr)
   kset("n", "<F18>", lsp.rename, "Rename")
   kset("i", "<F18>", "<C-o><S-F6>", "Rename")
 
-  -- function() lsp.format({ async = false, timeout_ms = format_timeout_ms }) end,
-  kset({ "n", "x" }, "<leader>cf", ":Format<Enter>", "Format code")
-  kset({ "n", "x" }, "<C-M-l>", ":Format<Enter>", "Format code")
+  kset({ "n", "x" }, "<leader>cf", function() format(bufnr) end, "Format code")
+  kset({ "n", "x" }, "<C-M-l>", function() format(bufnr) end, "Format code")
+  -- kset({ "n", "x" }, "<C-M-l>", ":Format<Enter>", "Format code")
 
   kset("n", "xd", diagnostic.open_float, "Diagnostic in a floating window")
   kset("n", "[d", function() diagnostic.jump({ count = -1, float = true }) end, "Previous diagnostic")
@@ -92,10 +96,10 @@ local function setup_keymaps(bufnr)
 end
 
 local function is_autoformat_enabled()
-  local autoformat = vim.b.enable_autoformat
+  local autoformat = vim.b.autoformat
   if autoformat == nil then
     ---@diagnostic disable-next-line: inject-field
-    vim.b.enable_autoformat = true
+    vim.b.autoformat = true
   end
 
   return (autoformat == 1 or autoformat == true)
@@ -118,7 +122,7 @@ local function buffer_format(client, bufnr, opts)
     buffer = bufnr,
     callback = function()
       if is_autoformat_enabled() then
-        lsp_format.format({ buf = bufnr })
+        format(bufnr)
         -- vim.lsp.buf.format({
         --   async = false,
         --   bufnr = bufnr,

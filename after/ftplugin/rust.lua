@@ -17,6 +17,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- kset("v", "K", ":RustLsp moveItem up<cr>", "Move selected item up")
     -- kset("v", "J", ":RustLsp moveItem down<cr>", "Move selected item down")
 
+    -- kset("n", "<leader>cf", ":RustFmt<cr>", "Rust debuggables")
     kset("n", "<leader>cd", ":RustLsp debuggables<cr>", "Rust debuggables")
     kset("n", "<leader>cR", ":RustLsp runnables<cr>", "Rust runnables")
     kset({ "n", "x", "i" }, "<M-R>", function()
