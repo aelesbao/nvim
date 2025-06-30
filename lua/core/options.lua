@@ -173,4 +173,9 @@ if vim.g.neovide then
   vim.g.neovide_opacity = vim.g.transparency
   vim.g.neovide_show_border = false
   vim.g.neovide_window_blurred = true
+  vim.g.neovide_cursor_antialiasing = true
+end
+
+if vim.fn.has("mac") == 1 then
+  vim.o.guifont = "Hack Nerd Font:h14"
 end
