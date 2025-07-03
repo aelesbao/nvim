@@ -60,6 +60,14 @@ vim.g.rustaceanvim = {
         rustfmt = {
           extraArgs = { "+nightly", },
         },
+        workspace = {
+          symbol = {
+            search = {
+              scope = "workspace_and_dependencies",
+              limit = 512,
+            },
+          },
+        },
       },
     },
   },
