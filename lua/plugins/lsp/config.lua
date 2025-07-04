@@ -86,7 +86,7 @@ local function setup_keymaps(bufnr)
   kset("n", "[d", function() diagnostic.jump({ count = -1, float = true }) end, "Previous diagnostic")
   kset("n", "]d", function() diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
 
-  kset("n", "<leader>ss", telescope.lsp_workspace_symbols, "Search workspace symbols")
+  kset("n", "<leader>ss", telescope.lsp_dynamic_workspace_symbols, "Search workspace symbols")
 
   kset("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "Add folder to workspace")
   kset("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove folder from workspace")
