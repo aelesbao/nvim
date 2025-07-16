@@ -393,6 +393,38 @@ return {
     },
   },
 
+  -- A framework for building Neovim plugins
+  {
+    "ldelossa/litee.nvim",
+    event = "VeryLazy",
+    opts = {
+      notify = { enabled = false },
+      panel = {
+        panel_size = 30,
+      },
+    },
+    config = function(_, opts)
+      require("litee.lib").setup(opts)
+    end
+  },
+
+  -- Neovim's missing call hierarchy UI
+  {
+    "ldelossa/litee-calltree.nvim",
+    dependencies = {
+      {
+        "ldelossa/litee.nvim",
+      },
+    },
+    event = "VeryLazy",
+    opts = {
+      on_open = "panel",
+      map_resize_keys = false,
+    },
+    config = function(_, opts)
+      require("litee.calltree").setup(opts)
+    end
+  },
 
   -- distraction-free coding
   {

@@ -70,4 +70,24 @@ return {
       end,
     },
   },
+
+  -- A fully featured GitHub integration for performing code reviews in Neovim.
+  {
+    "ldelossa/gh.nvim",
+    dependencies = {
+      {
+        "ldelossa/litee.nvim",
+      },
+    },
+    opts = {},
+    keys = {
+      { "<leader>gP", ":GHOpenPR<cr>",    desc = "Open a GitHub Pull Request" },
+      { "<leader>gI", ":GHOpenIssue<cr>", desc = "Open a GitHub Issue" },
+      { "<leader>gS", ":GHSearchPRs<cr>", desc = "Search Pull Requests on GitHub" },
+    },
+    config = function(_, opts)
+      require("litee.gh").setup(opts)
+    end,
+  },
+
 }
