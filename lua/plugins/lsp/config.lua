@@ -58,6 +58,9 @@ local function setup_keymaps(bufnr)
     telescope.lsp_implementations({ reuse_win = true, jump_type = "vsplit" })
   end, "Implementation")
 
+  kset("n", "grc", lsp.incoming_calls, "Incoming calls")
+  kset("n", "grC", lsp.outgoing_calls, "Outgoing calls")
+
   kset({ "n" }, "<leader>ca", lsp.code_action, "Code action")
   kset({ "n", "i" }, "<M-CR>", lsp.code_action, "Code action")
 
