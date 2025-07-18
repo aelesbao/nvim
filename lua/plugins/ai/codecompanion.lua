@@ -39,7 +39,7 @@ return {
       "ravitemer/codecompanion-history.nvim",
     },
     keys = {
-      { "<leader>ac", ":CodeCompanionChat<cr>",    desc = "Toggle CodeCompanion chat buffer" },
+      { "<leader>aC", ":CodeCompanionChat<cr>",    desc = "Toggle CodeCompanion chat buffer" },
       { "<leader>ai", ":CodeCompanion<cr>",        desc = "Use the CodeCompanion Inline Assistant" },
       { "<leader>aa", ":CodeCompanionActions<cr>", desc = "Open the CodeCompanion actions palette" },
       { "<leader>ad", ":CodeCompanionCmd<cr>",     desc = "Prompt the LLM to write a command for the command-line" },
