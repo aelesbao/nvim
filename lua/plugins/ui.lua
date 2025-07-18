@@ -13,20 +13,13 @@ local function diff_source()
 end
 
 return {
-  -- paints the background to shows color previews
+  -- Color picker and highlighter
   {
-    "norcalli/nvim-colorizer.lua",
+    "uga-rosa/ccc.nvim",
     opts = {
-      ["*"] = {
-        RGB = true,          -- #RGB hex codes
-        RRGGBB = true,       -- #RRGGBB hex codes
-        names = false,       -- "Name" codes like "Blue" or "Red"
-        RRGGBBAA = true,     -- #RRGGBBAA hex codes
-        rgb_fn = true,       -- rgb(255, 0, 0)
-        hsl_fn = true,       -- hsl(360, 100%, 50%)
-        css = true,          -- enable all CSS features: rgb_fn, hsl_fn, names
-        css_fn = true,       -- enable all CSS *functions*: rgb_fn, hsl_fn
-        mode = "background", -- set the display mode to background
+      highlighter = {
+        auto_enable = true,
+        lsp = true,
       },
     },
   },
