@@ -56,3 +56,6 @@ k.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 -- Buffers
 k.set("n", "<leader>bl", ":e#<cr>", { desc = "Switch to last used buffer" })
 k.set("n", "<leader>bv", ":vsplit#<cr>", { desc = "Open last used buffer in vertical split" })
+
+-- Terminal
+k.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
