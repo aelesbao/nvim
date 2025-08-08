@@ -165,10 +165,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 vim.diagnostic.config({
   -- Enable virtual text diagnostics for the current cursor line
-  virtual_text = { current_line = true },
+  virtual_text = { current_line = false, source = "if_many", virt_text_pos = "eol" },
 
   -- Only show virtual line diagnostics for the current cursor line
-  virtual_lines = { current_line = true, },
+  virtual_lines = false,
 
   -- Change the text content of the diagnostic signs
   signs = {

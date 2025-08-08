@@ -52,7 +52,7 @@ return {
         unknown = " ", -- hint kind is nil
       },
       label = {
-        truncateAtChars = 20,
+        truncateAtChars = 50,
         padding = 1,
         marginLeft = 0,
         sameKindSeparator = ", ",
