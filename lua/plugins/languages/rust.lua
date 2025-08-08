@@ -3,7 +3,19 @@
 vim.g.rustaceanvim = {
   -- Plugin configuration
   tools = {
-    executor = "vimux",
+    executor = {
+      execute_command = function(command, args, _cwd, opts)
+        local shell = require("rustaceanvim.shell")
+        local envs = ""
+        for k, v in pairs((opts or {}).env or {}) do
+          envs = envs .. k .. "='" .. v .. "' "
+        end
+        local commands = {}
+        table.insert(commands, shell.make_command_from_args(command, args))
+        local full_command = shell.chain_commands(commands)
+        vim.fn.VimuxRunCommand(envs .. full_command)
+      end,
+    },
     enable_clippy = true, -- too slow
     code_actions = {
       ui_select_fallback = true,
@@ -21,10 +33,10 @@ vim.g.rustaceanvim = {
   server = {
     -- Standalone file support (enabled by default).
     -- Disabling it may improve rust-analyzer's startup time.
-    standalone = true,
+    standalone = false,
     -- Whether to search (upward from the buffer) for rust-analyzer settings in .vscode/settings json.
     -- If found, loaded settings will override configured options.
-    load_vscode_settings = true,
+    load_vscode_settings = false,
     default_settings = {
       --- options to send to rust-analyzer
       --- See: https://rust-analyzer.github.io/manual.html#configuration

@@ -11,8 +11,8 @@ k.set("i", "<C-a>", "<Home>", { remap = false })
 k.set("i", "<C-e>", "<End>", { remap = false })
 
 -- Tabs
-k.set("n", "<m-[>", ":tabprevious<cr>")
-k.set("n", "<m-]>", ":tabnext<cr>")
+k.set("n", "<M-[>", ":tabprevious<cr>")
+k.set("n", "<M-]>", ":tabnext<cr>")
 k.set("n", "<leader><tab>n", ":tabnew<cr>", { desc = "New tab" })
 k.set("n", "<leader><tab>q", ":tabclose<cr>", { desc = "Close tab" })
 k.set("n", "<leader><tab>Q", ":tabonly<cr>", { desc = "Close other tabs" })
