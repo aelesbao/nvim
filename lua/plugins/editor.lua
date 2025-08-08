@@ -59,7 +59,27 @@ return {
   "tpope/vim-abolish",
 
   -- easily interact with tmux from vim
-  "preservim/vimux",
+  {
+    "preservim/vimux",
+    lazy = false,
+    keys = {
+      { "<leader>vl", ":VimuxRunLastCommand<cr>",      desc = "Run last vimux command" },
+      { "<leader>vi", ":VimuxInspectRunner<cr>",       desc = "Move into the runner in copy mode" },
+      { "<C-M-u>",    ":VimuxScrollUpInspect<cr>",     desc = "Scrolls the runner up" },
+      { "<C-M-d>",    ":VimuxScrollDownInspect<cr>",   desc = "Scrolls the runner down" },
+      { "<leader>vk", ":VimuxClearTerminalScreen<cr>", desc = "Clears the runner terminal screen" },
+      { "<leader>vo", ":VimuxOpenRunner<cr>",          desc = "Opens the vimux runner" },
+      { "<leader>vq", ":VimuxCloseRunner<cr>",         desc = "Close the vimux runner" },
+    },
+    init = function()
+      -- the part of the screen the split pane Vimux will spawn should take up
+      vim.g.VimuxHeight = "30%"
+      -- default orientation of the split tmux pane
+      vim.g.VimuxOrientation = "h"
+      -- addtional arguments to be passed to the tmux command that opens the runner
+      vim.g.VimuxOpenExtraArgs = [[ -c \#\{pane_current_path\} ]]
+    end,
+  },
 
   -- autopair that allows custom rules
   {
