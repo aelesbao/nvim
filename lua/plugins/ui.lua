@@ -68,29 +68,49 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     keys = {
-      {
-        "<leader>xx",
-        "<cmd>Trouble diagnostics toggle<cr>",
-        desc = "Diagnostics (Trouble)",
-      },
-      {
-        "<leader>xX",
-        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-        desc = "Buffer Diagnostics (Trouble)",
-      },
-      {
-        "<leader>xq",
-        "<cmd>Trouble quickfix<cr>",
-        desc = "Quickfix (Trouble)"
-      },
-      {
-        "<leader>xl",
-        "<cmd>Trouble loclist<cr>",
-        desc = "Location list (Trouble)"
-      },
+      { "<leader>ct", ":Trouble todo toggle<cr>",                     desc = "Open TODO list", },
+      { "<leader>xx", ":Trouble diagnostics toggle<cr>",              desc = "Diagnostics (Trouble)", },
+      { "<leader>xX", ":Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)", },
+      { "<leader>xq", ":Trouble quickfix toggle<cr>",                 desc = "Quickfix (Trouble)" },
+      { "<leader>xl", ":Trouble loclist toggle<cr>",                  desc = "Location list (Trouble)" },
+      { "<leader>es", ":Trouble symbols toggle<cr>",                  desc = "Document symbols (Trouble)" },
+      { "grr",        ":Trouble lsp_references<cr>",                  desc = "References (Trouble)" },
+      { "grd",        ":Trouble lsp_definitions<cr>",                 desc = "Definitions (Trouble)" },
+      { "gri",        ":Trouble lsp_implementations<cr>",             desc = "Implementations (Trouble)" },
+      { "grt",        ":Trouble lsp_type_definitions<cr>",            desc = "Type definitions (Trouble)" },
     },
+    ---@type trouble.Config
     opts = {
-      auto_close = true, -- auto close when there are no items
+      auto_preview = false, -- automatically open preview when on an item
+      auto_close = true,    -- auto close when there are no items
+      auto_jump = true,     -- auto jump to the item when there's only one
+      focus = true,         -- focus the window when opened
+
+      ---@type trouble.Window.opts
+      win = {}, -- window options for the results window. Can be a split or a floating window.
+
+      -- Window options for the preview window. Can be a split, floating window,
+      -- or `main` to show the preview in the main editor window.
+      ---@type trouble.Window.opts
+      preview = {
+        type = "float"
+      },
+      ---@type table<string, trouble.Mode>
+      modes = {
+        symbols = {
+          focus = true,
+          win = {
+            position = "right",
+            size = { width = 50 },
+          },
+        },
+      },
+      icons = {
+        ---@type trouble.Indent.symbols
+        indent = {
+          last = "╰╴", -- rounded
+        },
+      },
     },
   },
 
@@ -346,7 +366,6 @@ return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
-    ---@type snacks.Config
     opts = {
       -- TODO: replace more plugins and enable feats here
       bigfile = { enabled = true },
@@ -362,6 +381,9 @@ return {
       quickfile = { enabled = true },
       toggle = { enabled = true },
       words = { enabled = true },
+      dim = {
+        enabled = true,
+      },
     },
     keys = {
       { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
