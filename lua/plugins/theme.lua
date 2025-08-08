@@ -104,20 +104,23 @@ return {
     "folke/tokyonight.nvim",
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
-    ---@class tokyonight.Config
-    ---@field on_colors fun(colors: ColorScheme)
-    ---@field on_highlights fun(highlights: tokyonight.Highlights, colors: ColorScheme)
+    ---@type tokyonight.Config
     opts = {
-      style = "night",     -- 'moon', `storm`, a darker variant `night` and `day`
-      transparent = true,  -- enable this to disable setting the background color
-      dim_inactive = true, -- dims inactive windows
+      style = "night",         -- 'moon', `storm`, a darker variant `night` and `day`
+      transparent = true,      -- enable this to disable setting the background color
+      dim_inactive = true,     -- dims inactive windows
+      lualine_bold = true,     -- when `true`, section headers in the lualine theme will be bold
+      terminal_colors = false, -- configure the colors used when opening a `:terminal` in Neovim
 
       --- You can override specific color groups to use other groups or a hex color
       --- function will be called with a ColorScheme table
+      ---@param colors ColorScheme
       on_colors = function(colors) end,
 
       --- You can override specific highlights to use other groups or a hex color
       --- function will be called with a Highlights and ColorScheme table
+      ---@param highlights tokyonight.Highlights
+      ---@param colors ColorScheme
       on_highlights = function(highlights, colors) end,
 
       -- TODO: update colors in other plugins
