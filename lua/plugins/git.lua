@@ -90,4 +90,62 @@ return {
     end,
   },
 
+  -- Generate shareable file permalinks (with line ranges) for several git web frontend hosts
+  {
+    "ruifm/gitlinker.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+
+    opts = function()
+      local hosts = require("gitlinker.hosts")
+
+      return {
+        mappings = nil,
+        callbacks = {
+          ["gh"] = hosts.get_github_type_url,
+          ["github"] = hosts.get_github_type_url,
+        }
+      }
+    end,
+
+    keys = function()
+      local gitlinker = require("gitlinker")
+      local actions = require("gitlinker.actions")
+
+      return {
+        {
+          "<leader>gy",
+          function()
+            gitlinker.get_buf_range_url("n", { action_callback = actions.copy_to_clipboard })
+          end,
+          desc = "Copy remote repository URL",
+        },
+        {
+          "<leader>gy",
+          function()
+            gitlinker.get_buf_range_url("v", { action_callback = actions.copy_to_clipboard })
+          end,
+          mode = { "v" },
+          desc = "Copy remote repository URL",
+        },
+        {
+          "<leader>gb",
+          function()
+            gitlinker.get_buf_range_url("n", { action_callback = actions.open_in_browser })
+          end,
+          desc = "Open remote repository in browser",
+        },
+        {
+          "<leader>gb",
+          function()
+            gitlinker.get_buf_range_url("v", { action_callback = actions.open_in_browser })
+          end,
+          mode = { "v" },
+          desc = "Open remote repository in browser",
+        },
+      }
+    end,
+  },
+
 }
