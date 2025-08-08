@@ -24,9 +24,13 @@ end
 
 local function telescope_smart_find_files()
   local telescope = require("telescope.builtin")
+  local git_root = find_git_root()
 
-  if find_git_root() then
-    telescope.git_files({ show_untracked = true })
+  if git_root then
+    telescope.git_files({
+      cwd = git_root,
+      show_untracked = true
+    })
   else
     telescope.find_files()
   end
@@ -57,41 +61,29 @@ return {
     cmd = "Telescope",
     keys = {
       -- find
-      { "<C-p>",      telescope_smart_find_files,  desc = "Find file" },
-      { "<leader>ff", ":Telescope find_files<cr>", desc = "Find file" },
-      {
-        "<leader>fh",
-        ":Telescope oldfiles<cr>",
-        desc = "Recently opened files",
-      },
+      { "<C-p>",      telescope_smart_find_files,                                         desc = "Find files" },
+      { "<leader>ff", ":Telescope find_files<cr>",                                        desc = "Find files" },
+      { "<leader>fh", ":Telescope oldfiles<cr>",                                          desc = "Recently opened files", },
       { "<leader>fa", ":Telescope find_files follow=true no_ignore=true hidden=true<cr>", desc = "Find all" },
       { "<leader>fb", ":Telescope buffers sort_mru=true sort_lastused=true<cr>",          desc = "Find buffers" },
-      { "<leader>fg", ":Telescope git_files<cr>",                                         desc = "Find git files" },
+      { "<leader>fg", ":Telescope git_files recurse_submodules=true<cr>",                 desc = "Find git files" },
 
       -- search
       { "<leader>sg", ":Telescope live_grep<cr>",                                         desc = "Live grep" },
-      {
-        "<leader>sG",
-        telescope_live_grep_git_root,
-        desc = "Live grep on git root",
-      },
-      {
-        "<leader>s/",
-        telescope_live_grep_open_files,
-        desc = "Live grep on open files",
-      },
-      { "<leader>sc", ":Telescope commands<cr>",                  desc = "Commands" },
-      { "<leader>sh", ":Telescope help_tags<cr>",                 desc = "Help tags" },
-      { "<leader>sH", ":Telescope highlights<cr>",                desc = "Highlights" },
-      { "<leader>sm", ":Telescope marks<cr>",                     desc = "Jump to mark" },
-      { "<leader>sn", ":Telescope notify<cr>",                    desc = "Notifications" },
-      { "<leader>sk", ":Telescope keymaps<cr>",                   desc = "Keymaps" },
-      { "<leader>sz", ":Telescope current_buffer_fuzzy_find<cr>", desc = "Find in current buffer", },
+      { "<leader>sG", telescope_live_grep_git_root,                                       desc = "Live grep on git root", },
+      { "<leader>s/", telescope_live_grep_open_files,                                     desc = "Live grep on open files", },
+      { "<leader>sc", ":Telescope commands<cr>",                                          desc = "Commands" },
+      { "<leader>sh", ":Telescope help_tags<cr>",                                         desc = "Help tags" },
+      { "<leader>sH", ":Telescope highlights<cr>",                                        desc = "Highlights" },
+      { "<leader>sm", ":Telescope marks<cr>",                                             desc = "Jump to mark" },
+      { "<leader>sn", ":Telescope notify<cr>",                                            desc = "Notifications" },
+      { "<leader>sk", ":Telescope keymaps<cr>",                                           desc = "Keymaps" },
+      { "<leader>sz", ":Telescope current_buffer_fuzzy_find<cr>",                         desc = "Find in current buffer", },
 
       -- git
-      { "<leader>gc", ":Telescope git_commits<cr>",               desc = "Git commits" },
-      { "<leader>gb", ":Telescope git_bcommits<cr>",              desc = "Git commits in current buffer" },
-      { "<leader>gs", ":Telescope git_status<cr>",                desc = "Git status" },
+      { "<leader>gc", ":Telescope git_commits<cr>",                                       desc = "Git commits" },
+      { "<leader>gb", ":Telescope git_bcommits<cr>",                                      desc = "Git commits in current buffer" },
+      { "<leader>gs", ":Telescope git_status<cr>",                                        desc = "Git status" },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
