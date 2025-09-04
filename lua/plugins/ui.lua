@@ -118,9 +118,6 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
-    dependencies = {
-      { "catppuccin/nvim", name = "catppuccin", lazy = false },
-    },
     keys = {
       { "<leader>bp", ":BufferLineTogglePin<cr>",            desc = "Toggle pin" },
       { "<leader>bP", ":BufferLineGroupClose ungrouped<cr>", desc = "Delete non-pinned tabs" },
@@ -135,7 +132,6 @@ return {
         options = {
           mode = "tabs", -- or buffers
           themable = true,
-          highlights = require("catppuccin.groups.integrations.bufferline").get(),
           close_command = close_cmd,
           right_mouse_command = close_cmd,
           diagnostics = "nvim_lsp",
@@ -179,16 +175,17 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
+      "folke/tokyonight.nvim",
       "SmiteshP/nvim-navic",
       "AndreM222/copilot-lualine",
     },
     event = "VeryLazy",
     opts = function()
-      local theme = require("catppuccin.palettes").get_palette()
+      local colors = require("tokyonight.colors").setup()
 
       return {
         options = {
-          theme = "catppuccin",
+          theme = "tokyonight",
           icons_enabled = true,
           globalstatus = true,
           -- component_separators = { left = "", right = "" },
@@ -216,10 +213,10 @@ return {
               symbols = {
                 status = {
                   hl = {
-                    enabled = theme.green,
-                    disabled = theme.subtext0,
-                    warning = theme.yellow,
-                    unknown = theme.red,
+                    enabled = colors.green,
+                    disabled = colors.comment,
+                    warning = colors.yellow,
+                    unknown = colors.red,
                   },
                 },
               },
@@ -262,8 +259,13 @@ return {
           },
         },
         extensions = {
+          "avante",
+          "fugitive",
           "lazy",
           "mason",
+          "neo-dap-ui",
+          "neo-tree",
+          "quickfix",
           "trouble",
         },
       }
