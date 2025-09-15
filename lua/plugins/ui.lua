@@ -178,6 +178,7 @@ return {
       "folke/tokyonight.nvim",
       "SmiteshP/nvim-navic",
       "AndreM222/copilot-lualine",
+      "rcarriga/nvim-dap-ui",
     },
     event = "VeryLazy",
     opts = function()
