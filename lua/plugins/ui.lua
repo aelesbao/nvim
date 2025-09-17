@@ -178,7 +178,6 @@ return {
       "folke/tokyonight.nvim",
       "SmiteshP/nvim-navic",
       "AndreM222/copilot-lualine",
-      "rcarriga/nvim-dap-ui",
     },
     event = "VeryLazy",
     opts = function()
@@ -264,7 +263,6 @@ return {
           "fugitive",
           "lazy",
           "mason",
-          "neo-dap-ui",
           "neo-tree",
           "quickfix",
           "trouble",
