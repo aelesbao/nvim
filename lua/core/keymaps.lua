@@ -7,6 +7,8 @@ k.set({ "n", "v" }, ";", ":", { remap = false })
 k.set("i", "<Esc>b", "<C-Left>")
 k.set("i", "<Esc>f", "<C-Right>")
 -- jump to the beginning and end of line
+k.set("n", "<C-a>", "g^", { remap = false })
+k.set("n", "<C-e>", "g$", { remap = false })
 k.set("i", "<C-a>", "<Home>", { remap = false })
 k.set("i", "<C-e>", "<End>", { remap = false })
 
@@ -58,4 +60,4 @@ k.set("n", "<leader>bl", ":e#<cr>", { desc = "Switch to last used buffer" })
 k.set("n", "<leader>bv", ":vsplit#<cr>", { desc = "Open last used buffer in vertical split" })
 
 -- Terminal
-k.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+k.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
