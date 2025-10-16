@@ -104,6 +104,7 @@ return {
     "folke/tokyonight.nvim",
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
+
     ---@type tokyonight.Config
     opts = {
       style = "night",         -- 'moon', `storm`, a darker variant `night` and `day`
@@ -122,9 +123,9 @@ return {
 
       --- You can override specific highlights to use other groups or a hex color
       --- function will be called with a Highlights and ColorScheme table
-      ---@param highlights tokyonight.Highlights
+      ---@param hl tokyonight.Highlights
       ---@param colors ColorScheme
-      on_highlights = function(highlights, colors) end,
+      on_highlights = function(hl, colors) end,
 
       -- TODO: update colors in other plugins
 
@@ -136,6 +137,7 @@ return {
       -- aplugin.background = colors.bg_dark
       -- aplugin.my_error = util.lighten(colors.red1, 0.3) -- number between 0 and 1. 0 results in white, 1 results in red1
     },
+
     config = function(_, opts)
       vim.cmd.colorscheme("tokyonight-" .. opts.style)
       require("tokyonight").setup(opts)

@@ -47,6 +47,7 @@ vim.g.rustaceanvim = {
         check = {
           features = "all",
           command = "clippy",
+          -- run clippy only on the given crate, without linting the dependencies
           extraArgs = { "--no-deps" },
         },
         checkOnSave = true,
@@ -83,9 +84,8 @@ vim.g.rustaceanvim = {
       },
     },
   },
-  -- TODO: configure dap
-  -- dap = {
-  -- },
+  dap = {
+  },
 }
 
 return {

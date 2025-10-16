@@ -40,7 +40,7 @@ return {
         opts = {
           -- Makes a best effort to setup the various debuggers with
           -- reasonable debug configurations
-          automatic_installation = true,
+          automatic_installation = false,
 
           -- You can provide additional configuration to the handlers,
           -- see mason-nvim-dap README for more information
@@ -67,20 +67,52 @@ return {
         { "<leader>db", function() dap.toggle_breakpoint() end,                                    desc = "Toggle Breakpoint" },
         { "<leader>dc", function() dap.continue() end,                                             desc = "Continue" },
         { "<leader>da", function() dap.continue({ before = get_args }) end,                        desc = "Run with Args" },
+        { "<leader>dl", function() dap.run_last() end,                                             desc = "Run Last" },
         { "<leader>dC", function() dap.run_to_cursor() end,                                        desc = "Run to Cursor" },
         { "<leader>dg", function() dap.goto_() end,                                                desc = "Go to Line (No Execute)" },
-        { "<leader>di", function() dap.step_into() end,                                            desc = "Step Into" },
         { "<leader>dj", function() dap.down() end,                                                 desc = "Down" },
         { "<leader>dk", function() dap.up() end,                                                   desc = "Up" },
-        { "<leader>dl", function() dap.run_last() end,                                             desc = "Run Last" },
-        { "<leader>do", function() dap.step_out() end,                                             desc = "Step Out" },
         { "<leader>dO", function() dap.step_over() end,                                            desc = "Step Over" },
+        { "<leader>di", function() dap.step_into() end,                                            desc = "Step Into" },
+        { "<leader>do", function() dap.step_out() end,                                             desc = "Step Out" },
         { "<leader>dp", function() dap.pause() end,                                                desc = "Pause" },
         { "<leader>dr", function() dap.repl.toggle() end,                                          desc = "Toggle REPL" },
         { "<leader>ds", function() dap.session() end,                                              desc = "Session" },
         { "<leader>dt", function() dap.terminate() end,                                            desc = "Terminate" },
         { "<leader>dw", function() require("dap.ui.widgets").hover() end,                          desc = "Widgets" },
+        -- IntelliJ IDEA style stepping
+        { "<F5>",       function() dap.continue() end,                                             desc = "Continue" },
+        { "<F7>",       function() dap.step_into() end,                                            desc = "Step Into" },
+        { "<C-F8>",     function() dap.toggle_breakpoint() end,                                    desc = "Toggle Breakpoint" },
+        { "<F8>",       function() dap.step_over() end,                                            desc = "Step Over" },
+        { "<M-F9>",     function() dap.run_to_cursor()() end,                                      desc = "Run to Cursor" },
+        { "<S-F7>",     function() dap.step_out() end,                                             desc = "Step Out" },
       }
+    end,
+
+    config = function()
+      local hl = vim.api.nvim_set_hl
+      local colors = require("tokyonight.colors").setup()
+      local util = require("tokyonight.util")
+      hl(0, "DapBreakpointColor", { fg = colors.red1 })
+      hl(0, "DapBreakpointLine", { bg = util.darken(colors.red1, 0.2) })
+      hl(0, "DapStoppedColor", { fg = colors.blue0 })
+
+      vim.fn.sign_define("DapBreakpoint", {
+        text = "", texthl = "DapBreakpointColor", linehl = "DapBreakpointLine"
+      })
+      vim.fn.sign_define("DapBreakpointCondition", {
+        text = "", texthl = "DapBreakpointColor", linehl = "DapBreakpointLine"
+      })
+      vim.fn.sign_define("DapLogPoint", {
+        text = "", texthl = "DapBreakpointColor", linehl = ""
+      })
+      vim.fn.sign_define("DapBreakpointRejected", {
+        text = "", texthl = "DapBreakpointColor", linehl = ""
+      })
+      vim.fn.sign_define("DapStopped", {
+        text = "", texthl = "DapStoppedColor", linehl = "DapStoppedLine"
+      })
     end,
   },
 
