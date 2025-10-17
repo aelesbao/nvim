@@ -6,7 +6,7 @@ return {
       "nvim-lua/plenary.nvim", -- Required for git operations
     },
     keys = {
-      { "<leader>acc", ":ClaudeCode<cr>", desc = "Toggle Claude Code" },
+      { "<leader>aC", ":ClaudeCode<cr>", desc = "Toggle Claude Code" },
     },
     opts = {
       -- Terminal window settings

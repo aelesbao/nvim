@@ -38,41 +38,133 @@ return {
       "ravitemer/mcphub.nvim",
       "ravitemer/codecompanion-history.nvim",
     },
+    cmd = {
+      "CodeCompanion",
+      "CodeCompanionActions",
+      "CodeCompanionChat",
+      "CodeCompanionCmd",
+      "CodeCompanionHistory",
+    },
     keys = {
-      { "<leader>aC", ":CodeCompanionChat<cr>",    desc = "Toggle CodeCompanion chat buffer" },
       { "<leader>ai", ":CodeCompanion<cr>",        desc = "Use the CodeCompanion Inline Assistant" },
       { "<leader>aa", ":CodeCompanionActions<cr>", desc = "Open the CodeCompanion actions palette" },
+      { "<leader>ac", ":CodeCompanionChat<cr>",    desc = "Toggle CodeCompanion chat buffer" },
       { "<leader>ad", ":CodeCompanionCmd<cr>",     desc = "Prompt the LLM to write a command for the command-line" },
       { "<leader>ah", ":CodeCompanionHistory<cr>", desc = "Opens CodeCompanion history browser" },
     },
     ---@type CodeCompanion
     opts = {
       adapters = {
-        openai = function()
-          return require("codecompanion.adapters").extend("openai", {
-            env = {
-              api_key = op_get_credentials("OpenAI")
-              -- api_key = "cmd:op read op://Development/OpenAI/credential --no-newline",
-            },
-            schema = {
-              model = {
-                default = "o3",
+        http = {
+          openai       = function()
+            return require("codecompanion.adapters").extend("openai", {
+              env = {
+                api_key = op_get_credentials("OpenAI")
+                -- api_key = "cmd:op read op://Development/OpenAI/credential --no-newline",
               },
-            },
-          })
-        end,
-        -- Qwen3 32B dense and mixture-of-experts (MoE) models
-        qwen3 = extend_ollama("qwen3", "qwen3:latest", 40960),
-        -- Mistral Nemo 12B model with 128k context length, built by Mistral AI in collaboration with NVIDIA
-        mistral_nemo = extend_ollama("mistral_nemo", "mistral-nemo:latest", 1024000),
-        -- Gemma 3 27B lightweight family of models built on Gemini technology
-        gemma3 = extend_ollama("gemma3", "gemma3:27b", 131072),
-        -- QwQ reasoning model
-        qwq = extend_ollama("qwq", "qwq:latest", 131072),
+              schema = {
+                model = {
+                  default = "gpt-5",
+                },
+              },
+            })
+          end,
+          -- Qwen3 32B dense and mixture-of-experts (MoE) models
+          qwen3        = function()
+            return require("codecompanion.adapters").extend("ollama", {
+              name = "qwen3",
+              schema = {
+                model = {
+                  default = "qwen3:latest",
+                },
+                num_ctx = {
+                  default = 40960,
+                },
+                think = {
+                  default = false,
+                },
+                temperature = {
+                  default = 0.3,
+                },
+              },
+            })
+          end,
+          -- Alibaba's performant long context models for agentic and coding tasks
+          qwen3_coder  = function()
+            return require("codecompanion.adapters").extend("ollama", {
+              name = "qwen3-coder",
+              schema = {
+                model = {
+                  default = "qwen3-coder:latest",
+                },
+                num_ctx = {
+                  default = 262144,
+                },
+                think = {
+                  default = false,
+                },
+              },
+            })
+          end,
+          -- QwQ is the reasoning model of the Qwen series
+          qwq          = function()
+            return require("codecompanion.adapters").extend("ollama", {
+              name = "qwq",
+              schema = {
+                model = {
+                  default = "qwq:latest",
+                },
+                num_ctx = {
+                  default = 131072,
+                },
+                think = {
+                  default = true,
+                },
+              },
+            })
+          end,
+          -- Gemma 3 27B lightweight family of models built on Gemini technology
+          gemma3       = function()
+            return require("codecompanion.adapters").extend("ollama", {
+              name = "gemma3",
+              schema = {
+                model = {
+                  default = "gemma3:27b",
+                },
+                num_ctx = {
+                  default = 131072,
+                },
+              },
+            })
+          end,
+          -- Mistral Nemo 12B model with 128k context length, built by Mistral AI in collaboration with NVIDIA
+          mistral_nemo = function()
+            return require("codecompanion.adapters").extend("ollama", {
+              name = "mistral_nemo",
+              schema = {
+                model = {
+                  default = "mistral-nemo:latest",
+                },
+                num_ctx = {
+                  default = 1024000,
+                },
+              },
+            })
+          end,
+        },
+        acp = {
+          claude_code = function()
+            return require("codecompanion.adapters").extend("claude_code", {
+              env = {
+                ANTHROPIC_API_KEY = op_get_credentials("Anthropic"),
+              },
+            })
+          end,
+        },
       },
       strategies = {
         chat = {
-          -- adapter = "ollama",
+          adapter = "ollama",
           keymaps = {
             send = {
               modes = {
@@ -108,14 +200,14 @@ return {
           },
           roles = {
             ---The header name for the LLM's messages
-            ---@type string|fun(adapter: CodeCompanion.Adapter): string
+            ---@type string|fun(adapter: CodeCompanion.HTTPAdapter): string
             llm = function(adapter)
               return "CodeCompanion (" .. adapter.formatted_name .. ")"
             end,
           },
         },
         inline = {
-          -- adapter = "copilot",
+          adapter = "copilot",
         },
       },
       display = {
@@ -124,6 +216,7 @@ return {
           opts = {
             show_default_actions = true,        -- Show the default actions in the action palette?
             show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+            title = "CodeCompanion actions",    -- The title of the action palette
           },
         },
       },
