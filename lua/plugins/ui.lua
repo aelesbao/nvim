@@ -1,17 +1,5 @@
 -- Plugins that change / improve the editor's UI
 
-local function diff_source()
-  ---@diagnostic disable-next-line: undefined-field
-  local gitsigns = vim.b.gitsigns_status_dict
-  if gitsigns then
-    return {
-      added = gitsigns.added,
-      modified = gitsigns.changed,
-      removed = gitsigns.removed,
-    }
-  end
-end
-
 return {
   -- Color picker and highlighter
   {
@@ -79,6 +67,7 @@ return {
       { "gri",        ":Trouble lsp_implementations<cr>",             desc = "Implementations (Trouble)" },
       { "grt",        ":Trouble lsp_type_definitions<cr>",            desc = "Type definitions (Trouble)" },
     },
+    ---@module "trouble"
     ---@type trouble.Config
     opts = {
       auto_preview = false, -- automatically open preview when on an item
@@ -86,11 +75,13 @@ return {
       auto_jump = true,     -- auto jump to the item when there's only one
       focus = true,         -- focus the window when opened
 
+      ---@module "trouble"
       ---@type trouble.Window.opts
       win = {}, -- window options for the results window. Can be a split or a floating window.
 
       -- Window options for the preview window. Can be a split, floating window,
       -- or `main` to show the preview in the main editor window.
+      ---@module "trouble"
       ---@type trouble.Window.opts
       preview = {
         type = "float"
@@ -168,106 +159,6 @@ return {
           vim.schedule(function() pcall(nvim_bufferline) end)
         end,
       })
-    end,
-  },
-
-  -- status line
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = {
-      "folke/tokyonight.nvim",
-      "SmiteshP/nvim-navic",
-      "AndreM222/copilot-lualine",
-    },
-    event = "VeryLazy",
-    opts = function()
-      local colors = require("tokyonight.colors").setup()
-
-      return {
-        options = {
-          theme = "tokyonight",
-          icons_enabled = true,
-          globalstatus = true,
-          -- component_separators = { left = "", right = "" },
-          -- section_separators = { left = "", right = "" },
-          disabled_filetypes = {
-            winbar = {
-              "help",
-              "neo-tree",
-              "NvimTree",
-              "undotree",
-            },
-          },
-        },
-        sections = {
-          lualine_a = { "mode" },
-          lualine_b = {
-            { "b:gitsigns_head", icon = "" },
-            { "diff", source = diff_source },
-            "diagnostics"
-          },
-          lualine_c = { "filename" },
-          lualine_x = {
-            {
-              "copilot",
-              symbols = {
-                status = {
-                  hl = {
-                    enabled = colors.green,
-                    disabled = colors.comment,
-                    warning = colors.yellow,
-                    unknown = colors.red,
-                  },
-                },
-              },
-              show_colors = true,
-              show_loading = true,
-            },
-            "encoding",
-            "fileformat",
-            "filetype",
-          },
-          lualine_y = { "progress" },
-          lualine_z = { "location" },
-        },
-        winbar = {
-          lualine_c = {
-            { "filename", path = 1, color = { bg = "NONE" } },
-            {
-              "navic",
-
-              -- Component specific options
-              -- Can be nil, "static" or "dynamic". This option is useful only when
-              -- you have highlights enabled. Many colorschemes don't define same
-              -- backgroud for nvim-navic as their lualine statusline backgroud.
-              -- Setting it to "static" will perform a adjustment once when the
-              -- component is being setup. This should be enough when the lualine
-              -- section isn't changing colors based on the mode.
-              -- Setting it to "dynamic" will keep updating the highlights according
-              -- to the current modes colors for the current section.
-              color_correction = nil,
-
-              -- lua table with same format as setup's option. All options except
-              -- "lsp" options take effect when set here.
-              navic_opts = nil,
-            },
-          },
-        },
-        inactive_winbar = {
-          lualine_c = {
-            { "filename", path = 1, color = { bg = "NONE" } },
-          },
-        },
-        extensions = {
-          "avante",
-          "fugitive",
-          "lazy",
-          "mason",
-          "neo-tree",
-          "quickfix",
-          "trouble",
-        },
-      }
     end,
   },
 
