@@ -217,24 +217,6 @@ return {
     end,
   },
 
-  -- notification pop-ups
-  {
-    "rcarriga/nvim-notify",
-    dependencies = {
-      { "catppuccin/nvim", name = "catppuccin" },
-    },
-    opts = function()
-      local theme = require("catppuccin.palettes").get_palette()
-      return {
-        background_colour = theme.crust,
-      }
-    end,
-    config = function(_, opts)
-      vim.notify = require("notify")
-      vim.notify.setup(opts)
-    end,
-  },
-
   -- extensible UI for Neovim notifications and LSP progress messages
   {
     "j-hui/fidget.nvim",
@@ -249,53 +231,6 @@ return {
           align = "bottom",    -- How to align the notification window
           relative = "editor", -- What the notification window position is relative to
         },
-      },
-    },
-  },
-
-  -- a collection of small QoL plugins for Neovim.
-  {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
-    opts = {
-      -- TODO: replace more plugins and enable feats here
-      bigfile = { enabled = true },
-      image = { enabled = true },
-      indent = { enabled = true },
-      input = { enabled = true },
-      lazygit = {
-        enabled = vim.fn.executable("lazygit") == 1
-      },
-      picker = { enabled = true },
-      rename = { enabled = true },
-      notifier = { enabled = true },
-      quickfile = { enabled = true },
-      toggle = { enabled = true },
-      words = { enabled = true },
-      dim = {
-        enabled = true,
-      },
-    },
-    keys = {
-      { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
-      {
-        "<leader>N",
-        desc = "Neovim News",
-        function()
-          Snacks.win({
-            file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
-            width = 0.6,
-            height = 0.6,
-            wo = {
-              spell = false,
-              wrap = false,
-              signcolumn = "yes",
-              statuscolumn = " ",
-              conceallevel = 3,
-            },
-          })
-        end,
       },
     },
   },
@@ -331,49 +266,5 @@ return {
     config = function(_, opts)
       require("litee.calltree").setup(opts)
     end
-  },
-
-  -- distraction-free coding
-  {
-    "folke/zen-mode.nvim",
-    keys = {
-      { "<leader>zz", ":ZenMode<CR>", desc = "Zen mode" },
-    },
-    opts = {
-      window = {
-        options = {
-          signcolumn = "yes",
-          number = true,
-          cursorline = true,
-          -- list = false, -- disable whitespace characters
-        },
-      },
-      plugins = {
-        gitsigns = { enabled = true },
-        -- tmux = { enabled = true },
-        -- this will change the font size on kitty when in zen mode
-        -- to make this work, you need to set the following kitty options:
-        -- - allow_remote_control socket-only
-        -- - listen_on unix:/tmp/kitty
-        kitty = {
-          enabled = true,
-          font = "+4", -- font size increment
-        },
-        -- this will change the font size on alacritty when in zen mode
-        -- requires  Alacritty Version 0.10.0 or higher
-        -- uses `alacritty msg` subcommand to change font size
-        alacritty = {
-          enabled = true,
-          font = "16", -- font size
-        },
-        -- this will change the font size on wezterm when in zen mode
-        -- See alse also the Plugins/Wezterm section in this projects README
-        wezterm = {
-          enabled = true,
-          -- can be either an absolute font size or the number of incremental steps
-          font = "+4", -- (10% increase per step)
-        },
-      }
-    },
   },
 }

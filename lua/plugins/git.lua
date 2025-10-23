@@ -129,21 +129,21 @@ return {
           mode = { "v" },
           desc = "Copy remote repository URL",
         },
-        {
-          "<leader>gb",
-          function()
-            gitlinker.get_buf_range_url("n", { action_callback = actions.open_in_browser })
-          end,
-          desc = "Open remote repository in browser",
-        },
-        {
-          "<leader>gb",
-          function()
-            gitlinker.get_buf_range_url("v", { action_callback = actions.open_in_browser })
-          end,
-          mode = { "v" },
-          desc = "Open remote repository in browser",
-        },
+        -- {
+        --   "<leader>gb",
+        --   function()
+        --     gitlinker.get_buf_range_url("n", { action_callback = actions.open_in_browser })
+        --   end,
+        --   desc = "Open remote repository in browser",
+        -- },
+        -- {
+        --   "<leader>gb",
+        --   function()
+        --     gitlinker.get_buf_range_url("v", { action_callback = actions.open_in_browser })
+        --   end,
+        --   mode = { "v" },
+        --   desc = "Open remote repository in browser",
+        -- },
       }
     end,
   },
