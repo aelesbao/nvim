@@ -5,8 +5,17 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim", -- Required for git operations
     },
+    cmd = {
+      "ClaudeCode",
+      "ClaudeCodeContinue",
+      "ClaudeCodeResume",
+      "ClaudeCodeVerbose",
+    },
     keys = {
-      { "<leader>aC", ":ClaudeCode<cr>", desc = "Toggle Claude Code" },
+      { "<leader>acc", ":ClaudeCode<cr>",         desc = "Toggle Claude Code" },
+      { "<leader>acC", ":ClaudeCodeContinue<cr>", desc = "Toggle Claude Code with continue flag" },
+      { "<leader>acr", ":ClaudeCodeResume<cr>",   desc = "Toggle Claude Code with resume flag" },
+      { "<leader>acv", ":ClaudeCodeVerbose<cr>",  desc = "Toggle Claude Code with verbose flag" },
     },
     opts = {
       -- Terminal window settings
@@ -45,7 +54,7 @@ return {
         popd_cmd = 'popd',   -- Command to pop directory from stack (e.g., 'popd' for bash/zsh, 'exit' for nushell)
       },
       -- Command settings
-      command = "claude", -- Command used to launch Claude Code
+      command = "source $HOME/.nvm/nvm.sh && nvm exec stable claude", -- Command used to launch Claude Code
       -- Command variants
       command_variants = {
         -- Conversation management
@@ -58,15 +67,12 @@ return {
       -- Keymaps
       keymaps = {
         toggle = {
-          normal = "<leader>acc",     -- Normal mode keymap for toggling Claude Code, false to disable
-          terminal = "<f3>",          -- Terminal mode keymap for toggling Claude Code, false to disable
-          variants = {
-            continue = "<leader>acC", -- Normal mode keymap for Claude Code with continue flag
-            verbose = "<leader>acV",  -- Normal mode keymap for Claude Code with verbose flag
-          },
+          normal = false,   -- Normal mode keymap for toggling Claude Code, false to disable
+          terminal = false, -- Terminal mode keymap for toggling Claude Code, false to disable
+          variants = false,
         },
-        window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
-        scrolling = true,         -- Enable scrolling keymaps (<C-f/b>) for page up/down
+        window_navigation = false, -- Enable window navigation keymaps (<C-h/j/k/l>)
+        scrolling = true,          -- Enable scrolling keymaps (<C-f/b>) for page up/down
       }
     },
     config = function(_, opts)
