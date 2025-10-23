@@ -115,8 +115,8 @@ local function buffer_format(client, bufnr, opts)
 
   lsp_format.on_attach(client, bufnr)
 
-  vim.api.nvim_clear_autocmds({ group = format_group_name, buffer = bufnr })
-  utils.create_autocmdautocmd("BufWritePre", {
+  vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
+  utils.create_autocmd("BufWritePre", {
     group = format_group,
     desc = "Format current buffer",
     buffer = bufnr,
