@@ -58,6 +58,9 @@ return {
   -- work with several variants of a word at once
   "tpope/vim-abolish",
 
+  -- read or write files with sudo command
+  { "lambdalisue/vim-suda", tag = "v1.2.4", },
+
   -- easily interact with tmux from vim
   {
     "preservim/vimux",
