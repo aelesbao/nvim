@@ -35,8 +35,9 @@ return {
   -- snippet engine
   {
     "L3MON4D3/LuaSnip",
-    opts = {},
+    version = "v2.*",
     build = "make install_jsregexp",
+    opts = {},
     config = function(_, opts)
       local luasnip = require("luasnip")
 
