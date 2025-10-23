@@ -1,18 +1,14 @@
-local function augroup(name)
-  return vim.api.nvim_create_augroup("local_" .. name, { clear = true })
-end
+local u = require("utils")
 
-local autocmd = vim.api.nvim_create_autocmd
-
-local cursorline_group = augroup("cursorline")
-autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, {
+local cursorline_group = u.augroup("cursorline")
+u.create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, {
   desc = "enable cursor line highlight for the current window",
   group = cursorline_group,
   callback = function()
     vim.wo.cursorline = true
   end,
 })
-autocmd("WinLeave", {
+u.create_autocmd("WinLeave", {
   desc = "disable cursor line highlight when leaving the window",
   group = cursorline_group,
   callback = function()
@@ -20,9 +16,9 @@ autocmd("WinLeave", {
   end,
 })
 
-autocmd("VimResized", {
+u.create_autocmd("VimResized", {
   desc = "resize splits if window got resized",
-  group = augroup("resize_splits"),
+  group = u.augroup("resize_splits"),
   callback = function()
     local current_tab = vim.fn.tabpagenr()
     vim.cmd("tabdo wincmd =")
@@ -30,9 +26,9 @@ autocmd("VimResized", {
   end,
 })
 
-autocmd("BufWritePre", {
+u.create_autocmd("BufWritePre", {
   desc = "auto create dir when saving a file, in case some intermediate directory does not exist",
-  group = augroup("auto_create_dir"),
+  group = u.augroup("auto_create_dir"),
   callback = function(event)
     if event.match:match("^%w%w+://") then
       return
@@ -42,9 +38,9 @@ autocmd("BufWritePre", {
   end,
 })
 
-autocmd("BufReadPost", {
+u.create_autocmd("BufReadPost", {
   desc = "go to last location when opening a buffer",
-  group = augroup("last_location"),
+  group = u.augroup("last_location"),
   callback = function(event)
     local exclude = { "gitcommit" }
     local buf = event.buf
@@ -60,9 +56,9 @@ autocmd("BufReadPost", {
   end,
 })
 
-autocmd("FileType", {
+u.create_autocmd("FileType", {
   desc = "close some filetypes with <q>",
-  group = augroup("close_with_q"),
+  group = u.augroup("close_with_q"),
   pattern = {
     "PlenaryTestPopup",
     "help",
@@ -85,9 +81,9 @@ autocmd("FileType", {
   end,
 })
 
-autocmd("FileType", {
+u.create_autocmd("FileType", {
   desc = "wrap and check for spell in text filetypes",
-  group = augroup("wrap_width_spell"),
+  group = u.augroup("wrap_width_spell"),
   pattern = {
     "gitcommit",
     "markdown",
@@ -101,9 +97,9 @@ autocmd("FileType", {
 -- NOTE: fixes transparent bg for ghostty on macOS
 -- https://github.com/ghostty-org/ghostty/discussions/3579#discussioncomment-11680090
 if vim.fn.has("mac") == 1 then
-  autocmd("ColorScheme", {
+  u.create_autocmd("ColorScheme", {
     desc = "fix transparent background on macOS",
-    group = augroup("transparent_backaground"),
+    group = u.augroup("transparent_backaground"),
     pattern = "*",
     callback = function()
       local hl_groups = {

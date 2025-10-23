@@ -19,12 +19,9 @@ local utils = require("utils")
 local lsp_format = require("lsp-format")
 local telescope = require("telescope.builtin")
 
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
-
 local format_timeout_ms = 3000
 local format_group_name = "lsp_autoformat"
-local format_group = augroup(format_group_name, { clear = false })
+local format_group = utils.augroup(format_group_name)
 
 local function format(bufnr)
   lsp_format.format({ buf = bufnr, async = false, timeout_ms = format_timeout_ms })
@@ -119,7 +116,7 @@ local function buffer_format(client, bufnr, opts)
   lsp_format.on_attach(client, bufnr)
 
   vim.api.nvim_clear_autocmds({ group = format_group_name, buffer = bufnr })
-  autocmd("BufWritePre", {
+  utils.create_autocmdautocmd("BufWritePre", {
     group = format_group,
     desc = "Format current buffer",
     buffer = bufnr,
