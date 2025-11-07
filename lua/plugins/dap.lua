@@ -21,17 +21,6 @@ return {
         opts = {},
       },
 
-      -- which key integration
-      {
-        "folke/which-key.nvim",
-        optional = true,
-        opts = {
-          defaults = {
-            ["<leader>d"] = { name = "+debug" },
-          },
-        },
-      },
-
       -- mason.nvim integration
       {
         "jay-babu/mason-nvim-dap.nvim",
@@ -55,42 +44,54 @@ return {
       },
 
       -- VsCode launch.json parser
-      {
-        "folke/neoconf.nvim",
-      },
+      "folke/neoconf.nvim",
+
+      -- which key integration
+      "folke/which-key.nvim",
     },
 
     keys = function()
       local dap = require("dap")
       return {
-        { "<leader>dB", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
-        { "<leader>db", function() dap.toggle_breakpoint() end,                                    desc = "Toggle Breakpoint" },
-        { "<leader>dc", function() dap.continue() end,                                             desc = "Continue" },
-        { "<leader>da", function() dap.continue({ before = get_args }) end,                        desc = "Run with Args" },
-        { "<leader>dl", function() dap.run_last() end,                                             desc = "Run Last" },
-        { "<leader>dC", function() dap.run_to_cursor() end,                                        desc = "Run to Cursor" },
-        { "<leader>dg", function() dap.goto_() end,                                                desc = "Go to Line (No Execute)" },
-        { "<leader>dj", function() dap.down() end,                                                 desc = "Down" },
-        { "<leader>dk", function() dap.up() end,                                                   desc = "Up" },
-        { "<leader>dO", function() dap.step_over() end,                                            desc = "Step Over" },
-        { "<leader>di", function() dap.step_into() end,                                            desc = "Step Into" },
-        { "<leader>do", function() dap.step_out() end,                                             desc = "Step Out" },
-        { "<leader>dp", function() dap.pause() end,                                                desc = "Pause" },
-        { "<leader>dr", function() dap.repl.toggle() end,                                          desc = "Toggle REPL" },
-        { "<leader>ds", function() dap.session() end,                                              desc = "Session" },
-        { "<leader>dt", function() dap.terminate() end,                                            desc = "Terminate" },
-        { "<leader>dw", function() require("dap.ui.widgets").hover() end,                          desc = "Widgets" },
+        {
+          "<leader>dB",
+          function()
+            vim.ui.input({ prompt = "Breakpoint condition: " }, dap.set_breakpoint)
+          end,
+          desc = "Breakpoint Condition"
+        },
+        { "<leader>db", function() dap.toggle_breakpoint() end,             desc = "Toggle Breakpoint" },
+        { "<leader>dc", function() dap.continue() end,                      desc = "Continue" },
+        { "<leader>da", function() dap.continue({ before = get_args }) end, desc = "Run with Args" },
+        { "<leader>dl", function() dap.run_last() end,                      desc = "Run Last" },
+        { "<leader>dC", function() dap.run_to_cursor() end,                 desc = "Run to Cursor" },
+        { "<leader>dg", function() dap.goto_() end,                         desc = "Go to Line (No Execute)" },
+        { "<leader>dj", function() dap.down() end,                          desc = "Down" },
+        { "<leader>dk", function() dap.up() end,                            desc = "Up" },
+        { "<leader>dO", function() dap.step_over() end,                     desc = "Step Over" },
+        { "<leader>di", function() dap.step_into() end,                     desc = "Step Into" },
+        { "<leader>do", function() dap.step_out() end,                      desc = "Step Out" },
+        { "<leader>dp", function() dap.pause() end,                         desc = "Pause" },
+        { "<leader>dr", function() dap.repl.toggle() end,                   desc = "Toggle REPL" },
+        { "<leader>ds", function() dap.session() end,                       desc = "Session" },
+        { "<leader>dt", function() dap.terminate() end,                     desc = "Terminate" },
+        { "<leader>dw", function() require("dap.ui.widgets").hover() end,   desc = "Widgets" },
         -- IntelliJ IDEA style stepping
-        { "<F5>",       function() dap.continue() end,                                             desc = "Continue" },
-        { "<F7>",       function() dap.step_into() end,                                            desc = "Step Into" },
-        { "<C-F8>",     function() dap.toggle_breakpoint() end,                                    desc = "Toggle Breakpoint" },
-        { "<F8>",       function() dap.step_over() end,                                            desc = "Step Over" },
-        { "<M-F9>",     function() dap.run_to_cursor()() end,                                      desc = "Run to Cursor" },
-        { "<S-F7>",     function() dap.step_out() end,                                             desc = "Step Out" },
+        { "<F5>",       function() dap.continue() end,                      desc = "Continue" },
+        { "<F7>",       function() dap.step_into() end,                     desc = "Step Into" },
+        { "<C-F8>",     function() dap.toggle_breakpoint() end,             desc = "Toggle Breakpoint" },
+        { "<F8>",       function() dap.step_over() end,                     desc = "Step Over" },
+        { "<M-F9>",     function() dap.run_to_cursor()() end,               desc = "Run to Cursor" },
+        { "<S-F7>",     function() dap.step_out() end,                      desc = "Step Out" },
       }
     end,
 
     config = function()
+      require("which-key").add({
+        mode = { "n", "v" },
+        { "<leader>d", group = "debug" },
+      })
+
       local hl = vim.api.nvim_set_hl
       local colors = require("tokyonight.colors").setup()
       local util = require("tokyonight.util")
