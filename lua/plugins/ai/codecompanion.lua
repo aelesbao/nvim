@@ -94,6 +94,8 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "ravitemer/mcphub.nvim",
       "ravitemer/codecompanion-history.nvim",
+      -- which key integration
+      "folke/which-key.nvim",
     },
     cmd = {
       "CodeCompanion",
@@ -312,7 +314,7 @@ return {
       },
       display = {
         action_palette = {
-          provider = "default",                 -- Can be "default", "telescope", "mini_pick" or "snacks". If not specified, the plugin will autodetect installed providers.
+          provider = "snacks",                  -- Can be "default", "telescope", "mini_pick" or "snacks". If not specified, the plugin will autodetect installed providers.
           opts = {
             show_default_actions = true,        -- Show the default actions in the action palette?
             show_default_prompt_library = true, -- Show the default prompt library in the action palette?
@@ -357,7 +359,7 @@ return {
             -- Number of days after which chats are automatically deleted (0 to disable)
             expiration_days = 0,
             -- Picker interface ("telescope" or "snacks" or "fzf-lua" or "default")
-            picker = "default",
+            picker = "snacks",
             -- Automatically generate titles for new chats
             auto_generate_title = true,
             ---On exiting and entering neovim, loads the last chat on opening chat
@@ -374,6 +376,13 @@ return {
     },
     init = function()
       Spinner:init()
+    end,
+    config = function(_, opts)
+      require("codecompanion").setup(opts)
+      require("which-key").add({
+        mode = { "n", "v" },
+        { "<leader>a", group = "ai" },
+      })
     end,
   },
 }
