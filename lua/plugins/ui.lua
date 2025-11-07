@@ -62,10 +62,6 @@ return {
       { "<leader>xq", ":Trouble quickfix toggle<cr>",                 desc = "Quickfix (Trouble)" },
       { "<leader>xl", ":Trouble loclist toggle<cr>",                  desc = "Location list (Trouble)" },
       { "<leader>es", ":Trouble symbols toggle<cr>",                  desc = "Document symbols (Trouble)" },
-      { "grr",        ":Trouble lsp_references<cr>",                  desc = "References (Trouble)" },
-      { "grd",        ":Trouble lsp_definitions<cr>",                 desc = "Definitions (Trouble)" },
-      { "gri",        ":Trouble lsp_implementations<cr>",             desc = "Implementations (Trouble)" },
-      { "grt",        ":Trouble lsp_type_definitions<cr>",            desc = "Type definitions (Trouble)" },
     },
     ---@module "trouble"
     ---@type trouble.Config
