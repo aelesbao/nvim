@@ -126,11 +126,11 @@ return {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
     keys = {
-      { "<leader>bp", ":BufferLineTogglePin<cr>",            desc = "Toggle pin" },
-      { "<leader>bP", ":BufferLineGroupClose ungrouped<cr>", desc = "Delete non-pinned tabs" },
-      { "<leader>bo", ":BufferLineCloseOthers<cr>",          desc = "Delete other tabs" },
-      { "<M-[>",      ":BufferLineCyclePrev<cr>",            desc = "Previous tab" },
-      { "<M-]>",      ":BufferLineCycleNext<cr>",            desc = "Next tab" },
+      { "<leader><tab>p", ":BufferLineTogglePin<cr>",            desc = "Toggle pin" },
+      { "<leader><tab>P", ":BufferLineGroupClose ungrouped<cr>", desc = "Close non-pinned tabs" },
+      { "<leader><tab>Q", ":BufferLineCloseOthers<cr>",          desc = "Close other tabs" },
+      { "<M-[>",          ":BufferLineCyclePrev<cr>",            desc = "Previous tab" },
+      { "<M-]>",          ":BufferLineCycleNext<cr>",            desc = "Next tab" },
     },
     opts = function()
       local close_cmd = function(buf) Snacks.bufdelete({ buf }) end
