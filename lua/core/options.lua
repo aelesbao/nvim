@@ -17,7 +17,8 @@ opt.backup           = false
 -- editing with another program, it is not allowed to be edited
 opt.writebackup      = false
 
--- interval for writing swap file to disk, also used by gitsigns
+-- interval for writing swap file to disk
+-- also controls the time it takes to trigger the `CursorHold` event
 opt.updatetime       = 250
 
 opt.autowriteall     = true -- enable auto write
