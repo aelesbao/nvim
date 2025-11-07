@@ -3,7 +3,11 @@ return {
   {
     "greggh/claude-code.nvim",
     dependencies = {
-      "nvim-lua/plenary.nvim", -- Required for git operations
+      -- Required for git operations
+      "nvim-lua/plenary.nvim",
+
+      -- which key integration
+      "folke/which-key.nvim",
     },
     cmd = {
       "ClaudeCode",
@@ -54,7 +58,7 @@ return {
         popd_cmd = 'popd',   -- Command to pop directory from stack (e.g., 'popd' for bash/zsh, 'exit' for nushell)
       },
       -- Command settings
-      command = "source $HOME/.nvm/nvm.sh && nvm exec stable claude", -- Command used to launch Claude Code
+      command = "claude", -- Command used to launch Claude Code
       -- Command variants
       command_variants = {
         -- Conversation management
@@ -77,6 +81,11 @@ return {
     },
     config = function(_, opts)
       require("claude-code").setup(opts)
+      require("which-key").add({
+        mode = { "n", "v" },
+        { "<leader>a",  group = "ai" },
+        { "<leader>ac", group = "claude code" },
+      })
     end
   },
 }
