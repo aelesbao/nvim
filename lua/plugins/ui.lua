@@ -99,6 +99,26 @@ return {
         },
       },
     },
+    specs = {
+      "folke/snacks.nvim",
+      opts = function(_, opts)
+        return vim.tbl_deep_extend("force", opts or {}, {
+          picker = {
+            actions = require("trouble.sources.snacks").actions,
+            win = {
+              input = {
+                keys = {
+                  ["<c-q>"] = {
+                    "trouble_open",
+                    mode = { "n", "i" },
+                  },
+                },
+              },
+            },
+          },
+        })
+      end,
+    },
   },
 
   -- fancy-looking tabs with filetype icons and close buttons
@@ -113,7 +133,7 @@ return {
       { "<M-]>",      ":BufferLineCycleNext<cr>",            desc = "Next tab" },
     },
     opts = function()
-      local close_cmd = function(n) require("mini.bufremove").delete(n, false) end
+      local close_cmd = function(buf) Snacks.bufdelete({ buf }) end
 
       return {
         options = {

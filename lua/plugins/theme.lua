@@ -58,7 +58,7 @@ return {
         neotree = true,
         notify = true,
         nvimtree = true,
-        telescope = true,
+        snacks = true,
         treesitter = true,
         treesitter_context = true,
         window_picker = true,

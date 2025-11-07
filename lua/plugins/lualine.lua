@@ -18,6 +18,7 @@ return {
       "folke/tokyonight.nvim",
       "SmiteshP/nvim-navic",
       "AndreM222/copilot-lualine",
+      { "cuducos/yaml.nvim", optional = true },
     },
     event = "VeryLazy",
     opts = function()
@@ -48,6 +49,7 @@ return {
           },
           lualine_c = { "filename" },
           lualine_x = {
+            require("yaml_nvim").get_yaml_key_and_value,
             {
               "copilot",
               symbols = {
