@@ -24,11 +24,8 @@ return {
       wk.add({
         mode = { "n", "v" },
         { "<leader><tab>", group = "tabs" },
-        { "<leader>a",     group = "ai" },
-        { "<leader>ac",    group = "claude code" },
         { "<leader>b",     group = "buffer" },
         { "<leader>c",     group = "code" },
-        { "<leader>d",     group = "debug" },
         { "<leader>e",     group = "explorer" },
         { "<leader>f",     group = "file/find" },
         { "<leader>g",     group = "git" },
