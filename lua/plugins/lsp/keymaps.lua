@@ -22,8 +22,7 @@ function M.setup_global_keymaps()
   k.set("n", "gO", lsp.document_symbol, { desc = "Document Symbols" })
 
   -- shortcuts
-  k.set("n", "<F18>", "grn", { desc = "Rename" })
-  k.set("i", "<F18>", "<C-o><S-F6>", { desc = "Rename" })
+  k.set({ "n", "i" }, "<F18>", lsp.rename, { desc = "Rename" })
 
   -- workspaces
   k.set("n", "<leader>wa", function()
