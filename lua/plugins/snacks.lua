@@ -73,6 +73,18 @@ return {
         jump = {
           reuse_win = true,
         },
+        win = {
+          input = {
+            keys = {
+              ["<c-x>"] = "edit_split",
+            }
+          },
+          list = {
+            keys = {
+              ["<c-x>"] = "edit_split",
+            }
+          },
+        }
       },
       quickfile = { enabled = true },
       rename = { enabled = true },
