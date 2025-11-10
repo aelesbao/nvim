@@ -68,7 +68,7 @@ function M.setup_buf_keymaps(client, bufnr)
   kset("n", "gK", function() lsp.signature_help(default_floating_opts) end, "Signature help")
   kset({ "n", "i", "x" }, "<C-k>", function() lsp.signature_help(default_floating_opts) end, "Signature help")
 
-  if client.server_capabilities.codeAction then
+  if client:supports_method("textDocument/codeAction") then
     kset({ "n" }, "gra", lsp.code_action, "Code action")
     kset({ "n" }, "<leader>ca", "gra", "Code action")
     kset({ "n", "i" }, "<M-CR>", lsp.code_action, "Code action")
