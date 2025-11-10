@@ -104,6 +104,7 @@ if vim.fn.has("mac") == 1 then
     callback = function()
       local hl_groups = {
         "Normal",
+        "NormalNC",
         "NonText",
         "NeoTreeNormal",
         "NeoTreeNormalNC",
