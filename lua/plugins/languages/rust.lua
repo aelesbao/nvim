@@ -5,18 +5,21 @@ vim.g.rustaceanvim = {
   tools = {
     executor = {
       execute_command = function(command, args, _cwd, opts)
-        local shell = require("rustaceanvim.shell")
         local envs = ""
         for k, v in pairs((opts or {}).env or {}) do
           envs = envs .. k .. "='" .. v .. "' "
         end
+
         local commands = {}
+        local shell = require("rustaceanvim.shell")
         table.insert(commands, shell.make_command_from_args(command, args))
         local full_command = shell.chain_commands(commands)
+
         vim.fn.VimuxRunCommand(envs .. full_command)
       end,
     },
-    enable_clippy = true, -- too slow
+    enable_clippy = true,
+    enable_nextest = true,
     code_actions = {
       ui_select_fallback = true,
     },
