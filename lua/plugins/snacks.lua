@@ -125,7 +125,7 @@ return {
           Snacks.picker.smart({
             multi = {
               "buffers",
-              { finder = "files",     hidden = true,    ignored = true },
+              { finder = "files",     hidden = true,    ignored = false },
               { finder = "git_files", untracked = true, submodules = true },
             },
             matcher = {
