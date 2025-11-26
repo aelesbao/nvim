@@ -128,7 +128,27 @@ return {
               },
               schema = {
                 model = {
-                  default = "gpt-5",
+                  default = "gpt-5.1",
+                },
+              },
+            })
+          end,
+          -- OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases.
+          gpt_oss        = function()
+            return require("codecompanion.adapters").extend("ollama", {
+              name = "gpt-oss",
+              schema = {
+                model = {
+                  default = "gpt-oss:latest",
+                },
+                num_ctx = {
+                  default = 131072,
+                },
+                think = {
+                  default = true,
+                },
+                temperature = {
+                  default = 0.3,
                 },
               },
             })
@@ -145,7 +165,7 @@ return {
                   default = 40960,
                 },
                 think = {
-                  default = false,
+                  default = true,
                 },
                 temperature = {
                   default = 0.3,
