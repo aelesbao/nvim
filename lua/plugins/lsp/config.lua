@@ -56,6 +56,13 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = "",
     },
   },
+
+  float = {
+    show_header = true,
+    source = true,
+    border = 'rounded',
+    focusable = true,
+  },
 })
 
 -- enable for troubleshooting
