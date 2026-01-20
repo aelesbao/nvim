@@ -61,3 +61,7 @@ k.set("n", "<leader>bv", ":vsplit#<cr>", { desc = "Open last used buffer in vert
 
 -- Terminal
 k.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+
+-- Copy current file path to clipboard
+k.set("n", "<leader>fy", [[:let @+=expand("%:.")<cr>]], { desc = "Copy relative path to clipboard" })
+k.set("n", "<leader>fY", [[:let @+=expand("%:p")<cr>]], { desc = "Copy full path to clipboard" })
