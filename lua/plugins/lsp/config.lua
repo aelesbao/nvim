@@ -3,9 +3,59 @@ local keymaps = require("plugins.lsp.keymaps")
 local format = require("plugins.lsp.format")
 local autocmd = require("plugins.lsp.autocmd")
 
+local function lsp_err_to_string(err)
+  if err == nil then
+    return "<nil>"
+  end
+
+  if type(err) == "string" then
+    return err
+  end
+
+  if type(err) ~= "table" then
+    return tostring(err)
+  end
+
+  -- Common JSON-RPC error shape:
+  -- { error = { code = <num>, message = <string>, data = <any> }, id = <any>, jsonrpc = "2.0" }
+  local e = err.error
+  if type(e) == "table" then
+    local parts = {}
+
+    local msg = e.message
+    if type(msg) == "string" and msg ~= "" then
+      parts[#parts + 1] = msg
+    end
+
+    if e.code ~= nil then
+      parts[#parts + 1] = ("rpc_code=%s"):format(tostring(e.code))
+    end
+
+    if e.data ~= nil then
+      if type(e.data) == "string" then
+        parts[#parts + 1] = ("data=%s"):format(e.data)
+      else
+        parts[#parts + 1] = ("data=%s"):format(vim.inspect(e.data))
+      end
+    end
+
+    if err.id ~= nil then
+      parts[#parts + 1] = ("id=%s"):format(tostring(err.id))
+    end
+
+    if #parts > 0 then
+      return table.concat(parts, " | ")
+    end
+  end
+
+  -- Fallback: full table dump
+  return vim.inspect(err)
+end
+
 vim.lsp.config("*", {
   on_error = function(code, err)
-    vim.notify("[" .. code .. "]" .. err, vim.log.levels.ERROR, { title = "LSP Server Error" })
+    local msg = lsp_err_to_string(err)
+    vim.notify(("[%s] %s"):format(tostring(code), msg), vim.log.levels.ERROR, { title = "LSP Server Error" })
   end,
 })
 
