@@ -269,6 +269,7 @@ return {
   -- Neovim's missing call hierarchy UI
   {
     "ldelossa/litee-calltree.nvim",
+    enabled = false,
     dependencies = {
       {
         "ldelossa/litee.nvim",
