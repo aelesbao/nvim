@@ -114,13 +114,9 @@ return {
     ---@module "codecompanion"
     ---@type CodeCompanion
     opts = {
-      opts = {
-        log_level = "INFO", -- TRACE|DEBUG|ERROR|INFO
-        wait_timeout = 2e6, -- Time to wait for user response before timing out (milliseconds)
-      },
       adapters = {
         http = {
-          openai       = function()
+          openai  = function()
             return require("codecompanion.adapters").extend("openai", {
               env = {
                 api_key = op_get_credentials("OpenAI")
@@ -128,13 +124,12 @@ return {
               },
               schema = {
                 model = {
-                  default = "gpt-5.1",
+                  default = "gpt-5.4",
                 },
               },
             })
           end,
-          -- OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases.
-          gpt_oss        = function()
+          gpt_oss = function()
             return require("codecompanion.adapters").extend("ollama", {
               name = "gpt-oss",
               schema = {
@@ -142,7 +137,7 @@ return {
                   default = "gpt-oss:latest",
                 },
                 num_ctx = {
-                  default = 131072,
+                  default = 128000,
                 },
                 think = {
                   default = true,
@@ -153,19 +148,15 @@ return {
               },
             })
           end,
-          -- Qwen3 32B dense and mixture-of-experts (MoE) models
-          qwen3        = function()
+          gemma4  = function()
             return require("codecompanion.adapters").extend("ollama", {
-              name = "qwen3",
+              name = "gemma4",
               schema = {
                 model = {
-                  default = "qwen3:latest",
+                  default = "gemma4:31b",
                 },
                 num_ctx = {
-                  default = 40960,
-                },
-                think = {
-                  default = true,
+                  default = 256000,
                 },
                 temperature = {
                   default = 0.3,
@@ -173,71 +164,22 @@ return {
               },
             })
           end,
-          -- Alibaba's performant long context models for agentic and coding tasks
-          qwen3_coder  = function()
+          qwen3_6 = function()
             return require("codecompanion.adapters").extend("ollama", {
-              name = "qwen3-coder",
+              name = "qwen3.6",
               schema = {
                 model = {
-                  default = "qwen3-coder:latest",
+                  default = "qwen3.6:27b"
                 },
                 num_ctx = {
-                  default = 262144,
+                  default = 256000,
                 },
-                think = {
-                  default = false,
-                },
-                keep_alive = {
-                  default = "30m",
+                temperature = {
+                  default = 0.3,
                 },
               },
             })
-          end,
-          -- QwQ is the reasoning model of the Qwen series
-          qwq          = function()
-            return require("codecompanion.adapters").extend("ollama", {
-              name = "qwq",
-              schema = {
-                model = {
-                  default = "qwq:latest",
-                },
-                num_ctx = {
-                  default = 131072,
-                },
-                think = {
-                  default = true,
-                },
-              },
-            })
-          end,
-          -- Gemma 3 27B lightweight family of models built on Gemini technology
-          gemma3       = function()
-            return require("codecompanion.adapters").extend("ollama", {
-              name = "gemma3",
-              schema = {
-                model = {
-                  default = "gemma3:27b",
-                },
-                num_ctx = {
-                  default = 131072,
-                },
-              },
-            })
-          end,
-          -- Mistral Nemo 12B model with 128k context length, built by Mistral AI in collaboration with NVIDIA
-          mistral_nemo = function()
-            return require("codecompanion.adapters").extend("ollama", {
-              name = "mistral_nemo",
-              schema = {
-                model = {
-                  default = "mistral-nemo:latest",
-                },
-                num_ctx = {
-                  default = 1024000,
-                },
-              },
-            })
-          end,
+          end
         },
         acp = {
           claude_code = function()
@@ -249,9 +191,9 @@ return {
           end,
         },
       },
-      strategies = {
+      interactions = {
         chat = {
-          adapter = "qwen3_coder",
+          adapter = "opencode",
           keymaps = {
             send = {
               modes = {
@@ -301,23 +243,23 @@ return {
                 dirs = { "~/Pictures/Screenshots" },
               },
             },
-            ["git_files"] = {
-              description = "List git files",
-              ---@param chat CodeCompanion.Chat
-              callback = function(chat)
-                local handle = io.popen("git ls-files")
-                if handle ~= nil then
-                  local result = handle:read("*a")
-                  handle:close()
-                  chat:add_reference({ role = "user", content = result }, "git", "<git_files>")
-                else
-                  return vim.notify("No git files available", vim.log.levels.INFO, { title = "CodeCompanion" })
-                end
-              end,
-              opts = {
-                contains_code = false,
-              },
-            },
+            -- ["git_files"] = {
+            --   description = "List git files",
+            --   ---@param chat CodeCompanion.Chat
+            --   callback = function(chat)
+            --     local handle = io.popen("git ls-files")
+            --     if handle ~= nil then
+            --       local result = handle:read("*a")
+            --       handle:close()
+            --       chat:add_reference({ role = "user", content = result }, "git", "<git_files>")
+            --     else
+            --       return vim.notify("No git files available", vim.log.levels.INFO, { title = "CodeCompanion" })
+            --     end
+            --   end,
+            --   opts = {
+            --     contains_code = false,
+            --   },
+            -- },
           },
           roles = {
             user = "aelesbao",
@@ -330,6 +272,27 @@ return {
         },
         inline = {
           adapter = "copilot",
+        },
+        cli = {
+          agent = "opencode",
+          agents = {
+            opencode = {
+              cmd = "opencode",
+              args = {},
+              description = "OpenCode",
+              provider = "terminal",
+            },
+            claude_code = {
+              cmd = "claude",
+              args = {},
+              description = "Claude Code",
+              provider = "terminal",
+            },
+          },
+        },
+        background = {
+          chat = {
+          },
         },
       },
       display = {
@@ -362,9 +325,10 @@ return {
             show_result_in_chat = true,           -- Show tool results directly in chat buffer
             format_tool = nil,                    -- function(tool_name:string, tool: CodeCompanion.Agent.Tool) : string Function to format tool names to show in the chat buffer
             -- MCP Resources
-            make_vars = true,                     -- Convert MCP resources to #variables for prompts
+            -- TODO: revert to `true` when this issue is fixed https://github.com/ravitemer/mcphub.nvim/issues/275
+            make_vars = false,          -- Convert MCP resources to #variables for prompts
             -- MCP Prompts
-            make_slash_commands = true,           -- Add MCP prompts as /slash commands
+            make_slash_commands = true, -- Add MCP prompts as /slash commands
           },
         },
         history = {
@@ -392,6 +356,10 @@ return {
             enable_logging = false,
           }
         },
+      },
+      opts = {
+        log_level = "INFO", -- TRACE|DEBUG|ERROR|INFO
+        wait_timeout = 2e6, -- Time to wait for user response before timing out (milliseconds)
       },
     },
     init = function()
