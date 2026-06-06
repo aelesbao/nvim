@@ -31,7 +31,7 @@ function M.setup(client, bufnr)
       desc = "Refresh codelens in current buffer",
       group = codelens_group,
       buffer = bufnr,
-      callback = function() vim.lsp.codelens.refresh({ bufnr = bufnr }) end
+      callback = function() vim.lsp.codelens.enable(true, { bufnr = bufnr }) end
     })
   end
 end
