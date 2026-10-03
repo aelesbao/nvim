@@ -35,34 +35,42 @@ opt.timeout          = true
 opt.timeoutlen       = 300
 
 -- Clipboard
--- OSC 52 support
--- vim.g.clipboard = {
---   name = 'OSC 52',
---   copy = {
---     ['+'] = require('vim.clipboard.osc52').copy,
---     ['*'] = require('vim.clipboard.osc52').copy,
---   },
---   paste = {
---     ['+'] = require('vim.clipboard.osc52').paste,
---     ['*'] = require('vim.clipboard.osc52').paste,
---   },
--- }
-
 -- tmux support
 if vim.env.TMUX ~= nil then
-  local copy = { 'tmux', 'load-buffer', '-w', '-' }
-  local paste = { 'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -' }
+  local copy = { "tmux", "load-buffer", "-w", "-" }
+  local paste = { "bash", "-c", "tmux refresh-client -l && sleep 0.05 && tmux save-buffer -" }
   vim.g.clipboard = {
-    name = 'tmux',
+    name = "tmux",
     copy = {
-      ['+'] = copy,
-      ['*'] = copy,
+      ["+"] = copy,
+      ["*"] = copy,
     },
     paste = {
-      ['+'] = paste,
-      ['*'] = paste,
+      ["+"] = paste,
+      ["*"] = paste,
     },
     cache_enabled = 0,
+  }
+else
+  local osc52 = require("vim.ui.clipboard.osc52")
+
+  local function paste()
+    return {
+      vim.fn.split(vim.fn.getreg(""), "\n"),
+      vim.fn.getregtype(""),
+    }
+  end
+
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = osc52.copy("+"),
+      ["*"] = osc52.copy("*"),
+    },
+    paste = {
+      ["+"] = paste,
+      ["*"] = paste,
+    },
   }
 end
 
