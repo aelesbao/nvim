@@ -24,6 +24,19 @@ local function trash_visual(state, selected_nodes)
   cmds.refresh(state)
 end
 
+local function copy_relative_path(state)
+  local node = state.tree:get_node()
+
+  if not node or node.type == "message" or not node.path then
+    vim.notify("No file or folder selected", vim.log.levels.WARN)
+    return
+  end
+
+  local relative_path = vim.fn.fnamemodify(node.path, ":.")
+  vim.fn.setreg("+", relative_path)
+  vim.notify("Copied path: " .. relative_path)
+end
+
 -- use snacks.nvim for LSP-integrated file renaming
 local function on_move(data)
   Snacks.rename.on_rename_file(data.source, data.destination)
@@ -301,6 +314,7 @@ return {
             ["ga"]    = "git_add_file",
             ["gu"]    = "git_unstage_file",
             ["gr"]    = "git_revert_file",
+            ["Y"]     = "copy_relative_path",
           },
           fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
             ["<down>"] = "move_cursor_down",
@@ -311,6 +325,7 @@ return {
         },
         -- Add a custom command or override a global one using the same function name
         commands = {
+          copy_relative_path = copy_relative_path,
           trash = trash,
           trash_visual = trash_visual,
         }
