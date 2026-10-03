@@ -91,5 +91,6 @@
   "vimux": { "branch": "master", "commit": "d6cb7f63a8bb428ffc27060b7f83c77fb115589c" },
   "webapi-vim": { "branch": "master", "commit": "c7eec04aad31e1665164d8292d0ec8b5c3cc5a57" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
-  "yaml.nvim": { "branch": "main", "commit": "43ddedd0f3b060b4475e19e762b1796fce1b23be" }
+  "yaml.nvim": { "branch": "main", "commit": "43ddedd0f3b060b4475e19e762b1796fce1b23be" },
+  "zk": { "branch": "main", "commit": "2093138f4fabce994cf19403fca89d629f312ac9" }
 }

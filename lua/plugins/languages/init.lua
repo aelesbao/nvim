@@ -42,6 +42,13 @@ return {
     },
   },
 
+  {
+    "zk-org/zk-nvim",
+    name = "zk",
+    opts = {
+    },
+  },
+
   { import = "plugins.languages.go" },
   { import = "plugins.languages.helm" },
   { import = "plugins.languages.lua" },
