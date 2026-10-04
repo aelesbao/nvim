@@ -36,7 +36,7 @@ opt.timeoutlen       = 300
 
 -- Clipboard
 -- tmux support
-if vim.env.TMUX ~= nil then
+if not vim.g.neovide and vim.env.TMUX ~= nil then
   local copy = { "tmux", "load-buffer", "-w", "-" }
   local paste = { "bash", "-c", "tmux refresh-client -l && sleep 0.05 && tmux save-buffer -" }
   vim.g.clipboard = {
@@ -51,7 +51,7 @@ if vim.env.TMUX ~= nil then
     },
     cache_enabled = 0,
   }
-else
+elseif not vim.g.neovide then
   local osc52 = require("vim.ui.clipboard.osc52")
 
   local function paste()

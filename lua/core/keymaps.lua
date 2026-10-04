@@ -1,5 +1,33 @@
 local k = vim.keymap
 
+if vim.g.neovide then
+  local modes = { "n", "i", "v", "c", "t" }
+  local original_scale = vim.g.neovide_scale_factor or 1
+
+  local function change_scale(delta)
+    vim.g.neovide_scale_factor = math.max(0.1, (vim.g.neovide_scale_factor or 1) + delta)
+  end
+
+  for _, key in ipairs({ "<D-+>", "<D-=>", "<D-S-=>", "<D-S-+>" }) do
+    k.set(modes, key, function()
+      change_scale(0.1)
+    end, { silent = true, desc = "Increase Neovide font size" })
+  end
+
+  k.set(modes, "<D-->", function()
+    change_scale(-0.1)
+  end, { silent = true, desc = "Decrease Neovide font size" })
+
+  k.set(modes, "<D-0>", function()
+    vim.g.neovide_scale_factor = original_scale
+  end, { silent = true, desc = "Reset Neovide font size" })
+
+  k.set("x", "<D-c>", [["+y]], { silent = true, desc = "Copy to clipboard" })
+  k.set(modes, "<D-v>", function()
+    vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+  end, { silent = true, desc = "Paste from clipboard" })
+end
+
 -- too lazy to hold shift
 k.set({ "n", "v" }, ";", ":", { remap = false })
 
